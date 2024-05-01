@@ -61,13 +61,15 @@ An important aspect of our application is that it's responsive, ensuring it look
 - [![NPM][NPM]][NPM-url]
 - [![HTML5][HTML5]][HTML5-url]
 - [![TypeScript][TypeScript]][TypeScript-url]
-- [![React][React]][React-url]
-- [![React-hook-form][React-hook-form]][React-hook-form-url]
-- [![Testing-Library][Testing-Library]][Testing-Library-url]
-
-- [![Redux][Redux]][Redux-url]
 - [![Tailwind][Tailwind]][Tailwind-url]
 - [![Mui][Mui]][Mui-url]
+- [![React][React]][React-url]
+- [![React-hook-form][React-hook-form]][React-hook-form-url]
+- [![Zod][Zod]][Zod-url]
+- [![Testing-Library][Testing-Library]][Testing-Library-url]
+- [![Vitest][Vitest]][Vitest-url]
+- [![Zustand][Zustand]][Zustand-url]
+- [![Vite][Vite]][Vite-url]
 - [![Netlify][Netlify]][Netlify-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -106,9 +108,59 @@ _Below is an example of how to install and configure the application._
 
 Available scripts:
 
-- Eslint "lint:fix": "eslint --fix --ext .ts ."
-- Stylelint "stylelint": "stylelint \*/.scss"
-- Prettier "prettier": "npx prettier --check ."
+```sh
+npm run dev
+```
+
+Start local development server
+
+```sh
+npm run build
+```
+
+Build project in production mode for further deployment
+
+```sh
+npm run format:fix
+```
+
+Reformat source code & configs to match `Prettier` settings
+
+```sh
+npm run lint
+```
+
+Check source code with `ESLint`. Exit with non-zero return code after the first found warning (useful for CI/CD)
+
+```sh
+npm run lint:fix
+```
+
+Automatically fix all auto-fixable errors & warnings with `ESLint`
+
+```sh
+npm run typecheck
+```
+
+Perform TypeScript typechecking of source code with `tsc` (TypeScript Compiler)
+
+```sh
+npm run preview
+```
+
+Locally preview the production build
+
+```sh
+npm run prepare
+```
+
+Runs automatically after package installation to install Husky hooks
+
+```sh
+npm run test
+```
+
+Runs tests with Vitest and displays coverage of implemented tests
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -142,8 +194,8 @@ Don't forget to give the project a star! Thanks again!
 [React-url]: https://https://react.dev/
 [Tailwind]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
 [Tailwind-url]: https://img.shields.io/badge/
-[Redux]: https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white
-[Redux-url]: https://redux.js.org/
+[Vite]: https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E
+[Vite-url]: https://vitejs.dev/
 [Mui]: https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white
 [Mui-url]: https://mui.com/
 [React-Hook-Form]: https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white
@@ -152,12 +204,12 @@ Don't forget to give the project a star! Thanks again!
 [Netlify-url]: https://www.netlify.com/
 [Testing-Library]: https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white
 [Testing-Library-url]: https://testing-library.com/
-
-1. Fork the Project
-2. Create your Feature Branch (git checkout -b feature/...)
-3. Commit your Changes (git commit -m 'Add some ...')
-4. Push to the Branch (git push)
-5. Open a Pull Request
+[Vitest]: https://img.shields.io/badge/vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white
+[Vitest-url]: https://vitest.dev/
+[Zustand]: https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
+[Zustand-url]: https://docs.pmnd.rs/zustand/getting-started/introduction
+[Zod]: https://img.shields.io/badge/-Zod-3E67B1?style=flat&logo=zod&logoColor=white
+[Zod-url]: https://zod.dev/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
