@@ -2,6 +2,8 @@
   "name": "ecommerce-application",
   "private": true,
   "version": "0.0.0",
+  "description": "eCommerce-application",
+  "main": "./src/main.tsx",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +11,8 @@
     "format:fix": "prettier --write .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --fix --ext ts,tsx",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "prepare": "husky"
   },
   "dependencies": {
     "@typescript-eslint/typescript-estree": "^7.8.0",
@@ -20,6 +23,9 @@
     "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
+    "husky": "^9.0.11",
+    "@commitlint/cli": "^19.0.3",
+    "@commitlint/config-conventional": "^19.0.3",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
     "@types/react": "^18.2.15",
