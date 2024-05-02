@@ -25,11 +25,7 @@ module.exports = {
       files: ['./**/*.cjs'],
     },
     {
-      extends: [
-        'plugin:vitest/recommended',
-        'plugin:jest-dom/recommended',
-        'plugin:testing-library/react',
-      ],
+      extends: ['plugin:vitest/recommended', 'plugin:testing-library/react'],
       files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
     },
   ],
