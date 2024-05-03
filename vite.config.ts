@@ -6,9 +6,9 @@ export default defineConfig({
   build: {
     cssMinify: 'lightningcss',
   },
-  css: {
+  /*   css: {
     transformer: 'lightningcss',
-  },
+  }, */
   plugins: [tsconfigPaths(), react()],
   test: {
     coverage: {
