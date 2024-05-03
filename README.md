@@ -165,7 +165,13 @@ Runs automatically after package installation to install Husky hooks
 npm run test
 ```
 
-Runs tests with Vitest and displays coverage of implemented tests
+Runs tests with Vitest
+
+```sh
+npm run coverage
+```
+
+Displays coverage of implemented tests
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
