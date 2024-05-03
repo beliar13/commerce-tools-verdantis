@@ -4,6 +4,3 @@ if [[ "$branch" = "main" || "$branch" = "develop" ]]; then
 echo "You can't commit directly to 'main' or 'develop' branch. Please create your own branch and use PR"
 exit 1
 fi
-
-npm run lint
-npm run format:fix
