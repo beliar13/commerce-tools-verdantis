@@ -3,6 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
+  <img align="center" src="./public/Verdantis.png" width="50%">
 
   <h1 align="center">Verdantis</h1>
 
@@ -231,8 +232,3 @@ Don't forget to give the project a star! Thanks again!
 [Husky-url]: https://typicode.github.io/husky/
 [Lint-staged]: ./public/lint-staged.png
 [Lint-staged-url]: https://npmjs.com/package/lint-staged/v/12.3.2
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
