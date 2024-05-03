@@ -70,7 +70,6 @@ An important aspect of our application is that it's responsive, ensuring it look
 - [![Mui][Mui]][Mui-url]
 - [![React][React]][React-url]
 - [![React-hook-form][React-hook-form]][React-hook-form-url]
-- [![RTK][RTK]][RTK-url]
 - [![Zod][Zod]][Zod-url]
 - [![Testing-Library][Testing-Library]][Testing-Library-url]
 - [![Vitest][Vitest]][Vitest-url]
@@ -222,8 +221,6 @@ Don't forget to give the project a star! Thanks again!
 [Stylelint-url]: https://stylelint.io/
 [Zod]: https://img.shields.io/badge/-Zod-3E67B1?style=flat&logo=zod&logoColor=white
 [Zod-url]: https://zod.dev/
-[RTK]: ./public/rtk-query-badge.svg
-[RTK-url]:  https://redux-toolkit.js.org/rtk-query/overview
 [Husky]: ./public/husky.png
 [Husky-url]: https://typicode.github.io/husky/
 [Lint-staged]: ./public/lint-staged.png
