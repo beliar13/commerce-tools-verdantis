@@ -15,6 +15,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'prettier',
   ],
+  noInlineConfig: true,
   overrides: [
     {
       extends: ['plugin:@typescript-eslint/disable-type-checked'],
@@ -36,6 +37,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react-refresh'],
   root: true,
+
   rules: {
     '@typescript-eslint/explicit-function-return-type': [
       'error',
