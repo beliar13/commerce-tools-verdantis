@@ -12,7 +12,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --fix --ext ts,tsx",
     "typecheck": "tsc",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -22,7 +24,6 @@
     "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
-    "husky": "^9.0.11",
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
     "@testing-library/react": "^15.0.6",
@@ -30,8 +31,8 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
-    "@typescript-eslint/typescript-estree": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
+    "@typescript-eslint/typescript-estree": "^7.8.0",
     "@vitejs/plugin-react": "^4.0.3",
     "@vitest/coverage-v8": "^1.0.1",
     "eslint": "^8.57.0",
@@ -45,10 +46,12 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-testing-library": "^6.2.0",
     "eslint-plugin-vitest": "^0.3.10",
+    "husky": "^9.0.11",
+    "jsdom": "^24.0.0",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.8.0",
-    "lint-staged": "^15.2.2",
     "vite": "^5.2.11",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^1.5.3"
