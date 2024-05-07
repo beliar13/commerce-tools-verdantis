@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { Link as RouterLink, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 import { Button, Link, Typography } from '@mui/material';
 
@@ -29,7 +29,7 @@ export default function ErrorPage(): ReactNode {
       >
         <i>{error.status === 404 && `404 - Page ${window.location.pathname} was not found`}</i>
       </Typography>
-      <Link href="main">
+      <Link component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>
     </div>
