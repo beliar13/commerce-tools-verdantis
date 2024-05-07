@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Button, Link, Typography } from '@mui/material';
 
-export default function LoginPage(): ReactNode {
+export default function RegistrationPage(): ReactNode {
   return (
     <div id="error-page">
       <Typography
