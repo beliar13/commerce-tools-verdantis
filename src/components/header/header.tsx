@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { AppBar, Link, useScrollTrigger } from '@mui/material';
+import { AppBar, Icon, Link, useScrollTrigger } from '@mui/material';
 import { Stack } from '@mui/system';
+
+import logo from '@/assets/img/Verdantis.png';
 
 export function Header(): ReactNode {
   return (
@@ -10,7 +12,7 @@ export function Header(): ReactNode {
       <AppBar
         sx={{
           alignItems: 'center',
-          backgroundColor: useScrollTrigger() ? 'background.paper' : 'primary.main',
+          backgroundColor: useScrollTrigger() ? 'green' : 'grey',
           justifyContent: 'center',
           minHeight: '5vh',
           padding: 1,
@@ -30,8 +32,8 @@ export function Header(): ReactNode {
             justifyContent="center"
             width={{ lg: '10%', md: '10%', sm: '30%', xs: '40%' }}
           >
-            <Link component={RouterLink} to="/">
-              {/* <Icon href=logo></Icon> */}
+            <Link component={RouterLink} to="/main">
+              <Icon component={'img'} src={logo} />
             </Link>
           </Stack>
 

@@ -14,7 +14,7 @@ export default function RegistrationPage(): ReactNode {
         Registration
       </Typography>
 
-      <Link component={RouterLink} to="/">
+      <Link component={RouterLink} to="/main">
         <Button>Back to main</Button>
       </Link>
     </div>
