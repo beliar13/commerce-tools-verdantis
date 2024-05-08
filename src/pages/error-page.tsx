@@ -29,7 +29,7 @@ export default function ErrorPage(): ReactNode {
       >
         <i>{error.status === 404 && `404 - Page ${window.location.pathname} was not found`}</i>
       </Typography>
-      <Link href="main">
+      <Link href="/">
         <Button>Back to main</Button>
       </Link>
     </div>
