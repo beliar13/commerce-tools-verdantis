@@ -24,13 +24,12 @@ export function Header(): ReactNode {
           direction="row"
           justifyContent={'space-between'}
           padding={{ lg: '0 10%', md: '0 7%', sm: '0 4%', xs: '0 2%' }}
-          width={'100%'}
         >
           <Stack
             alignItems="center"
             borderRadius={20}
             justifyContent="center"
-            width={{ lg: '10%', md: '10%', sm: '30%', xs: '40%' }}
+            width={{ lg: '20%', md: '20%', sm: '30%', xs: '40%' }}
           >
             <Link component={RouterLink} to="/main">
               <Icon component={'img'} src={logo} />

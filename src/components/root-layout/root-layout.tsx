@@ -3,9 +3,8 @@ import { Suspense } from 'react';
 
 import { Box, CircularProgress } from '@mui/material';
 
-// import { Footer } from '../Footer';
-import { Header } from './header/header';
-import { PageContent } from './page-content';
+import { Header } from '../header';
+import { PageContent } from '../page-content/page-content';
 
 export const RootLayout = (): JSX.Element => {
   return (
@@ -38,7 +37,6 @@ export const RootLayout = (): JSX.Element => {
       >
         <PageContent />
       </Suspense>
-      {/* <Footer /> */}
     </Box>
   );
 };

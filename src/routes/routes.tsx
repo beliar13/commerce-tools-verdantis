@@ -1,5 +1,5 @@
-import { RootLayout } from '@/components/root-layout';
-// import ErrorPage from '@/pages/error-page';
+import { RootLayout } from '@/components/root-layout/';
+import ErrorPage from '@/pages/error-page';
 import LoginPage from '@/pages/login-page';
 import MainPage from '@/pages/main-page';
 import RegistrationPage from '@/pages/registration-page';
@@ -21,12 +21,7 @@ export const routes = [
       },
     ],
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     path: '/',
   },
 ];
-
-// {
-//   element: <RootLayout />,
-//   errorElement: <ErrorPage />,
-//   path: '/',
-// },
