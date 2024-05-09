@@ -38,14 +38,6 @@ export const theme = createTheme({
     },
   },
   typography: {
-    h1: {
-      fontFamily: 'raleway',
-    },
-    h2: {
-      fontFamily: 'raleway',
-    },
-    h4: {
-      fontFamily: 'raleway',
-    },
+    fontFamily: 'Raleway',
   },
 });
