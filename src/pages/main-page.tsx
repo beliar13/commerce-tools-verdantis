@@ -1,9 +1,11 @@
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 
-export default function MainPage(): ReactNode {
+const MainPage: FC<{
+  children?: ReactNode;
+}> = () => {
   return (
     <>
       <Button component={RouterLink} to="/login">
@@ -14,4 +16,6 @@ export default function MainPage(): ReactNode {
       </Button>
     </>
   );
-}
+};
+
+export default MainPage;

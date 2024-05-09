@@ -6,7 +6,9 @@ import { Stack } from '@mui/system';
 
 import logo from '@/assets/img/Verdantis.png';
 
-export function Header(): ReactNode {
+export const Header: FC<{
+  children?: ReactNode;
+}> = () => {
   return (
     <AppBar
       sx={{
@@ -38,7 +40,7 @@ export function Header(): ReactNode {
       </Stack>
     </AppBar>
   );
-}
+};
 
 const Navigation: FC<{
   children?: ReactNode;
