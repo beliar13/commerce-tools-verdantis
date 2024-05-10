@@ -9,4 +9,4 @@ echo "The branch name doesn't meet requirements"
 exit 1
 fi
 
-npx --no -- vitest run
+npx vitest run
