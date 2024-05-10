@@ -13,8 +13,10 @@ describe('Header', () => {
       </MemoryRouter>,
     );
 
-    const mainLink = screen.getByRole('link');
+    const loginLink = screen.getByText('login');
+    const registrationLink = screen.getByText('registration');
 
-    expect(mainLink).toBeInTheDocument();
+    expect(loginLink).toBeInTheDocument();
+    expect(registrationLink).toBeInTheDocument();
   });
 });
