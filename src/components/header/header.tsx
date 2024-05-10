@@ -32,7 +32,7 @@ export const Header: FC<{
           justifyContent="center"
           width={{ lg: '20%', md: '20%', sm: '30%', xs: '40%' }}
         >
-          <Link component={RouterLink} to="/main">
+          <Link component={RouterLink} to="/">
             <Icon component={'img'} src={logo} />
           </Link>
         </Stack>
