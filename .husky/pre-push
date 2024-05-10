@@ -8,3 +8,5 @@ elif [[ ! "$branch" =~ $regex ]]; then
 echo "The branch name doesn't meet requirements"
 exit 1
 fi
+
+npm run test
