@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Button, Icon, Link, useScrollTrigger } from '@mui/material';
 import { Stack } from '@mui/system';
 
-import logo from '@/assets/img/Verdantis.png';
+import logo from '@/assets/img/Verdantis-small.png';
 
 export const Header: FC<{
   children?: ReactNode;
@@ -26,13 +26,8 @@ export const Header: FC<{
         justifyContent={'space-between'}
         padding={{ lg: '0 10%', md: '0 7%', sm: '0 4%', xs: '0 2%' }}
       >
-        <Stack
-          alignItems="center"
-          borderRadius={20}
-          justifyContent="center"
-          width={{ lg: '20%', md: '20%', sm: '30%', xs: '40%' }}
-        >
-          <Link component={RouterLink} to="/">
+        <Stack alignItems="center" borderRadius={20} justifyContent="center" width={'100%'}>
+          <Link component={RouterLink} to="/main">
             <Icon component={'img'} src={logo} />
           </Link>
         </Stack>
