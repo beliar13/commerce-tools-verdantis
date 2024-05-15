@@ -7,7 +7,7 @@ export default function NotFoundPage(): ReactNode {
   return (
     <>
       <Typography
-        component={'h1'}
+        component={'h2'}
         sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }}
         textAlign={'center'}
       >
@@ -18,7 +18,7 @@ export default function NotFoundPage(): ReactNode {
       </Typography>
 
       <Typography
-        component={'h1'}
+        component={'h3'}
         sx={{ fontSize: { lg: 35, md: 30, sm: 25 } }}
         textAlign={'center'}
       >
