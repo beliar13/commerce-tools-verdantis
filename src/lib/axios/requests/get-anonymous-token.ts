@@ -6,20 +6,12 @@ import { authInstance } from '../axios-instances';
 import { axiosErrorMsgSchema } from './axios-error-msg.schema';
 import { TokenInfo, tokenInfoSchema } from './token-info.schema';
 
-export async function getToken({
-  password,
-  username,
-}: {
-  password: string;
-  username: string;
-}): Promise<TokenInfo> {
+export async function getAnonymousToken(): Promise<TokenInfo> {
   try {
     const tokenInfo = await authInstance.post(
-      `/oauth/${envVariables.PROJECT_KEY}/customers/token`,
+      `/oauth/${envVariables.PROJECT_KEY}/anonymous/token`,
       {
-        grant_type: 'password',
-        password,
-        username,
+        grant_type: 'client_credentials',
       },
       {
         auth: {
@@ -28,7 +20,7 @@ export async function getToken({
         },
       },
     );
-    console.log(tokenInfo);
+
     return tokenInfoSchema.parse(tokenInfo.data);
   } catch (e) {
     if (isAxiosError(e)) {
