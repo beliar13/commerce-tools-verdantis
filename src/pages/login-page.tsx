@@ -3,6 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Button, Link, Typography } from '@mui/material';
 
+import { LoginForm } from '@/features/login-form/login-form';
+
 export default function LoginPage(): ReactNode {
   return (
     <div id="error-page">
@@ -13,7 +15,7 @@ export default function LoginPage(): ReactNode {
       >
         Login
       </Typography>
-
+      <LoginForm />
       <Link component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>
