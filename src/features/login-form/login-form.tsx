@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Control, Controller, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, Button, Collapse, TextField } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Alert, Button, Collapse, IconButton, InputAdornment, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 
 import { getToken } from '@/lib/axios/requests/get-token';
@@ -12,9 +14,11 @@ import { LoginInfo, loginSchema } from './login-form.schema';
 
 const ControllerComponent = ({
   control,
+  label,
   name,
 }: {
   control: Control<LoginInfo>;
+  label: string;
   name: keyof LoginInfo;
 }): JSX.Element => {
   return (
@@ -26,6 +30,7 @@ const ControllerComponent = ({
           <TextField
             error={fieldState.invalid}
             helperText={fieldState.error?.message ?? ' '}
+            label={label}
             size="small"
             {...field}
           />
@@ -47,6 +52,46 @@ async function loginUser({
   console.log(result);
 }
 
+const PasswordInput = (control: Control<LoginInfo>): JSX.Element => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = (): void => setShowPassword((show) => !show);
+
+  return (
+    <Controller
+      control={control}
+      name="password"
+      render={({ field, fieldState }) => {
+        return (
+          <TextField
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    edge="end"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onMouseUp={(event) => event.preventDefault()}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            {...field}
+            error={fieldState.invalid}
+            helperText={fieldState.error?.message ?? ' '}
+            label="Password"
+            size="small"
+            type={showPassword ? 'text' : 'password'}
+          />
+        );
+      }}
+    />
+  );
+};
+
 export const LoginForm = (): JSX.Element => {
   const { control, handleSubmit } = useForm<LoginInfo>({
     defaultValues: { email: '', password: '' },
@@ -66,15 +111,15 @@ export const LoginForm = (): JSX.Element => {
   });
   return (
     <form
-      className="flex max-w-80 flex-col gap-2"
+      className="flex max-w-96 flex-col gap-2"
       onSubmit={(e) =>
         void handleSubmit(({ email: username, password }): void => {
           loginMutation.mutate({ password, username });
         })(e)
       }
     >
-      <ControllerComponent {...{ control, name: 'email' }} />
-      <ControllerComponent {...{ control, name: 'password' }} />
+      <ControllerComponent {...{ control, label: 'Email', name: 'email' }} />
+      <PasswordInput {...control} />
       {
         <Collapse in={!!errorMessage}>
           <Alert severity="warning">{errorMessage}</Alert>
