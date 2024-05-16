@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Button, Link, Typography } from '@mui/material';
 
-import { RegistrationForm } from '@/components/registration-form/';
+import { RegistrationForm } from '@/components/registration/registration-form';
 
 const RegistrationPage: FC<{
   children?: ReactNode;

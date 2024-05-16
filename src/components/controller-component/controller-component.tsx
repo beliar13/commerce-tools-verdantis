@@ -3,7 +3,7 @@ import { Control, Controller } from 'react-hook-form';
 
 import { TextField } from '@mui/material';
 
-import { RegistrationInfo } from '../registration-form/validation';
+import { RegistrationInfo } from '../registration/registration-form/validation';
 
 export const ControllerComponent = ({
   control,

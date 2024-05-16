@@ -27,7 +27,6 @@ export const theme = createTheme({
     error: {
       main: red.A400,
     },
-    mode: 'dark',
     primary: {
       dark: '#2a2d19',
       light: '#6fa45e',
