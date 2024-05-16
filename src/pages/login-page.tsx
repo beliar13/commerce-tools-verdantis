@@ -14,7 +14,7 @@ export default function LoginPage(): ReactNode {
         Login
       </Typography>
 
-      <Link component={RouterLink} to="/main">
+      <Link component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>
     </div>

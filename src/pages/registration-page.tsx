@@ -18,7 +18,7 @@ const RegistrationPage: FC<{
         Registration
       </Typography>
       <RegistrationForm />
-      <Link component={RouterLink} to="/main">
+      <Link component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>
     </div>
