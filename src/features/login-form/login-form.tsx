@@ -111,7 +111,7 @@ export const LoginForm = (): JSX.Element => {
   });
   return (
     <form
-      className="flex max-w-96 flex-col gap-2"
+      className="mx-auto flex max-w-96 flex-col gap-2"
       onSubmit={(e) =>
         void handleSubmit(({ email: username, password }): void => {
           loginMutation.mutate({ password, username });
