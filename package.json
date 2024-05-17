@@ -1,5 +1,16 @@
 {
   "name": "ecommerce-application",
+  "contributors": [
+    {
+      "name": "Kate Goncharick"
+    },
+    {
+      "name": "Anastasiia Muzipova"
+    },
+    {
+      "name": "Denis Sevostyanov"
+    }
+  ],
   "private": true,
   "version": "0.0.0",
   "description": "eCommerce-application",
