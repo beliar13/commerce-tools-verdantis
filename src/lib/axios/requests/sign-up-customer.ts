@@ -1,7 +1,3 @@
-// https://docs.commercetools.com/api/projects/me-profile#authenticate-sign-in-customer
-// https://docs.commercetools.com/api/projects/me-profile#mycustomersignin
-// https://docs.commercetools.com/api/projects/customers#customer
-
 import { isAxiosError } from 'axios';
 import { z } from 'zod';
 
@@ -16,7 +12,7 @@ const myCustomerDraftSchema = z.object({
   companyName: z.string().optional(),
   dateOfBirth: z.string().optional(),
   defaultBillingAddress: z.number().optional(),
-  defaultShippingAdress: z.number().optional(),
+  defaultShippingAddress: z.number().optional(),
   email: z.string(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
