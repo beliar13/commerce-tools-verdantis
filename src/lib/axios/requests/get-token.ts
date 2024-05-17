@@ -3,8 +3,8 @@ import { isAxiosError } from 'axios';
 import { envVariables } from '@/config/commerce-tools-api';
 
 import { authInstance } from '../axios-instances';
-import { axiosErrorMsgSchema } from './axios-error-msg.schema';
-import { TokenInfo, tokenInfoSchema } from './token-info.schema';
+import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
+import { TokenInfo, tokenInfoSchema } from './schemas/token-info.schema';
 
 export async function getToken({
   password,
