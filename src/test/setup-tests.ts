@@ -1,16 +1,16 @@
 import '@testing-library/jest-dom/vitest';
 import { afterAll, afterEach, beforeAll } from 'vitest';
 
-import { server } from './mocks/server';
+import { mswServer } from './msw-server';
 
 beforeAll(() => {
-  server.listen();
+  mswServer.listen();
 });
 
 afterEach(() => {
-  server.resetHandlers();
+  mswServer.resetHandlers();
 });
 
 afterAll(() => {
-  server.close();
+  mswServer.close();
 });
