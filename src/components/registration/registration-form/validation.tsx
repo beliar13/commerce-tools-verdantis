@@ -35,11 +35,12 @@ export const registrationSchema = z.object({
     .regex(/[A-Z]/, 'Password must contain at least 1 uppercase letter')
     .regex(/[a-z]/, 'Password must contain at least 1 lowercase letter')
     .regex(/[0-9]/, 'Password must contain at least 1 number')
-    .refine((password) => password.length >= 8, {
-      message: 'Your password cannot be less than 8 characters',
-    }),
+    .min(8, { message: 'Your password cannot be less than 8 characters' }),
+
   postalCodeBilling: z.string(),
   postalCodeShipping: z.string(),
+  setBillingAsDefault: z.boolean(),
+  setShippingAsDefault: z.boolean(),
   streetBilling: z.string().min(1),
   streetShipping: z.string().min(1),
 });

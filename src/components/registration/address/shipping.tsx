@@ -7,14 +7,17 @@ import { ControllerComponent } from '@/components/controller-component';
 
 import type { RegistrationInfo } from '../registration-form/validation';
 
+import { DefaultAddress } from './address-control-panel';
 import { AddressWrapper } from './address-wrapper';
 
 export const ShippingAddress: FC<{
   children?: ReactNode;
   control: Control<RegistrationInfo>;
-}> = ({ control }) => {
+  defaultAddress: DefaultAddress;
+  setDefaultAddress: (value: DefaultAddress) => void;
+}> = ({ control, defaultAddress }) => {
   return (
-    <AddressWrapper>
+    <AddressWrapper isDefault={defaultAddress === 'shipping'}>
       <Typography
         component={'h4'}
         sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }}
@@ -22,6 +25,10 @@ export const ShippingAddress: FC<{
       >
         Shipping
       </Typography>
+      <ControllerComponent
+        {...{ control, label: 'Set as default', name: 'setShippingAsDefault', type: 'checkbox' }}
+      />
+
       <ControllerComponent
         {...{ control, label: 'street', name: 'streetShipping', type: 'text' }}
       />

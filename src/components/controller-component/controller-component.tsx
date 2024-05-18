@@ -5,27 +5,32 @@ import { TextField } from '@mui/material';
 
 import { RegistrationInfo } from '../registration/registration-form/validation';
 
+type ControllerProps = {
+  control: Control<RegistrationInfo>;
+  defaultChecked?: boolean;
+  label: string;
+  name: keyof RegistrationInfo;
+  placeholder?: string;
+
+  type: string;
+};
+
 export const ControllerComponent = ({
   control,
+  defaultChecked = false,
   label,
   name,
   placeholder = '',
   type,
-}: {
-  control: Control<RegistrationInfo>;
-  label: string;
-  name: keyof RegistrationInfo;
-  placeholder?: string;
-  type: string;
-}): ReactNode => {
+}: ControllerProps): ReactNode => {
   return (
     <Controller
       control={control}
       name={name}
       render={({ field, fieldState }) => {
-        console.log('controller', field);
         return (
           <TextField
+            defaultChecked={defaultChecked}
             error={fieldState.invalid}
             helperText={fieldState.error?.message ?? ' '}
             label={label}

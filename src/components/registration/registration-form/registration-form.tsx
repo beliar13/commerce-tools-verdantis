@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Stack, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 
-import { BillingAddress, ShippingAddress } from '../address';
+import { AddressControlPanel } from '../address/address-control-panel';
 import { GeneralInputs } from '../general-inputs';
 import { RegistrationInfo, registrationSchema } from './validation';
 
@@ -56,8 +56,7 @@ export const RegistrationForm: FC<{
           Addresses
         </Typography>
         <Stack sx={{ flexDirection: 'row' }} width={'100%'}>
-          <ShippingAddress control={control} />
-          <BillingAddress control={control} />
+          <AddressControlPanel control={control} />
         </Stack>
       </Stack>
 
