@@ -1,11 +1,15 @@
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Button, Link, Typography } from '@mui/material';
 
-export default function RegistrationPage(): ReactNode {
+import { RegistrationForm } from '@/components/registration-form/';
+
+const RegistrationPage: FC<{
+  children?: ReactNode;
+}> = () => {
   return (
-    <div id="error-page">
+    <div id="registration-page">
       <Typography
         component={'h1'}
         sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }}
@@ -13,10 +17,12 @@ export default function RegistrationPage(): ReactNode {
       >
         Registration
       </Typography>
-
+      <RegistrationForm />
       <Link component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>
     </div>
   );
-}
+};
+
+export default RegistrationPage;
