@@ -16,7 +16,7 @@ const myCustomerSignInSchema = z.object({
   password: z.string(),
 });
 
-type MyCustomerSignIn = z.infer<typeof myCustomerSignInSchema>;
+export type MyCustomerSignIn = z.infer<typeof myCustomerSignInSchema>;
 
 export async function signInCustomer(
   { email, password }: MyCustomerSignIn,
