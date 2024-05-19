@@ -11,7 +11,7 @@ type TokenType = 'anonymous' | 'password' | null;
 
 type TokenState = {
   fetchAnonToken: () => Promise<void>;
-  resetStore: () => void;
+  resetStore: () => Promise<void>;
   setToken: (state: { token: Token; type: TokenType }) => void;
   token: Token;
   type: TokenType;
@@ -27,8 +27,9 @@ export const useTokenStore = create<TokenState>()(
             get().setToken({ token: tokenInfo.access_token, type: 'anonymous' });
           }
         },
-        resetStore: () => {
+        resetStore: async () => {
           set({ token: null, type: null });
+          await get().fetchAnonToken();
         },
         setToken: ({ token, type }) => set({ token, type }),
         token: null,
