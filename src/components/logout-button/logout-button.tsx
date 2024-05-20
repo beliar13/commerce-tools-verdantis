@@ -1,22 +1,20 @@
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
 
-import { logoutUser } from '@/lib/axios/requests/logout-user';
+import { useTokenStore } from '@/stores/token-store';
 
-export const LogoutButton = (): JSX.Element => {
+export const LogoutButton: FC<React.PropsWithChildren> = () => {
   const navigate = useNavigate();
-  const logoutMutation = useMutation({
-    mutationFn: logoutUser,
-    onSuccess: () => {
-      // clear local storage
-      navigate('/');
-    },
-  });
+  const { resetStore, type } = useTokenStore();
   const handleLogout = (): void => {
-    logoutMutation.mutate();
+    void resetStore();
+    navigate('/');
   };
+  if (!type || type === 'anonymous') {
+    return null;
+  }
   return (
     <Button onClick={handleLogout} variant="contained">
       Logout
