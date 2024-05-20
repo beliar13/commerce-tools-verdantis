@@ -27,7 +27,7 @@ export const Header: FC<{
         padding={{ lg: '0 10%', md: '0 7%', sm: '0 4%', xs: '0 2%' }}
       >
         <Stack alignItems="center" borderRadius={20} justifyContent="center" width={'100%'}>
-          <Link component={RouterLink} to="/main">
+          <Link component={RouterLink} to="/">
             <Icon component={'img'} src={logo} />
           </Link>
         </Stack>
