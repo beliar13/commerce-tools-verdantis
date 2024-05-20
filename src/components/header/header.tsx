@@ -6,6 +6,8 @@ import { Stack } from '@mui/system';
 
 import logo from '@/assets/img/Verdantis-small.png';
 
+import { LogoutButton } from '../logout-button/logout-button';
+
 export const Header: FC<{
   children?: ReactNode;
 }> = () => {
@@ -48,6 +50,7 @@ const Navigation: FC<{
       <Button component={RouterLink} to="/registration">
         registration
       </Button>
+      <LogoutButton />
     </Stack>
   );
 };
