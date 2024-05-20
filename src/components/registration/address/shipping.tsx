@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import type { Control } from 'react-hook-form';
 
-import { Typography } from '@mui/material';
+import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 
 import { ControllerComponent } from '@/components/controller-component';
 
@@ -25,8 +25,9 @@ export const ShippingAddress: FC<{
       >
         Shipping
       </Typography>
-      <ControllerComponent
-        {...{ control, label: 'Set as default', name: 'setShippingAsDefault', type: 'checkbox' }}
+      <FormControlLabel
+        control={<Checkbox onChange={(_, checked) => console.log(checked)} />}
+        label={'Set as default'}
       />
 
       <ControllerComponent

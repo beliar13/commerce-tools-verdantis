@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { CanadaPostalCodeFormatRegularExpression } from './validation-constants';
+
 export const registrationSchema = z.object({
   checkbox: z.boolean(),
   cityBilling: z
@@ -37,8 +39,8 @@ export const registrationSchema = z.object({
     .regex(/[0-9]/, 'Password must contain at least 1 number')
     .min(8, { message: 'Your password cannot be less than 8 characters' }),
 
-  postalCodeBilling: z.string(),
-  postalCodeShipping: z.string(),
+  postalCodeBilling: z.string().regex(CanadaPostalCodeFormatRegularExpression),
+  postalCodeShipping: z.string().regex(CanadaPostalCodeFormatRegularExpression),
   setBillingAsDefault: z.boolean(),
   setShippingAsDefault: z.boolean(),
   streetBilling: z.string().min(1),

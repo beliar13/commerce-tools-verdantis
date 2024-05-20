@@ -19,8 +19,8 @@ const defaultValues = {
   firstName: 'Mike',
   lastName: 'Tyson',
   password: '12345aA!',
-  postalCodeBilling: '111-111',
-  postalCodeShipping: '111-111',
+  postalCodeBilling: 'h2t-1b8',
+  postalCodeShipping: 'h2t-1b8',
   streetBilling: 'Ray',
   streetShipping: 'Ray',
 };
@@ -33,7 +33,8 @@ export const RegistrationForm: FC<{
     resolver: zodResolver(registrationSchema),
   });
   const onSubmit: SubmitHandler<RegistrationInfo> = (data) => console.log(data);
-  const loginMutation = useMutation({
+
+  const registrationMutation = useMutation({
     onError: (error) => {
       console.log(error);
     },
@@ -44,6 +45,7 @@ export const RegistrationForm: FC<{
   return (
     <form
       className="ml-auto mr-auto mt-0 flex max-w-80  flex-col gap-2 "
+      onChange={(e) => void e}
       onSubmit={(e) => void handleSubmit(onSubmit)(e)}
     >
       <GeneralInputs control={control} />
@@ -60,7 +62,7 @@ export const RegistrationForm: FC<{
         </Stack>
       </Stack>
 
-      <Button disabled={loginMutation.isPending} type="submit" variant="contained">
+      <Button disabled={registrationMutation.isPending} type="submit" variant="contained">
         Login
       </Button>
     </form>

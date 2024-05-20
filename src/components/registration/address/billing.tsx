@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react';
+import { type FC, ReactNode, useState } from 'react';
 import type { Control } from 'react-hook-form';
 
-import { Typography } from '@mui/material';
+import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 
 import { ControllerComponent } from '@/components/controller-component';
 
@@ -16,11 +16,9 @@ export const BillingAddress: FC<{
   defaultAddress: DefaultAddress;
   setDefaultAddress: (value: DefaultAddress) => void;
 }> = ({ control, defaultAddress }) => {
-  console.log(defaultAddress);
-  // const [isDefault, setDefault] = useState(defaultAddress === 'billing');
-  // setDefault(false);
+  const [isDefault, setDefault] = useState(defaultAddress === 'billing');
   return (
-    <AddressWrapper isDefault={false}>
+    <AddressWrapper isDefault={isDefault}>
       <Typography
         component={'h4'}
         sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }}
@@ -28,16 +26,11 @@ export const BillingAddress: FC<{
       >
         Billing
       </Typography>
-
-      <ControllerComponent
-        {...{
-          control,
-          defaultChecked: false,
-          label: 'Set as default',
-          name: 'setBillingAsDefault',
-          type: 'checkbox',
-        }}
+      <FormControlLabel
+        control={<Checkbox onChange={() => setDefault(true)} />}
+        label={'Set as default'}
       />
+
       <ControllerComponent {...{ control, label: 'street', name: 'streetBilling', type: 'text' }} />
       <ControllerComponent {...{ control, label: 'city', name: 'cityBilling', type: 'text' }} />
       <ControllerComponent
