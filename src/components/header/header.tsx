@@ -5,6 +5,7 @@ import { AppBar, Button, Icon, Link, useScrollTrigger } from '@mui/material';
 import { Stack } from '@mui/system';
 
 import logo from '@/assets/img/Verdantis-small.png';
+import { useTokenStore } from '@/stores/token-store';
 
 import { LogoutButton } from '../logout-button/logout-button';
 
@@ -42,7 +43,11 @@ export const Header: FC<{
 const Navigation: FC<{
   children?: ReactNode;
 }> = () => {
-  return (
+  const { type } = useTokenStore();
+  const isLoggedIn = type === 'password';
+  return isLoggedIn ? (
+    <LogoutButton />
+  ) : (
     <Stack direction={'row'} justifyContent={'space-between'} width={'100%'}>
       <Button component={RouterLink} to="/login">
         login
@@ -50,7 +55,6 @@ const Navigation: FC<{
       <Button component={RouterLink} to="/registration">
         registration
       </Button>
-      <LogoutButton />
     </Stack>
   );
 };
