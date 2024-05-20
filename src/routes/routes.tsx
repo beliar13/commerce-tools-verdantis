@@ -1,6 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { RootLayout } from '@/components/root-layout/';
+import { AuthProtectedRoute } from '@/components/route/auth-protected-route';
 import ErrorPage from '@/pages/error-page';
 import LoginPage from '@/pages/login-page';
 import MainPage from '@/pages/main-page';
@@ -14,11 +15,19 @@ export const routes = [
         index: true,
       },
       {
-        element: <LoginPage />,
+        element: (
+          <AuthProtectedRoute isForLoggedIn={false}>
+            <LoginPage />
+          </AuthProtectedRoute>
+        ),
         path: '/login',
       },
       {
-        element: <RegistrationPage />,
+        element: (
+          <AuthProtectedRoute isForLoggedIn={false}>
+            <RegistrationPage />
+          </AuthProtectedRoute>
+        ),
         path: '/registration',
       },
       { element: <NotFoundPage />, path: '*' },
