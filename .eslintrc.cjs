@@ -29,6 +29,9 @@ module.exports = {
     {
       extends: ['plugin:vitest/recommended', 'plugin:testing-library/react'],
       files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      rules: {
+        'max-lines-per-function': 'off',
+      },
     },
   ],
   parser: '@typescript-eslint/parser',

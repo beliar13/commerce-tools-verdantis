@@ -40,7 +40,7 @@ _Completed: May 2024_
 
 #### Verdantis - online plants store
 
-#### Team project by [Kate](https://github.com/KateGoncharik), [Nastya](https://github.com/Mideli37), and [Roma](https://github.com/RamanKandratchyk)
+#### Team project by [Kate](https://github.com/KateGoncharik), [Nastya](https://github.com/Mideli37), and [Den](https://github.com/beliar13)
 
 Users can browse through a vast range of products, view detailed descriptions, add their favorite items to the basket, and proceed to checkout . It includes features such as user registration and login, product search, product categorization, and sorting to make the shopping experience more streamlined and convenient.
 
