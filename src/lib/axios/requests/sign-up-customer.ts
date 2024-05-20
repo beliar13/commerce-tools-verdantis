@@ -1,7 +1,3 @@
-// https://docs.commercetools.com/api/projects/me-profile#authenticate-sign-in-customer
-// https://docs.commercetools.com/api/projects/me-profile#mycustomersignin
-// https://docs.commercetools.com/api/projects/customers#customer
-
 import { isAxiosError } from 'axios';
 import { z } from 'zod';
 
@@ -11,24 +7,34 @@ import { apiInstance } from '../axios-instances';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
 import { SignInResult, signInResultSchema } from './schemas/sign-in-result.schema';
 
-const myCustomerSignInSchema = z.object({
+const myCustomerDraftSchema = z.object({
+  addresses: z.array(z.unknown()).optional(),
+  companyName: z.string().optional(),
+  dateOfBirth: z.string().optional(),
+  defaultBillingAddress: z.number().optional(),
+  defaultShippingAddress: z.number().optional(),
   email: z.string(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  locale: z.string().optional(),
+  middleName: z.string().optional(),
   password: z.string(),
+  salutation: z.string().optional(),
+  stores: z.unknown().optional(),
+  title: z.string().optional(),
+  vatId: z.string().optional(),
 });
 
-export type MyCustomerSignIn = z.infer<typeof myCustomerSignInSchema>;
+type MyCustomerDraft = z.infer<typeof myCustomerDraftSchema>;
 
-export async function signInCustomer(
-  { email, password }: MyCustomerSignIn,
+export async function signUpCustomer(
+  myCustomerDraft: MyCustomerDraft,
   BEARER_TOKEN: string,
 ): Promise<SignInResult> {
   try {
     const customerSignInResult = await apiInstance.post(
-      `/${envVariables.PROJECT_KEY}/me/login`,
-      {
-        email,
-        password,
-      },
+      `/${envVariables.PROJECT_KEY}/me/signup`,
+      myCustomerDraft,
       {
         headers: {
           Authorization: `Bearer ${BEARER_TOKEN}`,
