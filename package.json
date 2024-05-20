@@ -76,6 +76,7 @@
     "husky": "^9.0.11",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
+    "msw": "^2.3.0",
     "postcss": "^8.4.38",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.14",
@@ -85,5 +86,8 @@
     "vite": "^5.2.11",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^1.5.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
   }
 }
