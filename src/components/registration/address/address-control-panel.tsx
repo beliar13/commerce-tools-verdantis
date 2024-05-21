@@ -3,7 +3,7 @@ import type { Control } from 'react-hook-form';
 
 import { Stack } from '@mui/material';
 
-import { RegistrationFormFields } from '../registration-form/registration-form-schema';
+import { RegistrationFormFields } from '../../../lib/axios/requests/schemas/registration-form-schema';
 import { BillingAddress } from './billing';
 import { ShippingAddress } from './shipping';
 export type DefaultAddress = 'billing' | 'none' | 'shipping';

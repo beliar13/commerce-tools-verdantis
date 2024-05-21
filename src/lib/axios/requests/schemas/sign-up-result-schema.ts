@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import type { RegistrationAddress } from '@/components/registration/registration-form/registration-form-types';
+import type { RegistrationAddress } from '@/features/registration-form/registration-form-types';
 
 const RegistrationAddressSchema = z.object({
   city: z.string(),

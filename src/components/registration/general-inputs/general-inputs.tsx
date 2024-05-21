@@ -3,7 +3,7 @@ import type { Control } from 'react-hook-form';
 
 import { ControllerComponent } from '@/components/controller-component';
 
-import type { RegistrationFormFields } from '../registration-form/registration-form-schema';
+import type { RegistrationFormFields } from '../../../lib/axios/requests/schemas/registration-form-schema';
 
 export const GeneralInputs: FC<{
   children?: ReactNode;

@@ -3,7 +3,7 @@ import { Control, Controller } from 'react-hook-form';
 
 import { TextField } from '@mui/material';
 
-import { RegistrationFormFields } from '../registration/registration-form/registration-form-schema';
+import { RegistrationFormFields } from '../../lib/axios/requests/schemas/registration-form-schema';
 
 type ControllerProps = {
   control: Control<RegistrationFormFields>;

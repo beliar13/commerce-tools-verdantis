@@ -1,6 +1,6 @@
 import { MyCustomerDraft } from '@/lib/axios/requests/sign-up-customer';
 
-import { RegistrationFormFields } from './registration-form-schema';
+import { RegistrationFormFields } from '../../lib/axios/requests/schemas/registration-form-schema';
 
 export const getRegistrationData = (data: RegistrationFormFields): MyCustomerDraft => {
   const {

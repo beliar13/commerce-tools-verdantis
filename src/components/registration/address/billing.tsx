@@ -5,7 +5,7 @@ import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 
 import { ControllerComponent } from '@/components/controller-component';
 
-import type { RegistrationFormFields } from '../registration-form/registration-form-schema';
+import type { RegistrationFormFields } from '../../../lib/axios/requests/schemas/registration-form-schema';
 
 import { DefaultAddress } from './address-control-panel';
 import { AddressWrapper } from './address-wrapper';

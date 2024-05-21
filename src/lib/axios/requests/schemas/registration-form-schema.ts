@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { CanadaPostalCodeFormatRegularExpression } from './registration-form-constants';
+import { CanadaPostalCodeFormatRegularExpression } from '../../../../features/registration-form/registration-form-constants';
 
 export const registrationSchema = z.object({
   cityBilling: z
