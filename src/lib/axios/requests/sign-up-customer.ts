@@ -5,17 +5,25 @@ import { envVariables } from '@/config/commerce-tools-api';
 
 import { apiInstance } from '../axios-instances';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
-import { SignInResult, signInResultSchema } from './schemas/sign-in-result.schema';
+import { SignUpResult, signUpResultSchema } from './schemas/sign-up-result-schema';
+
+const RegistrationAddressSchema = z.object({
+  city: z.string(),
+  country: z.string(),
+  postalCode: z.string(),
+  region: z.string().optional(),
+  streetName: z.string(),
+});
 
 const myCustomerDraftSchema = z.object({
-  addresses: z.array(z.unknown()).optional(),
+  addresses: z.array(RegistrationAddressSchema).optional(),
   companyName: z.string().optional(),
   dateOfBirth: z.string().optional(),
   defaultBillingAddress: z.number().optional(),
   defaultShippingAddress: z.number().optional(),
   email: z.string(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  firstName: z.string(),
+  lastName: z.string(),
   locale: z.string().optional(),
   middleName: z.string().optional(),
   password: z.string(),
@@ -25,12 +33,12 @@ const myCustomerDraftSchema = z.object({
   vatId: z.string().optional(),
 });
 
-type MyCustomerDraft = z.infer<typeof myCustomerDraftSchema>;
+export type MyCustomerDraft = z.infer<typeof myCustomerDraftSchema>;
 
 export async function signUpCustomer(
   myCustomerDraft: MyCustomerDraft,
   BEARER_TOKEN: string,
-): Promise<SignInResult> {
+): Promise<SignUpResult> {
   try {
     const customerSignInResult = await apiInstance.post(
       `/${envVariables.PROJECT_KEY}/me/signup`,
@@ -42,7 +50,7 @@ export async function signUpCustomer(
       },
     );
 
-    return signInResultSchema.parse(customerSignInResult.data);
+    return signUpResultSchema.parse(customerSignInResult.data);
   } catch (e) {
     if (isAxiosError(e)) {
       const message = axiosErrorMsgSchema.catch(e.message).parse(e);

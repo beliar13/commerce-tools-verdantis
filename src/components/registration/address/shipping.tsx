@@ -5,14 +5,14 @@ import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 
 import { ControllerComponent } from '@/components/controller-component';
 
-import type { RegistrationInfo } from '../registration-form/validation';
+import type { RegistrationFormFields } from '../registration-form/registration-form-schema';
 
 import { DefaultAddress } from './address-control-panel';
 import { AddressWrapper } from './address-wrapper';
 
 export const ShippingAddress: FC<{
   children?: ReactNode;
-  control: Control<RegistrationInfo>;
+  control: Control<RegistrationFormFields>;
   defaultAddress: DefaultAddress;
   setDefaultAddress: (value: DefaultAddress) => void;
 }> = ({ control, defaultAddress }) => {

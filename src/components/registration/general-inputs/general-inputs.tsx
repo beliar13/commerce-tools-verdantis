@@ -3,11 +3,11 @@ import type { Control } from 'react-hook-form';
 
 import { ControllerComponent } from '@/components/controller-component';
 
-import type { RegistrationInfo } from '../registration-form/validation';
+import type { RegistrationFormFields } from '../registration-form/registration-form-schema';
 
 export const GeneralInputs: FC<{
   children?: ReactNode;
-  control: Control<RegistrationInfo>;
+  control: Control<RegistrationFormFields>;
 }> = ({ control }) => {
   return (
     <>

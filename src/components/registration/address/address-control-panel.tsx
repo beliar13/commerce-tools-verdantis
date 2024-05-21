@@ -3,13 +3,13 @@ import type { Control } from 'react-hook-form';
 
 import { Stack } from '@mui/material';
 
-import { RegistrationInfo } from '../registration-form/validation';
+import { RegistrationFormFields } from '../registration-form/registration-form-schema';
 import { BillingAddress } from './billing';
 import { ShippingAddress } from './shipping';
 export type DefaultAddress = 'billing' | 'none' | 'shipping';
 export const AddressControlPanel: FC<{
   children?: ReactNode;
-  control: Control<RegistrationInfo>;
+  control: Control<RegistrationFormFields>;
 }> = ({ control }) => {
   const [defaultAddress, setDefaultAddress] = useState<DefaultAddress>('none');
 

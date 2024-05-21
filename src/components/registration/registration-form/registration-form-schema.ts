@@ -1,9 +1,8 @@
 import { z } from 'zod';
 
-import { CanadaPostalCodeFormatRegularExpression } from './validation-constants';
+import { CanadaPostalCodeFormatRegularExpression } from './registration-form-constants';
 
 export const registrationSchema = z.object({
-  checkbox: z.boolean(),
   cityBilling: z
     .string()
     .min(1)
@@ -41,10 +40,8 @@ export const registrationSchema = z.object({
 
   postalCodeBilling: z.string().regex(CanadaPostalCodeFormatRegularExpression),
   postalCodeShipping: z.string().regex(CanadaPostalCodeFormatRegularExpression),
-  setBillingAsDefault: z.boolean(),
-  setShippingAsDefault: z.boolean(),
   streetBilling: z.string().min(1),
   streetShipping: z.string().min(1),
 });
 
-export type RegistrationInfo = z.infer<typeof registrationSchema>;
+export type RegistrationFormFields = z.infer<typeof registrationSchema>;

@@ -3,13 +3,13 @@ import { Control, Controller } from 'react-hook-form';
 
 import { TextField } from '@mui/material';
 
-import { RegistrationInfo } from '../registration/registration-form/validation';
+import { RegistrationFormFields } from '../registration/registration-form/registration-form-schema';
 
 type ControllerProps = {
-  control: Control<RegistrationInfo>;
+  control: Control<RegistrationFormFields>;
   defaultChecked?: boolean;
   label: string;
-  name: keyof RegistrationInfo;
+  name: keyof RegistrationFormFields;
   placeholder?: string;
 
   type: string;
