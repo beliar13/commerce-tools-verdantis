@@ -28,7 +28,6 @@ export async function getToken({
         },
       },
     );
-    console.log(tokenInfo);
     return tokenInfoSchema.parse(tokenInfo.data);
   } catch (e) {
     if (isAxiosError(e)) {

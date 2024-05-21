@@ -9,14 +9,12 @@ export async function signUpAndLogin(
   myCustomerDraft: MyCustomerDraft,
   token: string,
 ): Promise<[TokenInfo, SignInResult]> {
-  const signUpResult = await signUpCustomer(myCustomerDraft, token);
-  console.log(signUpResult);
+  await signUpCustomer(myCustomerDraft, token);
   const tokenInfo = await getToken({
     password: myCustomerDraft.password,
     username: myCustomerDraft.email,
   });
   // TODO обновить те адреса, которые не отметили дефолтными
   const signInResult = await signInCustomer(myCustomerDraft, tokenInfo.access_token);
-  console.log(signInResult);
   return [tokenInfo, signInResult];
 }
