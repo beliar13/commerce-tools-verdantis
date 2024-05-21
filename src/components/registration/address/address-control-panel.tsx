@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, useState } from 'react';
 import type { Control } from 'react-hook-form';
 
 import { Stack } from '@mui/material';
@@ -6,13 +6,13 @@ import { Stack } from '@mui/material';
 import { RegistrationFormFields } from '../../../lib/axios/requests/schemas/registration-form-schema';
 import { BillingAddress } from './billing';
 import { ShippingAddress } from './shipping';
-export type DefaultAddress = 'billing' | 'none' | 'shipping';
+
+type DefaultAddress = 'billing' | 'none' | 'shipping';
+
 export const AddressControlPanel: FC<{
-  children?: ReactNode;
   control: Control<RegistrationFormFields>;
 }> = ({ control }) => {
   const [defaultAddress, setDefaultAddress] = useState<DefaultAddress>('none');
-
   return (
     <Stack sx={{ flexDirection: 'row' }} width={'100%'}>
       <ShippingAddress

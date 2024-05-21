@@ -8,7 +8,7 @@ export const AddressWrapper: FC<{
 }> = ({ children, isDefault }) => {
   return (
     <Stack
-      className={isDefault ? 'default' : ' not-default'}
+      className={isDefault ? 'default' : 'not-default'}
       direction="column"
       justifyContent={'space-between'}
       padding={{ lg: '0 10%', md: '0 7%', sm: '0 4%', xs: '0 2%' }}

@@ -17,7 +17,6 @@ type ControllerProps = {
 
 export const ControllerComponent = ({
   control,
-  defaultChecked = false,
   label,
   name,
   placeholder = '',
@@ -30,7 +29,6 @@ export const ControllerComponent = ({
       render={({ field, fieldState }) => {
         return (
           <TextField
-            defaultChecked={defaultChecked}
             error={fieldState.invalid}
             helperText={fieldState.error?.message ?? ' '}
             label={label}
