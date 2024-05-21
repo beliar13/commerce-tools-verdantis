@@ -2,13 +2,8 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Alert,
-  Button,
-  Collapse,
-  Stack,
-  //  Typography
-} from '@mui/material';
+import { Alert, Button, Collapse, Stack, Typography } from '@mui/material';
+import { ReactJSXElement } from 'node_modules/@emotion/react/types/jsx-namespace';
 
 import { AddressControlPanel } from '../../components/registration/address/address-control-panel';
 import { GeneralInputs } from '../../components/registration/general-inputs';
@@ -39,13 +34,7 @@ export const RegistrationForm: FC = () => {
     >
       <GeneralInputs control={control} />
       <Stack sx={{ flexDirection: 'column' }} width={'100%'}>
-        {/* <Typography
-          component={'h3'}
-          sx={{ fontSize: { lg: 40, md: 32, sm: 24 } }}
-          textAlign={'center'}
-        >
-          Addresses
-        </Typography> */}
+        <AddressesTitle />
         <Stack sx={{ flexDirection: 'row' }} width={'100%'}>
           <AddressControlPanel control={control} />
         </Stack>
@@ -61,3 +50,9 @@ export const RegistrationForm: FC = () => {
     </form>
   );
 };
+
+const AddressesTitle = (): ReactJSXElement => (
+  <Typography component={'h3'} sx={{ fontSize: { lg: 40, md: 32, sm: 24 } }} textAlign={'center'}>
+    Addresses
+  </Typography>
+);
