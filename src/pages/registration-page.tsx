@@ -1,9 +1,9 @@
 import { FC, ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Button, Link, Typography } from '@mui/material';
+import { Button, Link, Stack, Typography } from '@mui/material';
 
-import { RegistrationForm } from '@/components/registration-form/';
+import { RegistrationForm } from '@/features/registration-form';
 
 const RegistrationPage: FC<{
   children?: ReactNode;
@@ -18,6 +18,11 @@ const RegistrationPage: FC<{
         Registration
       </Typography>
       <RegistrationForm />
+      <Stack alignItems="center" borderRadius={20} justifyContent="center" width={'100%'}>
+        <Link component={RouterLink} to="/login">
+          Already have an account? Login
+        </Link>
+      </Stack>
       <Link component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>

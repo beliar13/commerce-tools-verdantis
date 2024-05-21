@@ -3,7 +3,17 @@ import { Control, Controller } from 'react-hook-form';
 
 import { TextField } from '@mui/material';
 
-import { RegistrationInfo } from '../registration-form/validation';
+import { RegistrationFormFields } from '../../lib/axios/requests/schemas/registration-form-schema';
+
+type ControllerProps = {
+  control: Control<RegistrationFormFields>;
+  defaultChecked?: boolean;
+  label: string;
+  name: keyof RegistrationFormFields;
+  placeholder?: string;
+
+  type: string;
+};
 
 export const ControllerComponent = ({
   control,
@@ -11,19 +21,12 @@ export const ControllerComponent = ({
   name,
   placeholder = '',
   type,
-}: {
-  control: Control<RegistrationInfo>;
-  label: string;
-  name: keyof RegistrationInfo;
-  placeholder?: string;
-  type: string;
-}): ReactNode => {
+}: ControllerProps): ReactNode => {
   return (
     <Controller
       control={control}
       name={name}
       render={({ field, fieldState }) => {
-        console.log('controller', field);
         return (
           <TextField
             error={fieldState.invalid}
