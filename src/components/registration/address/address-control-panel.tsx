@@ -7,7 +7,7 @@ import { RegistrationFormFields } from '../../../lib/axios/requests/schemas/regi
 import { BillingAddress } from './billing';
 import { ShippingAddress } from './shipping';
 
-export type DefaultAddress = 'billing' | 'none' | 'shipping';
+type DefaultAddress = 'billing' | 'none' | 'shipping';
 
 export const AddressControlPanel: FC<{
   control: Control<RegistrationFormFields>;
