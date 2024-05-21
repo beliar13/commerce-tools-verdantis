@@ -2,26 +2,33 @@ import { useState } from 'react';
 
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 
-import { SignUpResult } from '@/lib/axios/requests/schemas/sign-up-result-schema';
+import { SignInResult } from '@/lib/axios/requests/schemas/sign-in-result.schema';
 import { TokenInfo } from '@/lib/axios/requests/schemas/token-info.schema';
+import { signUpAndLogin } from '@/lib/axios/requests/sign-up-and-login';
 import { MyCustomerDraft } from '@/lib/axios/requests/sign-up-customer';
-
-import { useRegisterUser } from './register-user';
+import { useTokenStore } from '@/stores/token-store';
 
 export function useRegistrationFormMutation(): [
-  UseMutationResult<[TokenInfo, SignUpResult], Error, MyCustomerDraft>,
+  UseMutationResult<[TokenInfo, SignInResult], Error, MyCustomerDraft>,
   string,
 ] {
+  const store = useTokenStore();
+  const token = store.token;
   const [errorMessage, setErrorMessage] = useState('');
   const registrationMutation = useMutation({
-    mutationFn: useRegisterUser(),
+    mutationFn: (data: MyCustomerDraft) => {
+      if (!token) {
+        throw new Error('no token found');
+      }
+      return signUpAndLogin(data, token);
+    },
     onError: (error) => {
       console.log(error);
       setErrorMessage(error.message);
     },
-    onSuccess: (response) => {
-      console.log('You were successfully registered', response);
-      // TODO sign in   signInCustomer({ email, password }, tokenInfo);
+    onSuccess: ([tokenInfo]) => {
+      const token = tokenInfo.access_token;
+      store.setToken({ token, type: 'password' });
     },
   });
   return [registrationMutation, errorMessage] as const;
