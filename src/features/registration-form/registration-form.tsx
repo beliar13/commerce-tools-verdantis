@@ -23,7 +23,6 @@ export const RegistrationForm: FC = () => {
   });
   const submitHandler = (data: RegistrationFormFields): void => {
     const dataForRequest = getRegistrationData(data);
-    console.log(dataForRequest);
     registrationMutation.mutate(dataForRequest);
   };
   const [registrationMutation, errorMessage] = useRegistrationFormMutation();

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import type { Control } from 'react-hook-form';
 
 import { Stack } from '@mui/material';
@@ -12,19 +12,10 @@ export type DefaultAddress = 'billing' | 'none' | 'shipping';
 export const AddressControlPanel: FC<{
   control: Control<RegistrationFormFields>;
 }> = ({ control }) => {
-  const [defaultAddress, setDefaultAddress] = useState<DefaultAddress>('none');
   return (
     <Stack sx={{ flexDirection: 'row' }} width={'100%'}>
-      <ShippingAddress
-        control={control}
-        defaultAddress={defaultAddress}
-        setDefaultAddress={setDefaultAddress}
-      />
-      <BillingAddress
-        control={control}
-        defaultAddress={defaultAddress}
-        setDefaultAddress={setDefaultAddress}
-      />
+      <ShippingAddress control={control} />
+      <BillingAddress control={control} />
     </Stack>
   );
 };

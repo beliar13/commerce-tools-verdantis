@@ -40,6 +40,8 @@ export const registrationSchema = z.object({
 
   postalCodeBilling: z.string().regex(CanadaPostalCodeFormatRegularExpression),
   postalCodeShipping: z.string().regex(CanadaPostalCodeFormatRegularExpression),
+  setBillingAsDefault: z.boolean().optional(),
+  setShippingAsDefault: z.boolean().optional(),
   streetBilling: z.string().min(1),
   streetShipping: z.string().min(1),
 });

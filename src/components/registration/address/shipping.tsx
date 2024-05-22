@@ -1,23 +1,20 @@
 import { FC, ReactNode } from 'react';
 import type { Control } from 'react-hook-form';
 
-import { Checkbox, FormControlLabel, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import { ControllerComponent } from '@/components/controller-component';
 
 import type { RegistrationFormFields } from '../../../lib/axios/requests/schemas/registration-form-schema';
 
-import { DefaultAddress } from './address-control-panel';
 import { AddressWrapper } from './address-wrapper';
 
 export const ShippingAddress: FC<{
   children?: ReactNode;
   control: Control<RegistrationFormFields>;
-  defaultAddress: DefaultAddress;
-  setDefaultAddress: (value: DefaultAddress) => void;
-}> = ({ control, defaultAddress }) => {
+}> = ({ control }) => {
   return (
-    <AddressWrapper isDefault={defaultAddress === 'shipping'}>
+    <AddressWrapper>
       <Typography
         component={'h4'}
         sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }}
@@ -25,11 +22,10 @@ export const ShippingAddress: FC<{
       >
         Shipping
       </Typography>
-      <FormControlLabel
-        control={<Checkbox onChange={(_, checked) => console.log(checked)} />}
-        label={'Set as default'}
-      />
 
+      <ControllerComponent
+        {...{ control, label: 'Set as default', name: 'setShippingAsDefault', type: 'checkbox' }}
+      />
       <ControllerComponent
         {...{ control, label: 'street', name: 'streetShipping', type: 'text' }}
       />
