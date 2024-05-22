@@ -4,6 +4,7 @@ import { Control, Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
 import { RegistrationFormFields } from '../../lib/axios/requests/schemas/registration-form-schema';
+import { ControllerSelectComponent } from './controller-select-component';
 
 type ControllerProps = {
   control: Control<RegistrationFormFields>;
@@ -11,8 +12,8 @@ type ControllerProps = {
   label: string;
   name: keyof RegistrationFormFields;
   placeholder?: string;
-
-  type: string;
+  select?: string;
+  type?: string;
 };
 
 export const ControllerComponent = ({
@@ -20,6 +21,7 @@ export const ControllerComponent = ({
   label,
   name,
   placeholder = '',
+  select,
   type,
 }: ControllerProps): ReactNode => {
   return (
@@ -27,6 +29,9 @@ export const ControllerComponent = ({
       control={control}
       name={name}
       render={({ field, fieldState }) => {
+        if (select) {
+          return <ControllerSelectComponent {...{ field, fieldState, label, placeholder }} />;
+        }
         return (
           <TextField
             error={fieldState.invalid}

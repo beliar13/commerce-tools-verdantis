@@ -35,7 +35,7 @@ export const ShippingAddress: FC<{
       />
       <ControllerComponent {...{ control, label: 'city', name: 'cityShipping', type: 'text' }} />
       <ControllerComponent
-        {...{ control, label: 'country', name: 'countryShipping', type: 'text' }}
+        {...{ control, label: 'country', name: 'countryShipping', select: 'select' }}
       />
       <ControllerComponent
         {...{ control, label: 'postal-code', name: 'postalCodeShipping', type: 'text' }}

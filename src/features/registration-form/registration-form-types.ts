@@ -6,6 +6,8 @@ export type RegistrationAddress = {
   streetName: string;
 };
 
+export type Countries = 'DE' | 'US';
+
 export type RegistrationRequest = {
   addresses: Array<RegistrationAddress>;
   billingAddresses: Array<number>;
