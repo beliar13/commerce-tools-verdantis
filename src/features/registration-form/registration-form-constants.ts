@@ -3,8 +3,8 @@ export const CanadaPostalCodeFormatRegularExpression = /^[A-Za-z]\d[A-Za-z][ -]?
 export const registrationFormDefaultValues = {
   cityBilling: 'NY',
   cityShipping: 'NY',
-  countryBilling: 'USA',
-  countryShipping: 'USA',
+  countryBilling: 'US',
+  countryShipping: 'US',
   dateOfBirth: '2000-01-01',
   email: 'testemail@email.com',
   firstName: 'Mike',
