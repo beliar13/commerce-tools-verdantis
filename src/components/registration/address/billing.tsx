@@ -34,7 +34,7 @@ export const BillingAddress: FC<{
       <ControllerComponent {...{ control, label: 'street', name: 'streetBilling', type: 'text' }} />
       <ControllerComponent {...{ control, label: 'city', name: 'cityBilling', type: 'text' }} />
       <ControllerComponent
-        {...{ control, label: 'country', name: 'countryBilling', type: 'text' }}
+        {...{ control, label: 'country', name: 'countryBilling', select: 'select' }}
       />
       <ControllerComponent
         {...{ control, label: 'postal-code', name: 'postalCodeBilling', type: 'text' }}
