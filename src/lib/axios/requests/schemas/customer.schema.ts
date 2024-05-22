@@ -37,3 +37,5 @@ export const customerSchema = z.object({
   vatId: z.string().optional(),
   version: z.number(),
 });
+
+export type Customer = z.infer<typeof customerSchema>;
