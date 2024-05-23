@@ -37,7 +37,9 @@ const Sections: FC = () => {
   return (
     <Stack direction={'row'}>
       {sectionsLabels.map((label) => (
-        <Button key={label}>{label}</Button>
+        <Button component={RouterLink} key={label} to={label}>
+          {label}
+        </Button>
       ))}
     </Stack>
   );
