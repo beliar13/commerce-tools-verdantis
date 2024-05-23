@@ -30,7 +30,7 @@ export type RegistrationResponse = {
 const customerSchema = z.object({
   addresses: z.array(RegistrationAddressSchema),
   authenticationMode: z.string(),
-  billingAddressIds: z.array(z.number()).optional(),
+  billingAddressIds: z.array(z.string()).optional(),
   companyName: z.string().optional(),
   createdAt: z.string(),
   customerGroup: z.unknown(),
