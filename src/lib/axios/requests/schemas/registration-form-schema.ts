@@ -27,17 +27,18 @@ export const registrationSchema = z.object({
     .string()
     .min(1)
     .regex(/^[a-zA-Z]+$/, 'First name must contain only alphabetic characters'),
+  isSingleAddress: z.boolean(),
   lastName: z
     .string()
     .min(1)
     .regex(/^[a-zA-Z]+$/, 'Last name must contain only alphabetic characters'),
+
   password: z
     .string()
     .regex(/[A-Z]/, 'Password must contain at least 1 uppercase letter')
     .regex(/[a-z]/, 'Password must contain at least 1 lowercase letter')
     .regex(/[0-9]/, 'Password must contain at least 1 number')
     .min(8, { message: 'Your password cannot be less than 8 characters' }),
-
   postalCodeBilling: z.string().regex(CanadaPostalCodeFormatRegularExpression),
   postalCodeShipping: z.string().regex(CanadaPostalCodeFormatRegularExpression),
   setBillingAsDefault: z.boolean().optional(),
