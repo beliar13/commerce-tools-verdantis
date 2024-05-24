@@ -15,19 +15,16 @@ export const AddressControlPanel: FC<{
   control: Control<RegistrationFormFields>;
   isSingleAddress: boolean;
 }> = ({ control, isSingleAddress }) => {
-  const checkbox = (
-    <ControlledCheckbox
-      {...{
-        control,
-        label: 'Use also as a billing address',
-        name: 'isSingleAddress',
-      }}
-    />
-  );
   return (
     <Stack sx={{ flexDirection: 'column' }} width={'100%'}>
       <ShippingAddress control={control} />
-      {checkbox}
+      <ControlledCheckbox
+        {...{
+          control,
+          label: 'Use also as a billing address',
+          name: 'isSingleAddress',
+        }}
+      />
       <Collapse in={isSingleAddress}>
         <BillingAddress control={control} />
       </Collapse>
