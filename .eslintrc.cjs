@@ -13,6 +13,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
     'prettier',
   ],
   noInlineConfig: true,
@@ -28,6 +29,9 @@ module.exports = {
     {
       extends: ['plugin:vitest/recommended', 'plugin:testing-library/react'],
       files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      rules: {
+        'max-lines-per-function': 'off',
+      },
     },
   ],
   parser: '@typescript-eslint/parser',
