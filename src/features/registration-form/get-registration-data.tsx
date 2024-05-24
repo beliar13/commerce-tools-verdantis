@@ -32,12 +32,14 @@ export const getRegistrationData = (data: RegistrationFormFields): MyCustomerDra
   }
 
   const defaultShippingAddressIndex = 0;
-  const defaultBillingAddressIndex = data.isSingleAddress ? 0 : 1;
+  const defaultBillingAddressIndex = data.isSingleAddress ? defaultShippingAddressIndex : 1;
 
   if (data.setShippingAsDefault) {
     registrationData.defaultShippingAddress = defaultShippingAddressIndex;
   }
-  if (data.setBillingAsDefault || (data.isSingleAddress && data.setShippingAsDefault)) {
+  const isBillingAddressDefault =
+    data.setBillingAsDefault || (data.isSingleAddress && data.setShippingAsDefault);
+  if (isBillingAddressDefault) {
     registrationData.defaultBillingAddress = defaultBillingAddressIndex;
   }
 

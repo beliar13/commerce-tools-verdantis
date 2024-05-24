@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { Checkbox, FormControlLabel } from '@mui/material';
@@ -11,11 +11,7 @@ type ControlledCheckboxProps = {
   name: keyof RegistrationFormFields;
 };
 
-export const ControlledCheckbox = ({
-  control,
-  label,
-  name,
-}: ControlledCheckboxProps): ReactNode => {
+export const ControlledCheckbox: FC<ControlledCheckboxProps> = ({ control, label, name }) => {
   return (
     <Controller
       control={control}
