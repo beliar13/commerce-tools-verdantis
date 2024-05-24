@@ -8,6 +8,7 @@ export const registrationFormDefaultValues = {
   dateOfBirth: '2000-01-01',
   email: 'testemail@email.com',
   firstName: 'Mike',
+  isSingleAddress: false,
   lastName: 'Tyson',
   password: '12345aA!',
   postalCodeBilling: 'h2t-1b8',

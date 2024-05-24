@@ -16,7 +16,7 @@ import { registrationFormDefaultValues } from './registration-form-constants';
 import { useRegistrationFormMutation } from './use-registration-form-mutation';
 
 export const RegistrationForm: FC = () => {
-  const { control, handleSubmit } = useForm<RegistrationFormFields>({
+  const { control, handleSubmit, watch } = useForm<RegistrationFormFields>({
     defaultValues: registrationFormDefaultValues,
     mode: 'onChange',
     resolver: zodResolver(registrationSchema),
@@ -35,7 +35,7 @@ export const RegistrationForm: FC = () => {
       <Stack sx={{ flexDirection: 'column' }} width={'100%'}>
         <AddressesTitle />
         <Stack sx={{ flexDirection: 'row' }} width={'100%'}>
-          <AddressControlPanel control={control} />
+          <AddressControlPanel control={control} isSingleAddress={!watch('isSingleAddress')} />
         </Stack>
       </Stack>
       {
