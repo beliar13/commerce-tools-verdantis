@@ -2,11 +2,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { RootLayout } from '@/components/root-layout/';
 import { AuthProtectedRoute } from '@/components/route/auth-protected-route';
+import CatalogPage from '@/pages/catalog-page';
 import ErrorPage from '@/pages/error-page';
 import LoginPage from '@/pages/login-page';
 import MainPage from '@/pages/main-page';
 import NotFoundPage from '@/pages/not-found-page';
 import RegistrationPage from '@/pages/registration-page';
+
 export const routes = [
   {
     children: [
@@ -29,6 +31,10 @@ export const routes = [
           </AuthProtectedRoute>
         ),
         path: '/registration',
+      },
+      {
+        element: <CatalogPage />,
+        path: '/catalog',
       },
       { element: <NotFoundPage />, path: '*' },
     ],

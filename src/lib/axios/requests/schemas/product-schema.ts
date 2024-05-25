@@ -26,18 +26,34 @@ const ProductCatalogDataSchema = z.object({
 });
 
 export const productSchema = z.object({
+  categories: z.array(z.record(z.string(), z.string())).optional(),
+  categoryOrderHints: z.object({}).optional(),
   createdAt: z.string(),
+  description: z.record(z.string(), z.string()).optional(),
+  hasStagedChanges: z.boolean().optional(),
   id: z.string(),
+  key: z.string(),
   lastModifiedAt: z.string(),
-  masterData: ProductCatalogDataSchema,
+  masterData: ProductCatalogDataSchema.optional(),
+  masterVariant: z.object({}).optional(),
+  metaDescription: z.object({}).optional(),
+  metaTitle: z.object({}).optional(),
+  name: z.record(z.string(), z.string()).optional(),
+  priceMode: z.string().optional(),
   productType: z.object({
     id: z.string(),
     typeId: z.string(),
   }),
-  taxCategory: z.object({
-    id: z.string(),
-    typeId: z.string(),
-  }),
+  published: z.boolean().optional(),
+  searchKeywords: z.object({}).optional(),
+  slug: z.record(z.string(), z.string()).optional(),
+  taxCategory: z
+    .object({
+      id: z.string(),
+      typeId: z.string(),
+    })
+    .optional(),
+  variants: z.array(z.unknown()).optional(),
   version: z.number(),
 });
 

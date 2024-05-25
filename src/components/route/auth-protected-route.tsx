@@ -21,8 +21,15 @@ export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }
   }, [isForLoggedIn, isLoggedIn, navigate]);
 
   useEffect(() => {
-    if (token) {
-      console.log(getAllProducts(1, token));
+    if (token && type === 'anonymous') {
+      getAllProducts(1, token).then(
+        (result) => {
+          console.log('request result:', result);
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
     }
   });
   if (type === null || type === 'password') {

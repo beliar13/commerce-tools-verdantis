@@ -16,8 +16,10 @@ export async function getAllProducts(offset = 0, BEARER_TOKEN: string): Promise<
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
+    console.log(getProductsResult.data);
     return getProductsResultSchema.parse(getProductsResult.data);
   } catch (e) {
+    console.error('Error occured while getting products:', e);
     if (isAxiosError(e)) {
       const message = axiosErrorMsgSchema.catch(e.message).parse(e);
       throw new Error(message);
