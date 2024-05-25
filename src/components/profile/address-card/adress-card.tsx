@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import { RegistrationAddress } from '@/features/registration-form/registration-form-types';
 
@@ -13,7 +13,8 @@ export const AddressCard: FC<{ addressInfo: RegistrationAddress; isDefault: bool
     <Box
       className={`${isDefault ? 'bg-green-50' : 'bg-gray-50'} w-fit rounded-md border border-solid  border-[#6fa45e]`}
     >
-      <List>
+      <Typography align="center">{isDefault ? 'Default' : ''}</Typography>
+      <List className="p-0">
         <ListItem>
           <ListItemText primary={`Country: ${country}`} />
         </ListItem>

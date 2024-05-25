@@ -11,7 +11,7 @@ export const UserInfo: FC<Customer> = ({ dateOfBirth, firstName, lastName }) => 
   const dateString = new Date(dateOfBirth).toLocaleDateString();
   return (
     <Box>
-      <Typography sx={{ fontSize: { lg: 30, md: 26, sm: 22 } }} variant="h2">
+      <Typography align="center" sx={{ fontSize: { lg: 30, md: 26, sm: 22, xs: 20 } }} variant="h2">
         Account details
       </Typography>
       <List>
