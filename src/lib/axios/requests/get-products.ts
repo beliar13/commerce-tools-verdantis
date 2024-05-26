@@ -3,9 +3,9 @@ import { isAxiosError } from 'axios';
 import { envVariables } from '@/config/commerce-tools-api';
 
 import { apiInstance } from '../axios-instances';
-import { ProductsRequestArguments, ProductsResponse } from './catalog-types';
+import { ProductsRequestArguments } from './catalog-types';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
-import { getProductsResultSchema } from './schemas/product-schema';
+import { type ProductsResponse, getProductsResultSchema } from './schemas/product-schema';
 
 export async function getAllProducts(offset = 0, BEARER_TOKEN: string): Promise<ProductsResponse> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };

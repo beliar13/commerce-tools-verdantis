@@ -64,3 +64,5 @@ export const getProductsResultSchema = z.object({
   results: z.array(productSchema),
   total: z.number(),
 });
+
+export type ProductsResponse = z.infer<typeof getProductsResultSchema>;
