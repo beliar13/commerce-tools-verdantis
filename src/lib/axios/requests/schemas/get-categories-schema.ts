@@ -9,42 +9,34 @@ export type CategoriesRequestArguments = {
   withTotal?: boolean;
 };
 
-// const CategoryReferenceSchema = z.object({
-//   id: z.string(),
-//   typeId: z.string(),
-// });
-
 export const categorySchema = z.object({
   ancestors: z.array(z.unknown()),
   assets: z.unknown().optional(),
-  createdAt: z.date(),
+  createdAt: z.string(),
   createdBy: z.unknown().optional(),
   custom: z.object({ fields: z.unknown(), type: z.unknown() }).optional(),
-  description: z.record(z.string(), z.string()),
+  description: z.record(z.string(), z.string()).optional(),
   externalId: z.string().optional(),
-  hasStagedChanges: z.boolean(),
   id: z.string(),
   key: z.string().optional(),
-  lastModifiedAt: z.date(),
+  lastModifiedAt: z.string(),
   lastModifiedBy: z.unknown().optional(),
   metaDescription: z.record(z.string(), z.string()).optional(),
   metaTitle: z.record(z.string(), z.string()).optional(),
   name: z.record(z.string(), z.string()),
   orderHint: z.string().optional(),
   parent: z.unknown().optional(),
-  published: z.boolean(),
   slug: z.record(z.string(), z.string()),
   version: z.number(),
 });
 export type Category = z.infer<typeof categorySchema>;
 
-export const categoriesResponsesSchema = z.object({
-  hasStagedChanges: z.boolean(),
+export const categoriesResponseSchema = z.object({
+  count: z.number(),
   limit: z.number(),
   offset: z.number(),
   results: z.array(categorySchema),
-  sort: z.number(),
   total: z.number().optional(),
 });
 
-export type CategoriesResponse = z.infer<typeof categoriesResponsesSchema>;
+export type CategoriesResponse = z.infer<typeof categoriesResponseSchema>;
