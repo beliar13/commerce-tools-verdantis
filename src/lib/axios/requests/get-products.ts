@@ -5,9 +5,9 @@ import { envVariables } from '@/config/commerce-tools-api';
 import { apiInstance } from '../axios-instances';
 import { ProductsRequestArguments } from './catalog-types';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
-import { type ProductsResponse, getProductsResultSchema } from './schemas/product-schema';
+import { type Product, getProductsResultSchema } from './schemas/product-schema';
 
-export async function getAllProducts(offset = 0, BEARER_TOKEN: string): Promise<ProductsResponse> {
+export async function getAllProducts(offset = 0, BEARER_TOKEN: string): Promise<Product[]> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
   const query = `/${envVariables.PROJECT_KEY}/product-projections?limit=${queryArgs.limit}`;
   try {
@@ -16,8 +16,7 @@ export async function getAllProducts(offset = 0, BEARER_TOKEN: string): Promise<
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
-    console.log(getProductsResult.data);
-    return getProductsResultSchema.parse(getProductsResult.data);
+    return getProductsResultSchema.parse(getProductsResult.data).results;
   } catch (e) {
     console.error('Error occured while getting products:', e);
     if (isAxiosError(e)) {

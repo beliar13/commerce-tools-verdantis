@@ -11,6 +11,7 @@ const ProductVariantSchema = z.object({
 
 const ProductDataSchema = z.object({
   categories: z.array(CategoryReferenceSchema),
+  description: z.string().optional(),
   masterVariant: ProductVariantSchema,
   name: z.string(),
   searchKeywords: z.string(),
@@ -38,7 +39,7 @@ export const productSchema = z.object({
   masterVariant: z.object({}).optional(),
   metaDescription: z.object({}).optional(),
   metaTitle: z.object({}).optional(),
-  name: z.record(z.string(), z.string()).optional(),
+  name: z.record(z.string(), z.string()),
   priceMode: z.string().optional(),
   productType: z.object({
     id: z.string(),
@@ -56,6 +57,8 @@ export const productSchema = z.object({
   variants: z.array(z.unknown()).optional(),
   version: z.number(),
 });
+
+export type Product = z.infer<typeof productSchema>;
 
 export const getProductsResultSchema = z.object({
   count: z.number(),

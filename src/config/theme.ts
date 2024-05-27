@@ -28,6 +28,7 @@ export const theme = createTheme({
       main: red.A400,
     },
     primary: {
+      contrastText: 'white',
       dark: '#2a2d19',
       light: '#6fa45e',
       main: '#334c36',
