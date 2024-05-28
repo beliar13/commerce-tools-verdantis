@@ -19,7 +19,7 @@ export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }
     }
   }, [isForLoggedIn, isLoggedIn, navigate]);
 
-  if (type === null || type === 'password') {
+  if (type === null || isLoggedIn !== isForLoggedIn) {
     return (
       <Backdrop className="bg-transparent" open>
         <CircularProgress />
