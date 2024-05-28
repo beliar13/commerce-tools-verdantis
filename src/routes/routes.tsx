@@ -8,7 +8,7 @@ import LoginPage from '@/pages/login-page';
 import MainPage from '@/pages/main-page';
 import NotFoundPage from '@/pages/not-found-page';
 import RegistrationPage from '@/pages/registration-page';
-
+import { UserProfilePage } from '@/pages/user-profile-page';
 export const routes = [
   {
     children: [
@@ -35,6 +35,14 @@ export const routes = [
       {
         element: <CatalogPage />,
         path: '/catalog',
+      },
+      {
+        element: (
+          <AuthProtectedRoute isForLoggedIn={true}>
+            <UserProfilePage />
+          </AuthProtectedRoute>
+        ),
+        path: '/profile',
       },
       { element: <NotFoundPage />, path: '*' },
     ],

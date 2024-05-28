@@ -1,6 +1,7 @@
 export type RegistrationAddress = {
   city: string;
   country: string;
+  id?: string;
   postalCode: string;
   region?: string;
   streetName: string;

@@ -3,6 +3,7 @@ import { z } from 'zod';
 const RegistrationAddressSchema = z.object({
   city: z.string(),
   country: z.string(),
+  id: z.string().optional(),
   postalCode: z.string(),
   region: z.string().optional(),
   streetName: z.string(),

@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const myCustomerDraftSchema = z.object({
   addresses: z.array(z.unknown()).optional(),
+  billingAddresses: z.unknown().optional(),
   companyName: z.string().optional(),
   dateOfBirth: z.string().optional(),
   defaultBillingAddress: z.number().optional(),
@@ -13,6 +14,7 @@ export const myCustomerDraftSchema = z.object({
   middleName: z.string().optional(),
   password: z.string(),
   salutation: z.string().optional(),
+  shippingAddresses: z.unknown().optional(),
   stores: z.unknown().optional(),
   title: z.string().optional(),
   vatId: z.string().optional(),
