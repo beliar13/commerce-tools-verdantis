@@ -6,13 +6,7 @@ import { authInstance } from '../axios-instances';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
 import { TokenInfo, tokenInfoSchema } from './schemas/token-info.schema';
 
-export async function getToken({
-  password,
-  username,
-}: {
-  password: string;
-  username: string;
-}): Promise<TokenInfo> {
+export async function getToken({ password, username }: { password: string; username: string }): Promise<TokenInfo> {
   try {
     const tokenInfo = await authInstance.post(
       `/oauth/${envVariables.PROJECT_KEY}/customers/token`,

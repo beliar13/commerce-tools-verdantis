@@ -51,7 +51,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-explicit-any': 'error',
     curly: ['error', 'all'],
-    'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
+    'max-lines-per-function': ['error', { max: 60, skipBlankLines: true, skipComments: true }],
     'perfectionist/sort-imports': [
       'error',
       {
