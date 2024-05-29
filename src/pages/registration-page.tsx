@@ -10,11 +10,7 @@ const RegistrationPage: FC<{
 }> = () => {
   return (
     <div id="registration-page">
-      <Typography
-        component={'h1'}
-        sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }}
-        textAlign={'center'}
-      >
+      <Typography component={'h1'} sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }} textAlign={'center'}>
         Registration
       </Typography>
       <RegistrationForm />

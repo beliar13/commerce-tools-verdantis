@@ -15,25 +15,15 @@ export const BillingAddress: FC<{
 }> = ({ control }) => {
   return (
     <AddressWrapper>
-      <Typography
-        component={'h4'}
-        sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }}
-        textAlign={'center'}
-      >
+      <Typography component={'h4'} sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }} textAlign={'center'}>
         Billing
       </Typography>
 
-      <ControllerComponent
-        {...{ control, label: 'Set as default', name: 'setBillingAsDefault', type: 'checkbox' }}
-      />
+      <ControllerComponent {...{ control, label: 'Set as default', name: 'setBillingAsDefault', type: 'checkbox' }} />
       <ControllerComponent {...{ control, label: 'street', name: 'streetBilling', type: 'text' }} />
       <ControllerComponent {...{ control, label: 'city', name: 'cityBilling', type: 'text' }} />
-      <ControllerComponent
-        {...{ control, label: 'country', name: 'countryBilling', select: 'select' }}
-      />
-      <ControllerComponent
-        {...{ control, label: 'postal-code', name: 'postalCodeBilling', type: 'text' }}
-      />
+      <ControllerComponent {...{ control, label: 'country', name: 'countryBilling', select: 'select' }} />
+      <ControllerComponent {...{ control, label: 'postal-code', name: 'postalCodeBilling', type: 'text' }} />
     </AddressWrapper>
   );
 };

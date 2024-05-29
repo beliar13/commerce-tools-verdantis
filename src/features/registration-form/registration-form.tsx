@@ -7,10 +7,7 @@ import { ReactJSXElement } from 'node_modules/@emotion/react/types/jsx-namespace
 
 import { AddressControlPanel } from '../../components/registration/address/address-control-panel';
 import { GeneralInputs } from '../../components/registration/general-inputs';
-import {
-  RegistrationFormFields,
-  registrationSchema,
-} from '../../lib/axios/requests/schemas/registration-form-schema';
+import { RegistrationFormFields, registrationSchema } from '../../lib/axios/requests/schemas/registration-form-schema';
 import { getRegistrationData } from './get-registration-data';
 import { registrationFormDefaultValues } from './registration-form-constants';
 import { useRegistrationFormMutation } from './use-registration-form-mutation';
