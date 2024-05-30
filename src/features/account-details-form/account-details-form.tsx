@@ -1,8 +1,8 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, Button, Collapse } from '@mui/material';
+import { Alert, Button, Collapse, Snackbar } from '@mui/material';
 
 import { Customer } from '@/lib/axios/requests/schemas/customer.schema.ts';
 
@@ -35,7 +35,10 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
     mode: 'onChange',
     resolver: zodResolver(accountSchema),
   });
-  const [accountMutation, errorMessage] = useAccountFormMutation();
+  const [accountMutation, errorMessage] = useAccountFormMutation(() => {
+    setIsOpen(true);
+  });
+  const [isOpen, setIsOpen] = useState(false);
   const prevFormData = useRef<AccountDetails | null>(null);
   useSideEffect({
     condition: getValues('isEditMode') && !errorMessage,
@@ -54,7 +57,7 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
   });
   return (
     <form
-      className="mx-auto flex max-w-96 flex-col gap-2"
+      className="mx-auto flex flex-col gap-2"
       onSubmit={(e) =>
         void handleSubmit((data): void => {
           setValue('isEditMode', false);
@@ -64,18 +67,25 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
     >
       <ProfileInfoContent {...{ control, customer, isEditMode: watch('isEditMode') }} />
       <Collapse in={watch('isEditMode')}>
-        <Button
-          className="mx-auto my-0 block"
-          disabled={accountMutation.isPending}
-          type="submit"
-          variant="contained"
-        >
+        <Button className="mx-auto my-0 block" disabled={accountMutation.isPending} type="submit" variant="contained">
           Save changes
         </Button>
       </Collapse>
       <Collapse in={!!errorMessage && watch('isEditMode')}>
         <Alert severity="warning">{errorMessage}</Alert>
       </Collapse>
+      <SnackBarAlert
+        {...{
+          isOpen,
+          onClose: () => {
+            setIsOpen(false);
+          },
+        }}
+      />
     </form>
   );
+};
+
+const SnackBarAlert: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  return <Snackbar autoHideDuration={5000} message="Data was successfully updated" onClose={onClose} open={isOpen} />;
 };

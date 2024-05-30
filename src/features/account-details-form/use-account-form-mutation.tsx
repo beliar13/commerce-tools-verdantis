@@ -10,10 +10,9 @@ import { useTokenStore } from '@/stores/token-store.ts';
 import { AccountDetails } from './account-details.schema.ts';
 import { getRequestBody } from './get-request-body.tsx';
 
-export function useAccountFormMutation(): [
-  UseMutationResult<Customer, Error, AccountDetails>,
-  string,
-] {
+export function useAccountFormMutation(
+  onSubmit: () => void,
+): [UseMutationResult<Customer, Error, AccountDetails>, string] {
   const token = useTokenStore().token;
   const customerStore = useCustomerStore();
   const [errorMessage, setErrorMessage] = useState('');
@@ -36,6 +35,7 @@ export function useAccountFormMutation(): [
     },
     onSuccess: (response) => {
       customerStore.setCustomer({ customer: response });
+      onSubmit();
     },
   });
   return [accountMutation, errorMessage] as const;
