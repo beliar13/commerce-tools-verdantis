@@ -28,10 +28,45 @@ const useSideEffect = ({
   }, [condition, onFalse, onTrue]);
 };
 
+const SnackBarAlert: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  return (
+    <Snackbar
+      autoHideDuration={5000}
+      message="Data was successfully updated"
+      onClose={onClose}
+      open={isOpen}
+    />
+  );
+};
+
+const CollapseElements: FC<{ errorMessage: string; isCollapsed: boolean; isDisabled: boolean }> = ({
+  errorMessage,
+  isCollapsed,
+  isDisabled,
+}) => {
+  return (
+    <>
+      <Collapse in={isCollapsed}>
+        <Button
+          className="mx-auto my-0 block"
+          disabled={isDisabled}
+          type="submit"
+          variant="contained"
+        >
+          Save changes
+        </Button>
+      </Collapse>
+      <Collapse in={!!errorMessage}>
+        <Alert severity="warning">{errorMessage}</Alert>
+      </Collapse>
+    </>
+  );
+};
+
 export const AccountDetailsForm: FC<Customer> = (customer) => {
-  const { dateOfBirth, firstName, lastName } = customer;
+  const { dateOfBirth, email, firstName, lastName } = customer;
   const { control, getValues, handleSubmit, setValue, watch } = useForm<AccountDetails>({
-    defaultValues: { dateOfBirth, firstName, isEditMode: false, lastName },
+    defaultValues: { dateOfBirth, email, firstName, isEditMode: false, lastName },
     mode: 'onChange',
     resolver: zodResolver(accountSchema),
   });
@@ -46,10 +81,11 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
       if (!prevFormData.current) {
         return;
       }
-      const { dateOfBirth, firstName, lastName } = prevFormData.current;
+      const { dateOfBirth, email, firstName, lastName } = prevFormData.current;
       setValue('dateOfBirth', dateOfBirth);
       setValue('firstName', firstName);
       setValue('lastName', lastName);
+      setValue('email', email);
     },
     onTrue: () => {
       prevFormData.current = { ...getValues() };
@@ -61,19 +97,19 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
       onSubmit={(e) =>
         void handleSubmit((data): void => {
           setValue('isEditMode', false);
+          prevFormData.current = null;
           accountMutation.mutate(data);
         })(e)
       }
     >
       <ProfileInfoContent {...{ control, customer, isEditMode: watch('isEditMode') }} />
-      <Collapse in={watch('isEditMode')}>
-        <Button className="mx-auto my-0 block" disabled={accountMutation.isPending} type="submit" variant="contained">
-          Save changes
-        </Button>
-      </Collapse>
-      <Collapse in={!!errorMessage && watch('isEditMode')}>
-        <Alert severity="warning">{errorMessage}</Alert>
-      </Collapse>
+      <CollapseElements
+        {...{
+          errorMessage,
+          isCollapsed: watch('isEditMode'),
+          isDisabled: accountMutation.isPending,
+        }}
+      />
       <SnackBarAlert
         {...{
           isOpen,
@@ -84,8 +120,4 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
       />
     </form>
   );
-};
-
-const SnackBarAlert: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  return <Snackbar autoHideDuration={5000} message="Data was successfully updated" onClose={onClose} open={isOpen} />;
 };

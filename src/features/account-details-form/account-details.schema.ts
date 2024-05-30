@@ -10,6 +10,7 @@ export const accountSchema = z.object({
       const userAge = currentDate.getFullYear() - userDateOfBirth.getFullYear();
       return userAge >= 13;
     }, 'Must be at least 13 years old'),
+  email: z.string().email('should be properly formatted'),
   firstName: z
     .string()
     .min(1, 'Must be at least 1 character')

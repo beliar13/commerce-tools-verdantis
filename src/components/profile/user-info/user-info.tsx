@@ -25,6 +25,10 @@ export const UserInfo: FC<{ control: Control<AccountDetails>; isEditMode: boolea
           <ControlledTextField {...{ control, disabled: !isEditMode, name: 'lastName' }} />
         </ListItem>
         <ListItem className="items-start">
+          <ListItemText className="whitespace-nowrap p-1" primary="Email:" />
+          <ControlledTextField {...{ control, disabled: !isEditMode, name: 'email' }} />
+        </ListItem>
+        <ListItem className="items-start">
           <ListItemText className="p-1" primary="Date of birth:" />
           <ControlledTextField
             {...{ control, disabled: !isEditMode, name: 'dateOfBirth', type: 'date' }}

@@ -18,6 +18,9 @@ export const getRequestBody = (
   if (formData.lastName !== prevCustomerInfo.lastName) {
     actions.push({ action: 'setLastName', lastName: formData.lastName });
   }
+  if (formData.email !== prevCustomerInfo.email) {
+    actions.push({ action: 'changeEmail', email: formData.email });
+  }
   if (actions.length === 0) {
     throw new Error('no data to update');
   }
