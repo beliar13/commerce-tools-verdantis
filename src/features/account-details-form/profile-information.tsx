@@ -17,7 +17,7 @@ export const ProfileInfoContent: FC<{
   return (
     <>
       <Box
-        className="flex max-w-[390px] items-center justify-evenly p-2"
+        className="flex items-center justify-evenly p-2"
         sx={{ flexDirection: { lg: 'row', md: 'row', sm: 'column', xs: 'column' } }}
       >
         <UserInfo {...{ control, isEditMode }} />
