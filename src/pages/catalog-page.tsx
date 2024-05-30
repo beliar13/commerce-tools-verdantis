@@ -5,10 +5,9 @@ import { Stack } from '@mui/material';
 
 import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 
-import { CategoriesNavigation } from '@/components/catalog/catalog-navigation/catalog-navigation';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
+import { CategoriesNavigation } from '@/features/catalog/catalog-navigation/catalog-navigation';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
-import { checkIfCategoryExist } from '@/lib/axios/requests/check-category-exist';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
 import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
 import { useTokenStore } from '@/stores/token-store';
@@ -26,19 +25,13 @@ const CatalogPage: FC = () => {
     const categoryId = urlSearchParams.get('category');
 
     if (categoryId) {
-      console.log('categoryId', categoryId);
-      checkIfCategoryExist(categoryId, token).then(
-        () => {
-          getProductsByCategory(categoryId, 0, token).then(
-            (products: Product[]) => {
-              setProducts(products);
-            },
-            (error) => {
-              console.error(error);
-            },
-          );
+      getProductsByCategory(categoryId, 0, token).then(
+        (products: Product[]) => {
+          setProducts(products);
         },
-        (err) => console.error(err),
+        (error) => {
+          console.error(error);
+        },
       );
     } else {
       console.log('no category selected');
@@ -57,7 +50,7 @@ const CatalogPage: FC = () => {
     <CatalogWrapper>
       <Stack className={'flex-row justify-between'}>
         <CategoriesNavigation />
-        {products ? (
+        {products && products.length > 0 ? (
           <Stack className="my-auto  flex w-3/4 flex-row flex-wrap gap-2">
             {products.map((product: Product) => {
               return <CatalogItem key={`${product.key}`} product={product} />;

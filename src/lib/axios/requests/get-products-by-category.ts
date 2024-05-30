@@ -15,7 +15,7 @@ export async function getProductsByCategory(
   BEARER_TOKEN: string,
 ): Promise<Product[]> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
-  const query = `/${envVariables.PROJECT_KEY}/product-projections?limit=${queryArgs.limit}&filter=categories.id:"${categoryId}"`;
+  const query = `/${envVariables.PROJECT_KEY}/product-projections?limit=${queryArgs.limit}&offset=${queryArgs.offset}&where=categories(id%3D"${categoryId}")`;
   try {
     const getProductsResult = await apiInstance.get(query, {
       headers: {
@@ -25,7 +25,7 @@ export async function getProductsByCategory(
     console.log('products', getProductsResult);
     return getProductsResultSchema.parse(getProductsResult.data).results;
   } catch (e) {
-    console.error('Error occured while getting products:', e);
+    console.error('Error occurred while getting products:', e);
     if (isAxiosError(e)) {
       const message = axiosErrorMsgSchema.catch(e.message).parse(e);
       throw new Error(message);
@@ -34,22 +34,3 @@ export async function getProductsByCategory(
     throw e;
   }
 }
-
-// export async function getProductsOfCategory(
-//   id: string,
-//   offset = 0
-// ): Promise<ProductProjectionPagedQueryResponse | null> {
-//   const queryArgs = {
-//     where: `categories(id="${id}")`,
-//     limit: productsPerPage,
-//     offset,
-//   };
-//   try {
-//     const request = await getApiRoot().productProjections().get({ queryArgs }).execute();
-//     const products = request.body;
-//     return products;
-//   } catch (err) {
-//     console.error(errorMessage);
-//     return null;
-//   }
-// }

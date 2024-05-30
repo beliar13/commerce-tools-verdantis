@@ -10,7 +10,7 @@ export const getChildCategories = async (
   parentId: string,
   BEARER_TOKEN: string,
 ): Promise<Category[]> => {
-  const query = `/${envVariables.PROJECT_KEY}/categories?where=parent(id=${parentId})`;
+  const query = `/${envVariables.PROJECT_KEY}/categories?where=parent(id%3D"${parentId}")`;
   try {
     const getCategoriesResult = await apiInstance.get(query, {
       headers: {

@@ -2,15 +2,15 @@ import { FC, ReactNode, useEffect, useState } from 'react';
 
 import { ButtonGroup } from '@mui/material';
 
+import { getChildCategories } from '@/lib/axios/requests/get-child-categories';
 import { getParentCategories } from '@/lib/axios/requests/get-parent-categories';
+import { Category } from '@/lib/axios/requests/schemas/get-categories-schema';
 import { useTokenStore } from '@/stores/token-store';
 
 import { NavigationCategory } from './navigation-category';
-// import { Category } from '@/lib/axios/requests/schemas/get-categories-schema';
-
-import { getChildCategories } from '@/lib/axios/requests/get-child-categories';
 
 export type CategoryData = {
+  children: Category[];
   id: string;
   name: string;
 };
@@ -30,8 +30,6 @@ export const CategoriesNavigation: FC<{
         const childCategoryPromises = categoriesResponse.map((category) =>
           getChildCategories(category.id, token),
         );
-        // categoriesResponse.forEach((category: Category)=>{
-        //   getChildCategories(category.id, token).then((result)=>{console.log(`child categories for ${category.key}`,result)})
 
         Promise.all(childCategoryPromises).then(
           (childCategoriesResults) => {
@@ -40,18 +38,10 @@ export const CategoriesNavigation: FC<{
               id: category.id,
               name: category.name['en-US'],
             }));
-
             setCategories(categoryNamesAndIds);
           },
           (err) => console.error(err),
         );
-        // })
-        // const categoryNamesAndIds = categoriesResponse.map((category) => ({
-        //   id: category.id,
-        //   name: category.name['en-US'],
-        // }));
-
-        // setCategories(categoryNamesAndIds);
       },
 
       (err) => {
