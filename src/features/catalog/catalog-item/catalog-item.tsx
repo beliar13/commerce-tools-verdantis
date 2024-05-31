@@ -1,3 +1,5 @@
+import { Link as RouterLink } from 'react-router-dom';
+
 import { Button, Card, CardActions, Typography } from '@mui/material';
 
 import { Product } from '@/lib/axios/requests/schemas/product-schema';
@@ -9,7 +11,9 @@ export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
   return (
     <Card
       className="mt-5 flex max-w-40 flex-col justify-center p-5"
-      sx={{ backgroundColor: 'primary.contrastText' }}
+      component={RouterLink}
+      sx={{ backgroundColor: 'primary.contrastText', textDecoration: 'none' }}
+      to={`${product.id}`}
       variant="outlined"
     >
       <Typography className="my-3  text-center" sx={{ fontWeight: 600 }}>
