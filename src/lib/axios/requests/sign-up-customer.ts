@@ -10,20 +10,13 @@ import { SignUpResult, signUpResultSchema } from './schemas/sign-up-result-schem
 
 export type MyCustomerDraft = z.infer<typeof myCustomerDraftSchema>;
 
-export async function signUpCustomer(
-  myCustomerDraft: MyCustomerDraft,
-  BEARER_TOKEN: string,
-): Promise<SignUpResult> {
+export async function signUpCustomer(myCustomerDraft: MyCustomerDraft, BEARER_TOKEN: string): Promise<SignUpResult> {
   try {
-    const customerSignInResult = await apiInstance.post(
-      `/${envVariables.PROJECT_KEY}/me/signup`,
-      myCustomerDraft,
-      {
-        headers: {
-          Authorization: `Bearer ${BEARER_TOKEN}`,
-        },
+    const customerSignInResult = await apiInstance.post(`/${envVariables.PROJECT_KEY}/me/signup`, myCustomerDraft, {
+      headers: {
+        Authorization: `Bearer ${BEARER_TOKEN}`,
       },
-    );
+    });
 
     return signUpResultSchema.parse(customerSignInResult.data);
   } catch (e) {

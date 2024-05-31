@@ -16,10 +16,7 @@ import { loginUser } from '../../lib/axios/requests/login-user';
 import { LoginInfo, loginSchema } from './login-form.schema.ts';
 import { PasswordInput } from './password-input.tsx';
 
-function useLoginFormMutation(): [
-  UseMutationResult<[TokenInfo, SignInResult], Error, UserCredentials>,
-  string,
-] {
+function useLoginFormMutation(): [UseMutationResult<[TokenInfo, SignInResult], Error, UserCredentials>, string] {
   const tokenStore = useTokenStore();
   const customerStore = useCustomerStore();
   const [errorMessage, setErrorMessage] = useState('');
