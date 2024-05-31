@@ -34,7 +34,6 @@ const CatalogPage: FC = () => {
         },
       );
     } else {
-      console.log('no category selected');
       getAllProducts(0, token).then(
         (products: Product[]) => {
           setProducts(products);

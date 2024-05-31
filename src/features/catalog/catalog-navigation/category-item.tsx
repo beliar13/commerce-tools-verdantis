@@ -4,24 +4,25 @@ import { List, ListItemButton } from '@mui/material';
 
 import type { CategoryData } from './catalog-navigation';
 
-export const NavigationCategory = ({ category }: { category: CategoryData }): JSX.Element => {
-  const { children, id, name } = category;
-  const [_, setSearchParams] = useSearchParams();
-  console.log(_);
-  const handleClick = (e: unknown, categoryId: string): void => {
-    setSearchParams({ category: categoryId });
+export const CategoryItem = ({ category }: { category: CategoryData }): JSX.Element => {
+  const { children, name } = category;
+
+  const [, setSearchParams] = useSearchParams();
+  const handleClick: React.MouseEventHandler<HTMLElement> = (e): void => {
+    const eventTarget = e.target;
+    if (!eventTarget || !(eventTarget instanceof HTMLElement)) {
+      throw new Error('Target with id expected');
+    }
+    const targetId = eventTarget.id;
+    setSearchParams({ category: targetId });
   };
 
   return (
     <List
       aria-labelledby="nested-list-subheader"
       component="nav"
-      onClick={(e) => handleClick(e, id)}
       subheader={
-        <ListItemButton
-          onClick={(e) => handleClick(e, id)}
-          sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}
-        >
+        <ListItemButton sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
           {name}
         </ListItemButton>
       }
@@ -32,8 +33,9 @@ export const NavigationCategory = ({ category }: { category: CategoryData }): JS
         const enName = name['en-US'];
         return (
           <ListItemButton
+            id={id}
             key={key}
-            onClick={(e) => handleClick(e, id)}
+            onClick={(e) => handleClick(e)}
             sx={{ bgcolor: 'primary.light', color: 'primary.contrastText' }}
           >
             {enName}

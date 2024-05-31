@@ -7,7 +7,7 @@ import { getParentCategories } from '@/lib/axios/requests/get-parent-categories'
 import { Category } from '@/lib/axios/requests/schemas/get-categories-schema';
 import { useTokenStore } from '@/stores/token-store';
 
-import { NavigationCategory } from './navigation-category';
+import { CategoryItem } from './category-item';
 
 export type CategoryData = {
   children: Category[];
@@ -26,19 +26,21 @@ export const CategoriesNavigation: FC<{
       throw new Error('Token expected');
     }
     getParentCategories(token).then(
-      (categoriesResponse) => {
-        const childCategoryPromises = categoriesResponse.map((category) =>
+      (parentCategoriesResponse) => {
+        const childCategoryPromises = parentCategoriesResponse.map((category) =>
           getChildCategories(category.id, token),
         );
 
         Promise.all(childCategoryPromises).then(
-          (childCategoriesResults) => {
-            const categoryNamesAndIds = categoriesResponse.map((category, index) => ({
-              children: childCategoriesResults[index],
-              id: category.id,
-              name: category.name['en-US'],
-            }));
-            setCategories(categoryNamesAndIds);
+          (childCategoriesResponse) => {
+            const allCategoriesData = parentCategoriesResponse.map(
+              (childCategory, childCategoryIndex) => ({
+                children: childCategoriesResponse[childCategoryIndex],
+                id: childCategory.id,
+                name: childCategory.name['en-US'],
+              }),
+            );
+            setCategories(allCategoriesData);
           },
           (err) => console.error(err),
         );
@@ -53,7 +55,7 @@ export const CategoriesNavigation: FC<{
   return categories.length > 0 ? (
     <ButtonGroup aria-label="Vertical button group" orientation="vertical" variant="contained">
       {categories.map((category) => {
-        return <NavigationCategory category={category} key={category.id} />;
+        return <CategoryItem category={category} key={category.id} />;
       })}
     </ButtonGroup>
   ) : (

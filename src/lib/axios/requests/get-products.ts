@@ -27,5 +27,3 @@ export async function getAllProducts(offset = 0, BEARER_TOKEN: string): Promise<
     throw e;
   }
 }
-
-// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
