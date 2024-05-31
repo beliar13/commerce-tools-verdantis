@@ -1,4 +1,5 @@
 import { FC, ReactNode, useEffect, useState } from 'react';
+// import { useParams } from 'react-router-dom';
 
 import { ButtonGroup } from '@mui/material';
 
@@ -18,6 +19,7 @@ export type CategoryData = {
 export const CategoriesNavigation: FC<{
   children?: ReactNode;
 }> = () => {
+  // const { category } = useParams<{ category: string }>();
   const [categories, setCategories] = useState<CategoryData[]>([]);
   const { token } = useTokenStore();
 
@@ -52,8 +54,8 @@ export const CategoriesNavigation: FC<{
 
   return categories.length > 0 ? (
     <ButtonGroup aria-label="Vertical button group" orientation="vertical" variant="contained">
-      {categories.map((category) => {
-        return <CategoryItem category={category} key={category.id} />;
+      {categories.map((fetchedCategory) => {
+        return <CategoryItem category={fetchedCategory} key={fetchedCategory.id} />;
       })}
     </ButtonGroup>
   ) : (
