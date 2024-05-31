@@ -1,5 +1,5 @@
-import { FC, useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import { FC, MutableRefObject, useEffect, useRef } from 'react';
+import { UseFormGetValues, UseFormSetValue, UseFormTrigger, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Collapse } from '@mui/material';
@@ -10,22 +10,32 @@ import { AccountDetails, accountSchema } from './account-details.schema.ts';
 import { ProfileInfoContent } from './profile-information.tsx';
 import { useAccountFormMutation } from './use-account-form-mutation.tsx';
 
-const useSideEffect = ({
-  condition,
-  onFalse,
-  onTrue,
+const useResetFormData = ({
+  getValues,
+  prevFormData,
+  setValue,
+  trigger,
 }: {
-  condition: boolean;
-  onFalse: () => void;
-  onTrue: () => void;
+  getValues: UseFormGetValues<AccountDetails>;
+  prevFormData: MutableRefObject<AccountDetails | null>;
+  setValue: UseFormSetValue<AccountDetails>;
+  trigger: UseFormTrigger<AccountDetails>;
 }): void => {
   useEffect(() => {
-    if (condition) {
-      onTrue();
+    if (getValues('isEditMode')) {
+      prevFormData.current = { ...getValues() };
     } else {
-      onFalse();
+      if (!prevFormData.current) {
+        return;
+      }
+      const { dateOfBirth, email, firstName, lastName } = prevFormData.current;
+      setValue('dateOfBirth', dateOfBirth);
+      setValue('firstName', firstName);
+      setValue('lastName', lastName);
+      setValue('email', email);
+      void trigger();
     }
-  }, [condition, onFalse, onTrue]);
+  }, [getValues, prevFormData, setValue, trigger]);
 };
 
 const CollapseElement: FC<{ isCollapsed: boolean; isDisabled: boolean }> = ({
@@ -55,23 +65,7 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
   });
   const [accountMutation] = useAccountFormMutation();
   const prevFormData = useRef<AccountDetails | null>(null);
-  useSideEffect({
-    condition: getValues('isEditMode'),
-    onFalse: () => {
-      if (!prevFormData.current) {
-        return;
-      }
-      const { dateOfBirth, email, firstName, lastName } = prevFormData.current;
-      setValue('dateOfBirth', dateOfBirth);
-      setValue('firstName', firstName);
-      setValue('lastName', lastName);
-      setValue('email', email);
-      void trigger();
-    },
-    onTrue: () => {
-      prevFormData.current = { ...getValues() };
-    },
-  });
+  useResetFormData({ getValues, prevFormData, setValue, trigger });
   return (
     <form
       className="mx-auto flex flex-col gap-2"
