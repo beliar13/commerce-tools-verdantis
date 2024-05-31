@@ -14,11 +14,7 @@ export const UserProfilePage: FC = () => {
   }
   return (
     <div id="error-page">
-      <Typography
-        component={'h1'}
-        sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }}
-        textAlign={'center'}
-      >
+      <Typography component={'h1'} sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }} textAlign={'center'}>
         User Profile
       </Typography>
       <AccountDetailsForm {...customer} />

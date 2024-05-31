@@ -7,6 +7,7 @@ import ErrorPage from '@/pages/error-page';
 import LoginPage from '@/pages/login-page';
 import MainPage from '@/pages/main-page';
 import NotFoundPage from '@/pages/not-found-page';
+import ProductPage from '@/pages/product-page';
 import RegistrationPage from '@/pages/registration-page';
 import { UserProfilePage } from '@/pages/user-profile-page';
 export const routes = [
@@ -36,6 +37,7 @@ export const routes = [
         element: <CatalogPage />,
         path: '/catalog',
       },
+      { element: <ProductPage />, path: 'catalog/:id' },
       {
         element: (
           <AuthProtectedRoute isForLoggedIn={true}>

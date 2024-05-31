@@ -13,14 +13,11 @@ export const getProductById = async (
 ): Promise<{ description: string; images: ProductImages; name: string }> => {
   const languageCode = 'en-US';
   try {
-    const response = await apiInstance.get(
-      `/${envVariables.PROJECT_KEY}/product-projections/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const response = await apiInstance.get(`/${envVariables.PROJECT_KEY}/product-projections/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
     const data = ProductSchema.parse(response.data);
     const name = data.name[languageCode];
     const description = data.description[languageCode];

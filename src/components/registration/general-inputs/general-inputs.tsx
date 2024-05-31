@@ -12,9 +12,7 @@ export const GeneralInputs: FC<{
   return (
     <>
       <ControllerComponent {...{ control, label: 'Email', name: 'email', type: 'email' }} />
-      <ControllerComponent
-        {...{ control, label: 'Password', name: 'password', type: 'password' }}
-      />
+      <ControllerComponent {...{ control, label: 'Password', name: 'password', type: 'password' }} />
       <ControllerComponent {...{ control, label: 'First Name', name: 'firstName', type: 'text' }} />
       <ControllerComponent {...{ control, label: 'Last Name', name: 'lastName', type: 'text' }} />
       <ControllerComponent {...{ control, label: 'Birthday', name: 'dateOfBirth', type: 'date' }} />

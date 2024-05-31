@@ -5,10 +5,7 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 import { useTokenStore } from '@/stores/token-store';
 
-export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }>> = ({
-  children,
-  isForLoggedIn,
-}) => {
+export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }>> = ({ children, isForLoggedIn }) => {
   const { type } = useTokenStore();
   const navigate = useNavigate();
   const isLoggedIn = type === 'password';
