@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 
@@ -10,12 +10,9 @@ import { useTokenStore } from '@/stores/token-store.ts';
 import { AccountDetails } from './account-details.schema.ts';
 import { getRequestBody } from './get-request-body.tsx';
 
-export function useAccountFormMutation(
-  onSubmit: () => void,
-): [UseMutationResult<Customer, Error, AccountDetails>, string] {
+export function useAccountFormMutation(): [UseMutationResult<Customer, Error, AccountDetails>] {
   const token = useTokenStore().token;
   const customerStore = useCustomerStore();
-  const [errorMessage, setErrorMessage] = useState('');
   const updateUser = (data: AccountDetails): Promise<Customer> => {
     if (!customerStore.customer) {
       throw new Error('no customer in store');
@@ -30,13 +27,12 @@ export function useAccountFormMutation(
   const accountMutation = useMutation({
     mutationFn: updateUser,
     onError: (error) => {
-      console.log(error);
-      setErrorMessage(error.message);
+      toast.error(error.message);
     },
     onSuccess: (response) => {
       customerStore.setCustomer({ customer: response });
-      onSubmit();
+      toast.success('The data was successfully updated!');
     },
   });
-  return [accountMutation, errorMessage] as const;
+  return [accountMutation] as const;
 }

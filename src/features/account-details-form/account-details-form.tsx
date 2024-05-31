@@ -1,8 +1,8 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, Button, Collapse, Snackbar } from '@mui/material';
+import { Button, Collapse } from '@mui/material';
 
 import { Customer } from '@/lib/axios/requests/schemas/customer.schema.ts';
 
@@ -28,55 +28,35 @@ const useSideEffect = ({
   }, [condition, onFalse, onTrue]);
 };
 
-const SnackBarAlert: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  return (
-    <Snackbar
-      autoHideDuration={5000}
-      message="Data was successfully updated"
-      onClose={onClose}
-      open={isOpen}
-    />
-  );
-};
-
-const CollapseElements: FC<{ errorMessage: string; isCollapsed: boolean; isDisabled: boolean }> = ({
-  errorMessage,
+const CollapseElement: FC<{ isCollapsed: boolean; isDisabled: boolean }> = ({
   isCollapsed,
   isDisabled,
 }) => {
   return (
-    <>
-      <Collapse in={isCollapsed}>
-        <Button
-          className="mx-auto my-0 block"
-          disabled={isDisabled}
-          type="submit"
-          variant="contained"
-        >
-          Save changes
-        </Button>
-      </Collapse>
-      <Collapse in={!!errorMessage}>
-        <Alert severity="warning">{errorMessage}</Alert>
-      </Collapse>
-    </>
+    <Collapse in={isCollapsed}>
+      <Button
+        className="mx-auto my-0 block"
+        disabled={isDisabled}
+        type="submit"
+        variant="contained"
+      >
+        Save changes
+      </Button>
+    </Collapse>
   );
 };
 
 export const AccountDetailsForm: FC<Customer> = (customer) => {
   const { dateOfBirth, email, firstName, lastName } = customer;
-  const { control, getValues, handleSubmit, setValue, watch } = useForm<AccountDetails>({
+  const { control, getValues, handleSubmit, setValue, trigger, watch } = useForm<AccountDetails>({
     defaultValues: { dateOfBirth, email, firstName, isEditMode: false, lastName },
     mode: 'onChange',
     resolver: zodResolver(accountSchema),
   });
-  const [accountMutation, errorMessage] = useAccountFormMutation(() => {
-    setIsOpen(true);
-  });
-  const [isOpen, setIsOpen] = useState(false);
+  const [accountMutation] = useAccountFormMutation();
   const prevFormData = useRef<AccountDetails | null>(null);
   useSideEffect({
-    condition: getValues('isEditMode') && !errorMessage,
+    condition: getValues('isEditMode'),
     onFalse: () => {
       if (!prevFormData.current) {
         return;
@@ -86,6 +66,7 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
       setValue('firstName', firstName);
       setValue('lastName', lastName);
       setValue('email', email);
+      void trigger();
     },
     onTrue: () => {
       prevFormData.current = { ...getValues() };
@@ -103,19 +84,10 @@ export const AccountDetailsForm: FC<Customer> = (customer) => {
       }
     >
       <ProfileInfoContent {...{ control, customer, isEditMode: watch('isEditMode') }} />
-      <CollapseElements
+      <CollapseElement
         {...{
-          errorMessage,
           isCollapsed: watch('isEditMode'),
           isDisabled: accountMutation.isPending,
-        }}
-      />
-      <SnackBarAlert
-        {...{
-          isOpen,
-          onClose: () => {
-            setIsOpen(false);
-          },
         }}
       />
     </form>
