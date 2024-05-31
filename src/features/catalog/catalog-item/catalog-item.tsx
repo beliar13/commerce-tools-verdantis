@@ -23,7 +23,7 @@ export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
         Description: {enDescription}
       </Typography>
       <CardActions>
-        <Button className="text-center" size="small">
+        <Button className="text-center" component={RouterLink} size="small" to={product.id}>
           Learn More
         </Button>
       </CardActions>
