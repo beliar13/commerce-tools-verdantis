@@ -33,13 +33,11 @@ export const CategoriesNavigation: FC<{
 
         Promise.all(childCategoryPromises).then(
           (childCategoriesResponse) => {
-            const allCategoriesData = parentCategoriesResponse.map(
-              (childCategory, childCategoryIndex) => ({
-                children: childCategoriesResponse[childCategoryIndex],
-                id: childCategory.id,
-                name: childCategory.name['en-US'],
-              }),
-            );
+            const allCategoriesData = parentCategoriesResponse.map((childCategory, childCategoryIndex) => ({
+              children: childCategoriesResponse[childCategoryIndex],
+              id: childCategory.id,
+              name: childCategory.name['en-US'],
+            }));
             setCategories(allCategoriesData);
           },
           (err) => console.error(err),

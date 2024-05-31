@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { List, ListItemButton } from '@mui/material';
 
-import type { CategoryData } from './catalog-navigation';
+import type { CategoryData } from './categories-navigation';
 
 export const CategoryItem = ({ category }: { category: CategoryData }): JSX.Element => {
   const { children, name } = category;
@@ -22,9 +22,7 @@ export const CategoryItem = ({ category }: { category: CategoryData }): JSX.Elem
       aria-labelledby="nested-list-subheader"
       component="nav"
       subheader={
-        <ListItemButton sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
-          {name}
-        </ListItemButton>
+        <ListItemButton sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>{name}</ListItemButton>
       }
       sx={{ bgcolor: 'primary.main', width: '100%' }}
     >
