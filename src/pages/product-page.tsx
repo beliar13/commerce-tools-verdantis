@@ -2,7 +2,8 @@ import { ReactNode, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import { Box, Container, Dialog, Paper, Typography } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
+import { Box, Container, Dialog, IconButton, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import { BackTo } from '@/components/back-to/back-to';
@@ -13,6 +14,7 @@ import { useTokenStore } from '@/stores/token-store';
 import {
   boxStyles,
   descStyles,
+  iconStyles,
   imgStyles,
   sliderSettingsDefaultImage,
   sliderSettingsEnlargedImage,
@@ -62,6 +64,9 @@ export default function ProductPage(): ReactNode {
           </Typography>
         </Paper>
         <Dialog maxWidth="lg" onClose={handleModalClose} open={open}>
+          <IconButton aria-label="close" onClick={handleModalClose} sx={iconStyles}>
+            <CloseIcon sx={{ scale: '1.3' }} />
+          </IconButton>
           <Box sx={{ padding: '40px' }}>
             <Slider {...sliderSettingsEnlargedImage} afterChange={(i) => setCurImgIdx(i)} initialSlide={curImgIdx}>
               {data?.images.map((image, index) => (
