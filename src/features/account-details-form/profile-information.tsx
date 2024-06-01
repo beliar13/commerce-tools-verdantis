@@ -16,13 +16,6 @@ export const ProfileInfoContent: FC<{
 }> = ({ control, customer, isEditMode }) => {
   return (
     <>
-      <Box
-        className="flex items-center justify-evenly p-2"
-        sx={{ flexDirection: { lg: 'row', md: 'row', sm: 'column', xs: 'column' } }}
-      >
-        <UserInfo {...{ control, isEditMode }} />
-        <AddressDisplay {...{ control, customer: customer }} />
-      </Box>
       <Controller
         control={control}
         name="isEditMode"
@@ -37,6 +30,13 @@ export const ProfileInfoContent: FC<{
           />
         )}
       />
+      <Box
+        className="flex items-center justify-evenly p-2"
+        sx={{ flexDirection: { lg: 'row', md: 'row', sm: 'column', xs: 'column' } }}
+      >
+        <UserInfo {...{ control, isEditMode }} />
+        <AddressDisplay {...{ control, customer: customer }} />
+      </Box>
     </>
   );
 };
