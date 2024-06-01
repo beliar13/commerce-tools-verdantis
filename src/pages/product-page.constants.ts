@@ -1,9 +1,14 @@
-export const sliderSettings = {
+export const sliderSettingsDefaultImage = {
   dots: true,
   infinite: true,
   slidesToScroll: 1,
   slidesToShow: 1,
-  speed: 500,
+};
+
+export const sliderSettingsEnlargedImage = {
+  infinite: true,
+  slidesToScroll: 1,
+  slidesToShow: 1,
 };
 
 export const descStyles = {

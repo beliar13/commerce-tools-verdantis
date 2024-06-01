@@ -37,7 +37,14 @@ export const routes = [
         element: <CatalogPage />,
         path: '/catalog',
       },
-      { element: <ProductPage />, path: 'catalog/:id' },
+      {
+        element: (
+          <ErrorBoundary FallbackComponent={ErrorPage}>
+            <ProductPage />
+          </ErrorBoundary>
+        ),
+        path: 'catalog/product/:id',
+      },
       {
         element: (
           <AuthProtectedRoute isForLoggedIn={true}>

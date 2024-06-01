@@ -3,10 +3,7 @@ import { Action } from '@/lib/axios/requests/update-customer/update-actions.type
 
 import { AccountDetails } from './account-details.schema.ts';
 
-export const getRequestBody = (
-  prevCustomerInfo: Customer,
-  formData: AccountDetails,
-): [number, Action[]] => {
+export const getRequestBody = (prevCustomerInfo: Customer, formData: AccountDetails): [number, Action[]] => {
   const actions: Action[] = [];
   const version = prevCustomerInfo.version;
   if (formData.dateOfBirth !== prevCustomerInfo.dateOfBirth) {

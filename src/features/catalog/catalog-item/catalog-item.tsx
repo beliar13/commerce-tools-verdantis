@@ -19,7 +19,7 @@ export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
         textDecoration: 'none',
         transition: '2s',
       }}
-      to={`${product.id}`}
+      to={`product/${product.id}`}
       variant="outlined"
     >
       <img alt={enName} className={' b-2 w-full '} src={image.url} />

@@ -5,12 +5,19 @@ import Slider from 'react-slick';
 import { Box, Container, Dialog, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
-import { BackToMain } from '@/components/back-to-main/back-to-main';
+import { BackTo } from '@/components/back-to/back-to';
 import { LoadingBackdrop } from '@/components/backdrop/backdrop';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
 import { useTokenStore } from '@/stores/token-store';
 
-import { boxStyles, descStyles, imgStyles, sliderSettings, titleStyles } from './product-page.constants';
+import {
+  boxStyles,
+  descStyles,
+  imgStyles,
+  sliderSettingsDefaultImage,
+  sliderSettingsEnlargedImage,
+  titleStyles,
+} from './product-page.constants';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -19,9 +26,9 @@ export default function ProductPage(): ReactNode {
   const { token } = useTokenStore();
   const { id } = useParams<{ id: string }>();
   const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-  const handleImageClick = (imageUrl: string): void => {
-    setSelectedImage(imageUrl);
+  const [curImgIdx, setCurImgIdx] = useState(0);
+  const handleImageClick = (index: number): void => {
+    setCurImgIdx(index);
     setOpen(true);
   };
   const handleModalClose = (): void => setOpen(false);
@@ -31,6 +38,7 @@ export default function ProductPage(): ReactNode {
   const { data, isPending } = useQuery({
     queryFn: () => getProductById(id, token),
     queryKey: ['product', id, token],
+    throwOnError: true,
   });
   if (isPending) {
     return <LoadingBackdrop open={isPending} />;
@@ -42,9 +50,9 @@ export default function ProductPage(): ReactNode {
           <Typography component="h1" gutterBottom sx={titleStyles} variant="h4">
             {data?.name}
           </Typography>
-          <Slider {...sliderSettings}>
+          <Slider {...sliderSettingsDefaultImage}>
             {data?.images.map((image, index) => (
-              <Box key={index} onClick={() => handleImageClick(image.url)} sx={boxStyles}>
+              <Box key={index} onClick={() => handleImageClick(index)} sx={boxStyles}>
                 <img alt={`${data.name}${index + 1}`} src={image.url} style={imgStyles} />
               </Box>
             ))}
@@ -54,10 +62,18 @@ export default function ProductPage(): ReactNode {
           </Typography>
         </Paper>
         <Dialog maxWidth="lg" onClose={handleModalClose} open={open}>
-          <img alt="big" src={selectedImage} style={imgStyles} />
+          <Box sx={{ padding: '40px' }}>
+            <Slider {...sliderSettingsEnlargedImage} afterChange={(i) => setCurImgIdx(i)} initialSlide={curImgIdx}>
+              {data?.images.map((image, index) => (
+                <Box key={index}>
+                  <img alt={`big${index}`} src={image.url} style={imgStyles} />
+                </Box>
+              ))}
+            </Slider>
+          </Box>
         </Dialog>
       </Container>
-      <BackToMain />
+      <BackTo dest="catalog" path="/catalog" />
     </Container>
   );
 }
