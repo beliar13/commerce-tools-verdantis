@@ -4,12 +4,9 @@ import { Control } from 'react-hook-form';
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import { ControlledTextField } from '@/components/controlled-text-field';
-import { AccountDetails } from '@/features/account-details-form/account-details.schema';
+import { AccountDetails } from '@/features/account-details-form';
 
-export const UserInfo: FC<{ control: Control<AccountDetails>; isEditMode: boolean }> = ({
-  control,
-  isEditMode,
-}) => {
+export const UserInfo: FC<{ control: Control<AccountDetails>; isEditMode: boolean }> = ({ control, isEditMode }) => {
   return (
     <Box>
       <Typography align="center" sx={{ fontSize: { lg: 30, md: 26, sm: 22, xs: 20 } }} variant="h2">
@@ -30,9 +27,7 @@ export const UserInfo: FC<{ control: Control<AccountDetails>; isEditMode: boolea
         </ListItem>
         <ListItem className="items-start">
           <ListItemText className="p-1" primary="Date of birth:" />
-          <ControlledTextField
-            {...{ control, disabled: !isEditMode, name: 'dateOfBirth', type: 'date' }}
-          />
+          <ControlledTextField {...{ control, disabled: !isEditMode, name: 'dateOfBirth', type: 'date' }} />
         </ListItem>
       </List>
     </Box>

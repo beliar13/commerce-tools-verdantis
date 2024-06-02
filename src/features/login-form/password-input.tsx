@@ -1,13 +1,19 @@
-import { FC, useState } from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { useState } from 'react';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 
-import { LoginInfo } from './login-form.schema';
-
-export const PasswordInput: FC<Control<LoginInfo>> = (control) => {
+export const PasswordInput = <T extends FieldValues>({
+  control,
+  label = 'password',
+  name,
+}: {
+  control: Control<T>;
+  label?: string;
+  name: Path<T>;
+}): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = (): void => setShowPassword((show) => !show);
@@ -15,7 +21,7 @@ export const PasswordInput: FC<Control<LoginInfo>> = (control) => {
   return (
     <Controller
       control={control}
-      name="password"
+      name={name}
       render={({ field, fieldState }) => {
         return (
           <TextField
@@ -37,7 +43,7 @@ export const PasswordInput: FC<Control<LoginInfo>> = (control) => {
             {...field}
             error={fieldState.invalid}
             helperText={fieldState.error?.message ?? ' '}
-            label="Password"
+            label={label}
             size="small"
             type={showPassword ? 'text' : 'password'}
           />

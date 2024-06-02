@@ -7,11 +7,7 @@ import { axiosErrorMsgSchema } from '../schemas/axios-error-msg.schema';
 import { Customer, customerSchema } from '../schemas/customer.schema';
 import { Action } from './update-actions.types';
 
-export async function updateCustomer(
-  version: number,
-  actions: Action[],
-  BEARER_TOKEN: string,
-): Promise<Customer> {
+export async function updateCustomer(version: number, actions: Action[], BEARER_TOKEN: string): Promise<Customer> {
   try {
     const customerUpdateResult = await apiInstance.post(
       `/${envVariables.PROJECT_KEY}/me`,
