@@ -6,7 +6,7 @@ import { Box, FormControlLabel, Switch } from '@mui/material';
 import { UserInfo } from '@/components/profile/user-info';
 import { Customer } from '@/lib/axios/requests/schemas/customer.schema';
 
-import { AddressDisplay } from '../address-display/address-display';
+import { AddressDisplay } from '../address-display';
 import { AccountDetails } from './account-details.schema';
 
 export const ProfileInfoContent: FC<{

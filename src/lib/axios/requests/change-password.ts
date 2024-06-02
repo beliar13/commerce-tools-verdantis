@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 
 import { envVariables } from '@/config/commerce-tools-api';
-import { Passwords } from '@/features/password-form/passwords.schema';
+import { Passwords } from '@/features/password-form';
 
 import { apiInstance } from '../axios-instances';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';

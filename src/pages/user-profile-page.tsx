@@ -3,8 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Button, Link, Typography } from '@mui/material';
 
-import { AccountDetailsForm } from '@/features/account-details-form/account-details-form';
-import { FormDialog } from '@/features/password-form/password-form';
+import { AccountDetailsForm } from '@/features/account-details-form';
+import { FormDialog } from '@/features/password-form';
 import { useCustomerStore } from '@/stores/customer-store';
 
 export const UserProfilePage: FC = () => {
