@@ -8,6 +8,7 @@ import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
+import { getFilteredProducts } from '@/lib/axios/requests/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
 import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
 import { useTokenStore } from '@/stores/token-store';
@@ -19,7 +20,10 @@ const CatalogPage: FC = () => {
     throw new Error('Token expected');
   }
   const location = useLocation();
-
+  getFilteredProducts(0, token).then(
+    (res) => console.log(res),
+    (err) => console.log(err),
+  );
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
     const categoryId = urlSearchParams.get('category');
