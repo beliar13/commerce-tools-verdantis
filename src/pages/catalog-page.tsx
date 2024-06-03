@@ -29,23 +29,9 @@ const CatalogPage: FC = () => {
     const categoryId = urlSearchParams.get('category');
 
     if (categoryId) {
-      getProductsByCategory(categoryId, 0, token).then(
-        (products: Product[]) => {
-          setProducts(products);
-        },
-        (error) => {
-          console.error(error);
-        },
-      );
+      handleGetWithCategory(categoryId, token, setProducts);
     } else {
-      getAllProducts(0, token).then(
-        (products: Product[]) => {
-          setProducts(products);
-        },
-        (error) => {
-          console.error(error);
-        },
-      );
+      handleGetAllProducts(token, setProducts);
     }
   }, [token, location]);
 
@@ -71,3 +57,32 @@ const CatalogPage: FC = () => {
 };
 
 export default CatalogPage;
+
+const handleGetWithCategory = (
+  categoryId: string,
+  token: string,
+  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
+): void => {
+  getProductsByCategory(categoryId, 0, token).then(
+    (products: Product[]) => {
+      setProducts(products);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+};
+
+const handleGetAllProducts = (
+  token: string,
+  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
+): void => {
+  getAllProducts(0, token).then(
+    (products: Product[]) => {
+      setProducts(products);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+};
