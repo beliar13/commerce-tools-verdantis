@@ -47,10 +47,13 @@ const CatalogPage: FC = () => {
 
   return (
     <CatalogWrapper>
-      <Stack className={'flex-row justify-between'}>
+      <Stack
+        className={' flex-row justify-between align-middle'}
+        sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
+      >
         <CategoriesNavigation />
         {products && products.length > 0 ? (
-          <Stack className="my-auto  flex w-3/4 flex-row flex-wrap gap-2">
+          <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
             {products.map((product: Product) => {
               return <CatalogItem key={`${product.key}`} product={product} />;
             })}

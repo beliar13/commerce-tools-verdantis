@@ -34,10 +34,11 @@ export const routes = [
         path: '/registration',
       },
       {
+        children: [{ children: [{ element: <></>, path: ':subcategory' }], element: <></>, path: ':categoryName' }],
         element: <CatalogPage />,
         path: '/catalog',
       },
-      { element: <ProductPage />, path: 'catalog/:id' },
+      { element: <ProductPage />, path: 'catalog/product/:id' },
       {
         element: (
           <AuthProtectedRoute isForLoggedIn={true}>
