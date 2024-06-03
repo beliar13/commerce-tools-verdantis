@@ -11,24 +11,31 @@ export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
   const image = masterVariant ? masterVariant.images[0] : { name: 'placeholder', url: '' };
   return (
     <Card
-      className="mt-5 flex max-w-40 flex-col justify-center p-5"
+      className="flex flex-col justify-between p-5"
       component={RouterLink}
       sx={{
         ':hover': { bgcolor: 'primary.light', transition: '2s' },
         backgroundColor: 'primary.contrastText',
         textDecoration: 'none',
         transition: '2s',
+        width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
       }}
       to={`product/${product.id}`}
       variant="outlined"
     >
-      <img alt={enName} className={' b-2 w-full '} src={image.url} />
+      <img alt={enName} className={'align-self-start w-full '} src={image.url} />
 
-      <Typography className="my-3  text-center" sx={{ fontWeight: 600 }}>
+      <Typography
+        className="my-3  text-center"
+        sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
+      >
         {enName}
       </Typography>
-      <Typography className="my-3" sx={{ color: 'primary.dark', fontWeight: 600 }}>
-        Description: {enDescription}
+      <Typography
+        className="my-3"
+        sx={{ color: 'primary.dark', fontSize: { lg: '18px', md: '16px', xs: '12px' }, fontWeight: 600 }}
+      >
+        {enDescription}
       </Typography>
       <CardActions>
         <Typography className="text-center" component={'h3'}>

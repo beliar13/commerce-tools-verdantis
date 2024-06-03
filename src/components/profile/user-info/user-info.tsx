@@ -4,7 +4,7 @@ import { Control } from 'react-hook-form';
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import { ControlledTextField } from '@/components/controlled-text-field';
-import { AccountDetails } from '@/features/account-details-form/account-details.schema';
+import { AccountDetails } from '@/features/account-details-form';
 
 export const UserInfo: FC<{ control: Control<AccountDetails>; isEditMode: boolean }> = ({ control, isEditMode }) => {
   return (
