@@ -10,9 +10,9 @@ import { useTokenStore } from '@/stores/token-store';
 
 import { formatCategoryKey } from './helper';
 
-function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
   event.preventDefault();
-}
+};
 
 export const BasicBreadcrumbs: FC = () => {
   const location = useLocation();
@@ -36,7 +36,8 @@ export const BasicBreadcrumbs: FC = () => {
     const correctKey = formatCategoryKey(decodedPath);
     getCategoryByKey(correctKey, token).then(
       (res) => {
-        const { id } = res[0];
+        const indexOfReceivedCategory = 0;
+        const { id } = res[indexOfReceivedCategory];
         setSearchParams({ category: id });
       },
 
@@ -55,11 +56,19 @@ export const BasicBreadcrumbs: FC = () => {
     ) : (
       <div key={path} onClick={handleClick} role="presentation">
         <Link color="inherit" component={RouterLink} key={path} to={to} underline="hover">
-          {path}
+          {decodeURIComponent(path)}
         </Link>
       </div>
     );
   });
 
-  return <Breadcrumbs aria-label="breadcrumb">{...crumbs}</Breadcrumbs>;
+  return (
+    <Breadcrumbs
+      aria-label="breadcrumb"
+      className="m-3"
+      sx={{ fontSize: { lg: '22px', md: '22px', sm: '18px', xs: '15px' } }}
+    >
+      {...crumbs}
+    </Breadcrumbs>
+  );
 };

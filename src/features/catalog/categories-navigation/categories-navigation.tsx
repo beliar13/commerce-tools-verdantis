@@ -51,7 +51,11 @@ export const CategoriesNavigation: FC<{
   }, [token]);
 
   return categories.length > 0 ? (
-    <List aria-labelledby="nested-list-subheader" component="nav" sx={{ bgcolor: 'primary.main', width: '20%' }}>
+    <List
+      aria-labelledby="nested-list-subheader"
+      component="nav"
+      sx={{ width: { lg: '20%', md: '30%', sm: '35%', xs: '45%' } }}
+    >
       {categories.map((fetchedCategory) => {
         return <CategoryItem category={fetchedCategory} key={fetchedCategory.id} />;
       })}
