@@ -6,10 +6,15 @@ import { apiInstance } from '../axios-instances';
 import { ProductsRequestArguments } from './catalog-types';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
 import { type Product, getProductsResultSchema } from './schemas/product-schema';
-
-export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string): Promise<Product[]> {
+// type SizeFilter = 'big' | 'medium' | 'small';
+export async function getFilteredProducts(
+  filters: { size: string },
+  offset = 0,
+  BEARER_TOKEN: string,
+): Promise<Product[]> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
-  const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&filter=variants.attributes.size:"small"`;
+  const { size } = filters;
+  const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&filter=variants.attributes.size:"${size}"`;
   const encoded = encodeURI(query);
   try {
     const getProductsResult = await apiInstance.get(encoded, {

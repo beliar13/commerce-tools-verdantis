@@ -1,5 +1,13 @@
-import { FC, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import {
+  FC,
+  useEffect,
+  // useRef,
+  useState,
+} from 'react';
+import {
+  useLocation,
+  //  useSearchParams
+} from 'react-router-dom';
 
 import { Stack } from '@mui/material';
 
@@ -8,6 +16,7 @@ import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
+// import { notSelectedCategoryValue } from '@/features/catalog/constants';
 import { getFilteredProducts } from '@/lib/axios/requests/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
 import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
@@ -20,15 +29,24 @@ const CatalogPage: FC = () => {
     throw new Error('Token expected');
   }
   const location = useLocation();
-  getFilteredProducts(0, token).then(
-    (res) => console.log(res),
-    (err) => console.log(err),
-  );
+  // const [, setSearchParams] = useSearchParams();
+  // const setSearchParamsRef = useRef(setSearchParams);
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
     const categoryId = urlSearchParams.get('category');
-
-    if (categoryId) {
+    const sizeFilter = urlSearchParams.get('size');
+    // const setSearchParams = setSearchParamsRef.current;
+    if (sizeFilter) {
+      // setSearchParams({ category: notSelectedCategoryValue });
+      getFilteredProducts({ size: sizeFilter }, 0, token).then(
+        (products: Product[]) => {
+          setProducts(products);
+        },
+        (error) => {
+          console.error(error);
+        },
+      );
+    } else if (categoryId) {
       handleGetWithCategory(categoryId, token, setProducts);
     } else {
       handleGetAllProducts(token, setProducts);

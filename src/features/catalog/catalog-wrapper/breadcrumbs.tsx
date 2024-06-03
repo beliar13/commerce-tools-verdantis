@@ -8,6 +8,7 @@ import Link from '@mui/material/Link';
 import { getCategoryByKey } from '@/lib/axios/requests/get-category-by-key';
 import { useTokenStore } from '@/stores/token-store';
 
+import { notSelectedCategoryValue } from '../constants';
 import { formatCategoryKey } from './helper';
 
 const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
@@ -28,8 +29,9 @@ export const BasicBreadcrumbs: FC = () => {
   const lastPath = pathArray[pathArray.length - 1];
   useEffect(() => {
     const setSearchParams = setSearchParamsRef.current;
-    if (lastPath === 'catalog') {
-      setSearchParams({ category: '' });
+    const startPathOfCatalog = 'catalog';
+    if (lastPath === startPathOfCatalog) {
+      setSearchParams({ category: notSelectedCategoryValue });
       return;
     }
     const decodedPath = decodeURIComponent(lastPath);
@@ -45,17 +47,17 @@ export const BasicBreadcrumbs: FC = () => {
     );
   }, [lastPath, token]);
   const crumbs = pathArray.map((path, index) => {
-    const last = index === path.length - 1;
+    const currentCategoryPath = index === path.length - 1;
     const pathSegment = pathArray.slice(1, index + 1).join('/');
-    const to = `/${pathSegment}${location.search}`;
+    const linkForBreadcrumb = `/${pathSegment}${location.search}`;
 
-    return last ? (
+    return currentCategoryPath ? (
       <Typography color="inherit" component={'h3'} key={path}>
         {path}
       </Typography>
     ) : (
       <div key={path} onClick={handleClick} role="presentation">
-        <Link color="inherit" component={RouterLink} key={path} to={to} underline="hover">
+        <Link color="inherit" component={RouterLink} key={path} to={linkForBreadcrumb} underline="hover">
           {decodeURIComponent(path)}
         </Link>
       </div>
