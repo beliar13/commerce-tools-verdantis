@@ -8,6 +8,32 @@ const AttributeSchema = z.object({
   value: AttributeValueSchema,
 });
 
+const valueSchema = z.object({
+  centAmount: z.number(),
+  currencyCode: z.string(),
+  fractionDigits: z.number(),
+  type: z.string(),
+});
+
+const discountSchema = z.object({
+  id: z.string(),
+  typeId: z.string(),
+});
+
+const discountedSchema = z.object({
+  discount: discountSchema,
+  value: valueSchema,
+});
+
+const priceSchema = z.object({
+  discounted: discountedSchema.optional(),
+  id: z.string(),
+  key: z.string(),
+  validFrom: z.string().datetime(),
+  validUntil: z.string().datetime(),
+  value: valueSchema,
+});
+
 const MasterVariantSchema = z.object({
   attributes: z.array(AttributeSchema),
   id: z.number(),
@@ -21,7 +47,7 @@ const MasterVariantSchema = z.object({
       url: z.string(),
     }),
   ),
-  prices: z.array(z.any()),
+  prices: z.array(priceSchema),
 });
 
 const ProductTypeSchema = z.object({
@@ -29,7 +55,7 @@ const ProductTypeSchema = z.object({
   typeId: z.string(),
 });
 
-export const ProductSchema = z.object({
+const ProductSchema = z.object({
   categories: z.array(z.any()),
   createdAt: z.string().datetime(),
   description: z.record(z.string()),
@@ -45,3 +71,5 @@ export const ProductSchema = z.object({
   variants: z.array(z.any()),
   version: z.number(),
 });
+
+export { ProductSchema, priceSchema };

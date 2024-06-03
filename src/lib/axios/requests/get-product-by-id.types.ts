@@ -1,3 +1,7 @@
+import { z } from 'zod';
+
+import { priceSchema } from './schemas/get-product-by-id.schema';
+
 export type ProductImages = ProductImage[];
 
 type ProductImage = {
@@ -8,3 +12,5 @@ type ProductImage = {
   label?: string;
   url: string;
 };
+
+export type Price = z.infer<typeof priceSchema>;
