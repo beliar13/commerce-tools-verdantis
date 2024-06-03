@@ -17,7 +17,7 @@ const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void 
 
 export const BasicBreadcrumbs: FC = () => {
   const location = useLocation();
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const setSearchParamsRef = useRef(setSearchParams);
   const { token } = useTokenStore();
@@ -40,12 +40,13 @@ export const BasicBreadcrumbs: FC = () => {
       (res) => {
         const indexOfReceivedCategory = 0;
         const { id } = res[indexOfReceivedCategory];
-        setSearchParams({ category: id });
+        searchParams.set('category', id);
+        setSearchParams(searchParams);
       },
 
       (err) => console.error(err),
     );
-  }, [lastPath, token]);
+  }, [lastPath, token, searchParams]);
   const crumbs = pathArray.map((path, index) => {
     const currentCategoryPath = index === path.length - 1;
     const pathSegment = pathArray.slice(1, index + 1).join('/');

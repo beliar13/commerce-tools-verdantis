@@ -6,18 +6,14 @@ import { apiInstance } from '../axios-instances';
 import { ProductsRequestArguments } from './catalog-types';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
 import { type Product, getProductsResultSchema } from './schemas/product-schema';
-// type SizeFilter = 'big' | 'medium' | 'small';
-export async function getFilteredProducts(
-  filters: { size: string },
-  offset = 0,
-  BEARER_TOKEN: string,
-): Promise<Product[]> {
+
+export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string, filters: string): Promise<Product[]> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
-  const { size } = filters;
-  const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&filter=variants.attributes.size:"${size}"`;
-  const encoded = encodeURI(query);
+  const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&${filters}`;
+  console.log(`complete query without encode: ${query}`);
+
   try {
-    const getProductsResult = await apiInstance.get(encoded, {
+    const getProductsResult = await apiInstance.get(query, {
       headers: {
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
@@ -33,3 +29,19 @@ export async function getFilteredProducts(
     throw e;
   }
 }
+
+export const buildQueryString = (params: IterableIterator<[string, string]>): string => {
+  const result: string[] = [];
+  for (const [key, value] of params) {
+    if (key === 'category') {
+      if (!value) {
+        continue;
+      }
+      const query = `filter=categories.id: subtree("${value}")`;
+      result.push(query);
+    } else {
+      result.push(`filter=variants.attributes.${encodeURIComponent(key)}:"${encodeURIComponent(value)}"`);
+    }
+  }
+  return result.join('&');
+};

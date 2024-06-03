@@ -1,13 +1,5 @@
-import {
-  FC,
-  useEffect,
-  // useRef,
-  useState,
-} from 'react';
-import {
-  useLocation,
-  //  useSearchParams
-} from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Stack } from '@mui/material';
 
@@ -16,10 +8,8 @@ import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
-// import { notSelectedCategoryValue } from '@/features/catalog/constants';
-import { getFilteredProducts } from '@/lib/axios/requests/get-filtered-products';
+import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
-import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
 import { useTokenStore } from '@/stores/token-store';
 
 const CatalogPage: FC = () => {
@@ -29,16 +19,13 @@ const CatalogPage: FC = () => {
     throw new Error('Token expected');
   }
   const location = useLocation();
-  // const [, setSearchParams] = useSearchParams();
-  // const setSearchParamsRef = useRef(setSearchParams);
+
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
-    const categoryId = urlSearchParams.get('category');
-    const sizeFilter = urlSearchParams.get('size');
-    // const setSearchParams = setSearchParamsRef.current;
-    if (sizeFilter) {
-      // setSearchParams({ category: notSelectedCategoryValue });
-      getFilteredProducts({ size: sizeFilter }, 0, token).then(
+    const allSearchParams = urlSearchParams.entries();
+    const filtersQueryString = buildQueryString(allSearchParams);
+    if (filtersQueryString.length > 0) {
+      getFilteredProducts(0, token, filtersQueryString).then(
         (products: Product[]) => {
           setProducts(products);
         },
@@ -46,8 +33,6 @@ const CatalogPage: FC = () => {
           console.error(error);
         },
       );
-    } else if (categoryId) {
-      handleGetWithCategory(categoryId, token, setProducts);
     } else {
       handleGetAllProducts(token, setProducts);
     }
@@ -75,21 +60,6 @@ const CatalogPage: FC = () => {
 };
 
 export default CatalogPage;
-
-const handleGetWithCategory = (
-  categoryId: string,
-  token: string,
-  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
-): void => {
-  getProductsByCategory(categoryId, 0, token).then(
-    (products: Product[]) => {
-      setProducts(products);
-    },
-    (error) => {
-      console.error(error);
-    },
-  );
-};
 
 const handleGetAllProducts = (
   token: string,
