@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from 'react';
 
-import { ButtonGroup } from '@mui/material';
+import { List } from '@mui/material';
 
 import { getChildCategories } from '@/lib/axios/requests/get-child-categories';
 import { getParentCategories } from '@/lib/axios/requests/get-parent-categories';
@@ -51,11 +51,15 @@ export const CategoriesNavigation: FC<{
   }, [token]);
 
   return categories.length > 0 ? (
-    <ButtonGroup aria-label="Vertical button group" orientation="vertical" variant="contained">
-      {categories.map((category) => {
-        return <CategoryItem category={category} key={category.id} />;
+    <List
+      aria-labelledby="nested-list-subheader"
+      component="nav"
+      sx={{ width: { lg: '20%', md: '30%', sm: '35%', xs: '45%' } }}
+    >
+      {categories.map((fetchedCategory) => {
+        return <CategoryItem category={fetchedCategory} key={fetchedCategory.id} />;
       })}
-    </ButtonGroup>
+    </List>
   ) : (
     <>no categories available</>
   );

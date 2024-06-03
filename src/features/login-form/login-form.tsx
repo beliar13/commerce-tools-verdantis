@@ -52,7 +52,7 @@ export const LoginForm: FC = () => {
       }
     >
       <ControlledTextField control={control} label="Email" name="email" />
-      <PasswordInput {...control} />
+      <PasswordInput {...{ control, name: 'password' }} />
       {
         <Collapse in={!!errorMessage}>
           <Alert severity="warning">{errorMessage}</Alert>

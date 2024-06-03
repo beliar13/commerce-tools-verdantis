@@ -38,18 +38,10 @@ const useResetFormData = ({
   }, [getValues, prevFormData, setValue, trigger]);
 };
 
-const CollapseElement: FC<{ isCollapsed: boolean; isDisabled: boolean }> = ({
-  isCollapsed,
-  isDisabled,
-}) => {
+const CollapseElement: FC<{ isCollapsed: boolean; isDisabled: boolean }> = ({ isCollapsed, isDisabled }) => {
   return (
     <Collapse in={isCollapsed}>
-      <Button
-        className="mx-auto my-0 block"
-        disabled={isDisabled}
-        type="submit"
-        variant="contained"
-      >
+      <Button className="mx-auto my-0 block" disabled={isDisabled} type="submit" variant="contained">
         Save changes
       </Button>
     </Collapse>

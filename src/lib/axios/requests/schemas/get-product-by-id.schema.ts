@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const LocalizedStringSchema = z.record(z.string());
 
-const AttributeValueSchema = z.record(z.string());
+const AttributeValueSchema = z.any();
 const AttributeSchema = z.object({
   name: z.string(),
   value: AttributeValueSchema,

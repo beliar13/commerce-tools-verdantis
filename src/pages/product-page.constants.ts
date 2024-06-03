@@ -1,9 +1,14 @@
-export const sliderSettings = {
+export const sliderSettingsDefaultImage = {
   dots: true,
   infinite: true,
   slidesToScroll: 1,
   slidesToShow: 1,
-  speed: 500,
+};
+
+export const sliderSettingsEnlargedImage = {
+  infinite: true,
+  slidesToScroll: 1,
+  slidesToShow: 1,
 };
 
 export const descStyles = {
@@ -23,4 +28,12 @@ export const boxStyles = {
 export const imgStyles = {
   height: 'auto',
   width: '100%',
+};
+
+export const iconStyles = {
+  backgroundColor: '#CED0D1',
+  position: 'absolute',
+  right: 5,
+  scale: '0.5',
+  top: 5,
 };
