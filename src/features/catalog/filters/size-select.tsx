@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-// import { useSearchParams } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';

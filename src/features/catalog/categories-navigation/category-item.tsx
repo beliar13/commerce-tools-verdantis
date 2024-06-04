@@ -22,7 +22,6 @@ export const CategoryItem = ({ category }: { category: CategoryData }): JSX.Elem
     setSearchParams(searchParams);
   };
   const parentLinkQuery = formatCategoryLinkQuery(id);
-  // console.log(parentLinkQuery);
   return (
     <List
       aria-labelledby="nested-list-subheader"

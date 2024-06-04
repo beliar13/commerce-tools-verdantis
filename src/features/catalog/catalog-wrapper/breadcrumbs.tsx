@@ -28,10 +28,11 @@ export const BasicBreadcrumbs: FC = () => {
   const pathArray = location.pathname.split('/');
   const lastPath = pathArray[pathArray.length - 1];
   useEffect(() => {
+    searchParams.set('category', notSelectedCategoryValue);
     const setSearchParams = setSearchParamsRef.current;
     const startPathOfCatalog = 'catalog';
     if (lastPath === startPathOfCatalog) {
-      setSearchParams({ category: notSelectedCategoryValue });
+      setSearchParams(searchParams);
       return;
     }
     const decodedPath = decodeURIComponent(lastPath);
