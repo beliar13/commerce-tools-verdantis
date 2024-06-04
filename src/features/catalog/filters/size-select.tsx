@@ -14,7 +14,7 @@ export const SizeSelect: FC<{ setter: (value: string) => void }> = ({ setter }) 
     setSize(event.target.value);
     setter(event.target.value);
   };
-  // set to parent its state
+
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl>

@@ -7,13 +7,7 @@ import { ColorFilters } from './color-filters';
 import { ResetFilters } from './reset-filters';
 import { SizeSelect } from './size-select';
 
-export type ColorFilter = {
-  blue: boolean;
-  green: boolean;
-  pink: boolean;
-  white: boolean;
-  yellow: boolean;
-};
+export type ColorFilter = Record<string, boolean>;
 
 export type FilterValues = { color: ColorFilter; size: string };
 
@@ -22,12 +16,20 @@ export const Filters: FC = () => {
     color: { blue: false, green: false, pink: false, white: false, yellow: false },
     size: '',
   });
+
   const setterForSize = (value: string): void => {
     setFiltersValues({ ...filtersValues, size: value });
   };
+
   const setterForColor = (value: ColorFilter): void => {
-    setFiltersValues({ ...filtersValues, color: value });
+    setFiltersValues((prevValues) => ({
+      ...prevValues,
+      color: {
+        ...value,
+      },
+    }));
   };
+
   return (
     <Stack
       className="flex "

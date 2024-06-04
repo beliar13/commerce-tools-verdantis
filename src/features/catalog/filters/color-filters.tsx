@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, ReactNode, useEffect, useState } from 'react';
+import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -11,11 +11,14 @@ export const ColorFilters: FC<{ setter: (value: ColorFilter) => void }> = ({ set
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setColors({ ...colors, [event.target.name]: event.target.checked });
+    setter(colors);
   };
 
+  const setterRef = useRef(setter);
   useEffect(() => {
+    const setter = setterRef.current;
     setter(colors);
-  }, [colors, setter]);
+  }, [colors]);
 
   return (
     <FormGroup>
