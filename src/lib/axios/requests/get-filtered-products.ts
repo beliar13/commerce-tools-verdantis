@@ -10,7 +10,7 @@ import { type Product, getProductsResultSchema } from './schemas/product-schema'
 export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string, filters: string): Promise<Product[]> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
   const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&${filters}`;
-  console.log(`complete query without encode: ${query}`);
+  // console.log(`complete query without encode: ${query}`);
 
   try {
     const getProductsResult = await apiInstance.get(query, {
@@ -33,10 +33,10 @@ export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string, filt
 export const buildQueryString = (params: IterableIterator<[string, string]>): string => {
   const result: string[] = [];
   for (const [key, value] of params) {
+    if (!value) {
+      continue;
+    }
     if (key === 'category') {
-      if (!value) {
-        continue;
-      }
       const query = `filter=categories.id: subtree("${value}")`;
       result.push(query);
     } else {
