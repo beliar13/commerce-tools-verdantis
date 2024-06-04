@@ -16,11 +16,13 @@ import { useTokenStore } from '@/stores/token-store';
 import {
   boxStyles,
   descStyles,
+  discountPriceStyle,
   firstPrice,
   iconStyles,
   imgStyles,
   sliderSettingsDefaultImage,
   sliderSettingsEnlargedImage,
+  stylePrice,
   titleStyles,
 } from './product-page.constants';
 
@@ -64,7 +66,7 @@ export default function ProductPage(): ReactNode {
           </Slider>
           <CustomTypography styles={descStyles} tag="p" text={data?.description} variantField="body1" />
           <Box>
-            <PricesBlock price={data?.prices[firstPrice]} />
+            <PricesBlock price={data?.prices[firstPrice]} styleDiscount={discountPriceStyle} stylePrice={stylePrice} />
           </Box>
         </Paper>
         <Dialog maxWidth="lg" onClose={handleModalClose} open={open}>

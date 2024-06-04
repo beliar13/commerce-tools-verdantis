@@ -39,3 +39,10 @@ export const iconStyles = {
 };
 
 export const firstPrice = 0;
+
+export const discountPriceStyle = {
+  color: 'grey.600',
+  textDecoration: 'line-through',
+};
+
+export const stylePrice = 'secondary';
