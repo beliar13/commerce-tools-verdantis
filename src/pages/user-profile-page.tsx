@@ -17,7 +17,7 @@ export const UserProfilePage: FC = () => {
   }
   const [isEditMode, setEditMode] = useState(false);
   return (
-    <div id="error-page">
+    <div className="flex flex-col items-center" id="error-page">
       <Typography component={'h1'} sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }} textAlign={'center'}>
         User Profile
       </Typography>
@@ -38,7 +38,16 @@ export const UserProfilePage: FC = () => {
       />
 
       <AccountDetailsForm {...{ customer, isEditMode }} />
-      {isEditMode ? <EditAddresses customer={customer} /> : <AddressDisplay {...{ customer: customer }} />}
+      {isEditMode ? (
+        <>
+          <Typography component={'h3'} sx={{ fontSize: { lg: 30, md: 25, sm: 20 } }} textAlign={'center'}>
+            Addresses
+          </Typography>
+          <EditAddresses customer={customer} />
+        </>
+      ) : (
+        <AddressDisplay {...{ customer: customer }} />
+      )}
 
       <Link className="mx-auto block p-2 text-center" component={RouterLink} to="/">
         <Button>Back to main</Button>

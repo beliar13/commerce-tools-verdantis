@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Card, List, ListItem, ListItemText } from '@mui/material';
+import { Button, Card, List, ListItem, ListItemText } from '@mui/material';
 
 import { ControlledSwitch } from '@/components/controlled-switch/controlled-switch';
 import { ControlledTextField } from '@/components/controlled-text-field';
@@ -18,7 +18,7 @@ export const EditAddressForm: FC<{
   isShipping: boolean;
 }> = ({ address, isBilling, isDefaultBilling, isDefaultShipping, isShipping }) => {
   const { city, country, postalCode, streetName } = address;
-  const { control, formState } = useForm<EditAddress>({
+  const { control } = useForm<EditAddress>({
     defaultValues: {
       city,
       country,
@@ -32,9 +32,8 @@ export const EditAddressForm: FC<{
     mode: 'onChange',
     resolver: zodResolver(editAddressSchema),
   });
-  console.log(formState);
   return (
-    <Card className="bg-white">
+    <Card className="max-w-[390px] bg-white p-3">
       <form>
         <List>
           <ListItem className="items-start">
@@ -58,6 +57,9 @@ export const EditAddressForm: FC<{
         <ControlledSwitch {...{ control, label: 'Set as shipping', name: 'isShipping' }} />
         <ControlledSwitch {...{ control, label: 'Set as default shipping', name: 'isDefaultBilling' }} />
         <ControlledSwitch {...{ control, label: 'Set as default Billing', name: 'isDefaultShipping' }} />
+        <Button className="mx-auto my-0 block" type="submit" variant="contained">
+          Save changes
+        </Button>
       </form>
     </Card>
   );

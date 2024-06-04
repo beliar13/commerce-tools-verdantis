@@ -9,7 +9,6 @@ import { getDefaultAddresses } from './get-default-addresses';
 
 export const AddressDisplay: FC<{ customer: Customer }> = ({ customer }) => {
   const formattedAddresses = getDefaultAddresses(customer);
-  console.log(formattedAddresses);
   return (
     <Box className="flex flex-col p-2">
       <AddressesContainer

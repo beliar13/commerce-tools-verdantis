@@ -1,16 +1,13 @@
 import { FC } from 'react';
 
-import { Box } from '@mui/material';
-
 import { Customer } from '@/lib/axios/requests/schemas/customer.schema';
 
 import { EditAddressForm } from './edit-address-form';
 
 export const EditAddresses: FC<{ customer: Customer }> = ({ customer }) => {
   const addresses = customer.addresses;
-  console.log(addresses);
   return (
-    <Box>
+    <>
       {addresses.map((address) => {
         const id = address.id;
         if (!id) {
@@ -27,6 +24,6 @@ export const EditAddresses: FC<{ customer: Customer }> = ({ customer }) => {
           />
         );
       })}
-    </Box>
+    </>
   );
 };
