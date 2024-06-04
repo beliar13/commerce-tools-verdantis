@@ -2,13 +2,17 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Card, CardActions, Typography } from '@mui/material';
 
+import { PricesBlock } from '@/components/prices-block/prices-block';
 import { Product } from '@/lib/axios/requests/schemas/product-schema';
+
+import { discountPriceStyleCatalog, firstVariantPrice, stylePriceCatalog } from './catalog-item.constants';
 
 export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
   const { description, masterVariant, name } = product;
   const enName = name['en-US'];
   const enDescription = description ? description['en-US'] : 'No description available';
   const image = masterVariant ? masterVariant.images[0] : { name: 'placeholder', url: '' };
+  const { prices } = masterVariant;
   return (
     <Card
       className="flex flex-col justify-between p-5"
@@ -37,6 +41,11 @@ export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
       >
         {enDescription}
       </Typography>
+      <PricesBlock
+        price={prices[firstVariantPrice]}
+        styleDiscount={discountPriceStyleCatalog}
+        stylePrice={stylePriceCatalog}
+      />
       <CardActions>
         <Typography className="text-center" component={'h3'}>
           Click to learn more
