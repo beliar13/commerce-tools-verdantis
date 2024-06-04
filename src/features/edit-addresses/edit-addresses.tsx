@@ -16,6 +16,7 @@ export const EditAddresses: FC<{ customer: Customer }> = ({ customer }) => {
         return (
           <EditAddressForm
             address={address}
+            id={id}
             isBilling={Boolean(customer.billingAddressIds?.includes(id))}
             isDefaultBilling={Boolean(address.id === customer.defaultBillingAddressId)}
             isDefaultShipping={Boolean(address.id === customer.defaultShippingAddressId)}
