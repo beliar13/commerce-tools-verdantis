@@ -1,9 +1,11 @@
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Button, Link, Typography } from '@mui/material';
+import { Button, FormControlLabel, Link, Switch, Typography } from '@mui/material';
 
 import { AccountDetailsForm } from '@/features/account-details-form';
+import { AddressDisplay } from '@/features/address-display';
+import { EditAddresses } from '@/features/edit-addresses/edit-addresses';
 import { FormDialog } from '@/features/password-form';
 import { useCustomerStore } from '@/stores/customer-store';
 
@@ -13,13 +15,31 @@ export const UserProfilePage: FC = () => {
   if (!customer) {
     throw Error('no customer data');
   }
+  const [isEditMode, setEditMode] = useState(false);
   return (
     <div id="error-page">
       <Typography component={'h1'} sx={{ fontSize: { lg: 50, md: 42, sm: 38 } }} textAlign={'center'}>
         User Profile
       </Typography>
       <FormDialog />
-      <AccountDetailsForm {...customer} />
+      <FormControlLabel
+        className="m-0 flex justify-center"
+        control={
+          <Switch
+            checked={isEditMode}
+            color="primary"
+            onChange={() => {
+              setEditMode((value) => !value);
+            }}
+          />
+        }
+        label="Edit mode"
+        labelPlacement="start"
+      />
+
+      <AccountDetailsForm {...{ customer, isEditMode }} />
+      {isEditMode ? <EditAddresses customer={customer} /> : <AddressDisplay {...{ customer: customer }} />}
+
       <Link className="mx-auto block p-2 text-center" component={RouterLink} to="/">
         <Button>Back to main</Button>
       </Link>
