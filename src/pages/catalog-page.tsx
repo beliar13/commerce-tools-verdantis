@@ -10,6 +10,7 @@ import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
 import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
+import { searchProducts } from '@/lib/axios/requests/search-products';
 import { useTokenStore } from '@/stores/token-store';
 
 const CatalogPage: FC = () => {
@@ -19,12 +20,14 @@ const CatalogPage: FC = () => {
     throw new Error('Token expected');
   }
   const location = useLocation();
-
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
     const categoryId = urlSearchParams.get('category');
+    const search = urlSearchParams.get('search');
 
-    if (categoryId) {
+    if (search) {
+      handleSearch(search, token, setProducts);
+    } else if (categoryId) {
       getProductsByCategory(categoryId, 0, token).then(
         (products: Product[]) => {
           setProducts(products);
@@ -67,3 +70,18 @@ const CatalogPage: FC = () => {
 };
 
 export default CatalogPage;
+
+const handleSearch = (
+  search: string,
+  token: string,
+  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
+): void => {
+  searchProducts(search, 0, token).then(
+    (products: Product[]) => {
+      setProducts(products);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+};
