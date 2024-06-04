@@ -37,3 +37,5 @@ export const iconStyles = {
   scale: '0.5',
   top: 5,
 };
+
+export const firstPrice = 0;

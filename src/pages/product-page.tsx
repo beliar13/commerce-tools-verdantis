@@ -2,18 +2,21 @@ import { ReactNode, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import { Close as CloseIcon } from '@mui/icons-material';
-import { Box, Container, Dialog, IconButton, Paper, Typography } from '@mui/material';
+import { Box, Container, Dialog, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import { BackTo } from '@/components/back-to/back-to';
 import { LoadingBackdrop } from '@/components/backdrop/backdrop';
+import { CloseButton } from '@/components/close-button/close-button';
+import { CustomTypography } from '@/components/custom-typography/custom-typography';
+import { PricesBlock } from '@/components/prices-block/prices-block';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
 import { useTokenStore } from '@/stores/token-store';
 
 import {
   boxStyles,
   descStyles,
+  firstPrice,
   iconStyles,
   imgStyles,
   sliderSettingsDefaultImage,
@@ -42,16 +45,16 @@ export default function ProductPage(): ReactNode {
     queryKey: ['product', id, token],
     throwOnError: true,
   });
+
   if (isPending) {
     return <LoadingBackdrop open={isPending} />;
   }
+
   return (
     <Container>
       <Container maxWidth="md">
         <Paper elevation={24} sx={{ marginTop: 4, padding: 5 }}>
-          <Typography component="h1" gutterBottom sx={titleStyles} variant="h4">
-            {data?.name}
-          </Typography>
+          <CustomTypography styles={titleStyles} tag="h1" text={data?.name} variantField="h4" />
           <Slider {...sliderSettingsDefaultImage}>
             {data?.images.map((image, index) => (
               <Box key={index} onClick={() => handleImageClick(index)} sx={boxStyles}>
@@ -59,14 +62,13 @@ export default function ProductPage(): ReactNode {
               </Box>
             ))}
           </Slider>
-          <Typography component="p" sx={descStyles} variant="body1">
-            {data?.description}
-          </Typography>
+          <CustomTypography styles={descStyles} tag="p" text={data?.description} variantField="body1" />
+          <Box>
+            <PricesBlock price={data?.prices[firstPrice]} />
+          </Box>
         </Paper>
         <Dialog maxWidth="lg" onClose={handleModalClose} open={open}>
-          <IconButton aria-label="close" onClick={handleModalClose} sx={iconStyles}>
-            <CloseIcon sx={{ scale: '1.3' }} />
-          </IconButton>
+          <CloseButton callback={handleModalClose} styles={iconStyles} />
           <Box sx={{ padding: '40px' }}>
             <Slider {...sliderSettingsEnlargedImage} afterChange={(i) => setCurImgIdx(i)} initialSlide={curImgIdx}>
               {data?.images.map((image, index) => (
