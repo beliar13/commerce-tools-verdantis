@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 import { PriceBlockProps } from './prices-block.types';
 
-export const PricesBlock: FC<PriceBlockProps> = ({ price }) => {
+export const PricesBlock: FC<PriceBlockProps> = ({ price, styleDiscount, stylePrice }) => {
   if (!price) {
     return <Typography variant="body1">Price unavailable</Typography>;
   }
@@ -21,15 +21,15 @@ export const PricesBlock: FC<PriceBlockProps> = ({ price }) => {
     <Box>
       {discounted ? (
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <Typography sx={{ color: 'grey.600', textDecoration: 'line-through' }} variant="body1">
+          <Typography sx={styleDiscount} variant="body1">
             {formatPrice(value.centAmount, value.currencyCode, value.fractionDigits)}
           </Typography>
-          <Typography color="secondary" variant="body1">
+          <Typography color={stylePrice} variant="body1">
             {formatPrice(discounted.value.centAmount, discounted.value.currencyCode, discounted.value.fractionDigits)}
           </Typography>
         </Box>
       ) : (
-        <Typography sx={{ color: 'rgba(238, 238, 238, 0.87)' }} variant="body1">
+        <Typography color={stylePrice} variant="body1">
           {formatPrice(value.centAmount, value.currencyCode, value.fractionDigits)}
         </Typography>
       )}
