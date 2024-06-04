@@ -1,11 +1,11 @@
 import { isAxiosError } from 'axios';
 
 import { envVariables } from '@/config/commerce-tools-api';
+import { apiInstance } from '@/lib/axios/axios-instances';
 
-import { apiInstance } from '../axios-instances';
+import { axiosErrorMsgSchema } from '../schemas/axios-error-msg.schema';
+import { type Product, getProductsResultSchema } from '../schemas/product-schema';
 import { ProductsRequestArguments } from './catalog-types';
-import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
-import { type Product, getProductsResultSchema } from './schemas/product-schema';
 
 export async function getProductsByCategory(categoryId: string, offset = 0, BEARER_TOKEN: string): Promise<Product[]> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };

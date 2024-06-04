@@ -8,7 +8,7 @@ import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
-import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/get-filtered-products';
+import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/catalog/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
 import { useTokenStore } from '@/stores/token-store';
 

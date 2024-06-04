@@ -3,7 +3,7 @@ import { isAxiosError } from 'axios';
 import { envVariables } from '@/config/commerce-tools-api';
 
 import { apiInstance } from '../axios-instances';
-import { ProductsRequestArguments } from './catalog-types';
+import { ProductsRequestArguments } from './catalog/catalog-types';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
 import { type Product, getProductsResultSchema } from './schemas/product-schema';
 

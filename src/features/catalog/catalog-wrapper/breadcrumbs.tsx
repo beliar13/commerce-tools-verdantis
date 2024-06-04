@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 
-import { getCategoryByKey } from '@/lib/axios/requests/get-category-by-key';
+import { getCategoryByKey } from '@/lib/axios/requests/catalog/get-category-by-key';
 import { useTokenStore } from '@/stores/token-store';
 
 import { notSelectedCategoryValue } from '../constants';

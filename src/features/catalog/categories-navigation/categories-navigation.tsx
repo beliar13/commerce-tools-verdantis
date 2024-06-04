@@ -2,8 +2,8 @@ import { FC, ReactNode, useEffect, useState } from 'react';
 
 import { List } from '@mui/material';
 
+import { getParentCategories } from '@/lib/axios/requests/catalog/get-parent-categories';
 import { getChildCategories } from '@/lib/axios/requests/get-child-categories';
-import { getParentCategories } from '@/lib/axios/requests/get-parent-categories';
 import { Category } from '@/lib/axios/requests/schemas/get-categories-schema';
 import { useTokenStore } from '@/stores/token-store';
 
