@@ -32,7 +32,7 @@ export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string, filt
 export const buildQueryString = (params: IterableIterator<[string, string]>): string => {
   const result: string[] = [];
   for (const [key, value] of params) {
-    if (key === 'color') {
+    if (key === 'color' && value) {
       const colors = value.split('-');
       colors.forEach((color) => {
         result.push(`filter=variants.attributes.${key}:"${color}"`);
@@ -40,7 +40,7 @@ export const buildQueryString = (params: IterableIterator<[string, string]>): st
     } else if (key === 'category' && value) {
       const query = `filter=categories.id: subtree("${value}")`;
       result.push(query);
-    } else if (value) {
+    } else if (key === 'size' && value) {
       result.push(`filter=variants.attributes.${encodeURIComponent(key)}:"${encodeURIComponent(value)}"`);
     }
   }
