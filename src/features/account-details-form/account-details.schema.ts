@@ -15,7 +15,6 @@ export const accountSchema = z.object({
     .string()
     .min(1, 'Must be at least 1 character')
     .regex(/^[a-zA-Z]+$/, 'Must contain only letters'),
-  isEditMode: z.boolean(),
   lastName: z
     .string()
     .min(1, 'Must be at least 1 character')

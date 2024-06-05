@@ -1,3 +1,5 @@
+import { RegistrationAddress } from '@/features/registration-form/registration-form-types';
+
 export type ChangeEmail = {
   action: 'changeEmail';
   email: string;
@@ -18,4 +20,10 @@ export type ChangeDateOfBirth = {
   dateOfBirth: string;
 };
 
-export type Action = ChangeDateOfBirth | ChangeEmail | ChangeFirstName | ChangeLastName;
+export type ChangeAddress = {
+  action: 'changeAddress';
+  address: RegistrationAddress;
+  addressId: string;
+};
+
+export type Action = ChangeAddress | ChangeDateOfBirth | ChangeEmail | ChangeFirstName | ChangeLastName;
