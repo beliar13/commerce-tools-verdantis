@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
 
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+
+import { Search } from '@/features/catalog/filters/search';
 
 import { ApplyFilters } from './apply-filters';
 import { ColorFilters } from './color-filters';
@@ -40,18 +42,33 @@ export const Filters: FC = () => {
     <Stack
       className="flex "
       sx={{
+        alignItems: 'center',
         backgroundColor: 'primary.light',
         color: 'primary.contrastText',
         display: 'flex',
-        flexDirection: 'row',
-        padding: '2%',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        padding: '1%',
       }}
     >
-      <SizeSelect setter={setterForSize} />
-      <ColorFilters setter={setterForColor} />
-      <SortBySelect setter={setterForSort} />
-      <ApplyFilters values={filtersValues} />
-      <ResetFilters />
+      <Typography className="mx-5 my-auto text-center" color="background.paper" component={'h3'} variant="h4">
+        Filters
+      </Typography>
+      <Stack flexDirection={'row'} flexWrap={'wrap'}>
+        <Stack flexDirection={'column'}>
+          <Stack flexDirection={'row'}>
+            <SizeSelect setter={setterForSize} />
+            <SortBySelect setter={setterForSort} />
+          </Stack>
+          <ColorFilters setter={setterForColor} />
+        </Stack>
+        <Search />
+      </Stack>
+
+      <Stack>
+        <ApplyFilters values={filtersValues} />
+        <ResetFilters />
+      </Stack>
     </Stack>
   );
 };

@@ -22,12 +22,12 @@ const CatalogPage: FC = () => {
   const location = useLocation();
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
-    const search = urlSearchParams.get('search');
+    const q = urlSearchParams.get('q');
 
     const allSearchParams = urlSearchParams.entries();
     const filtersQueryString = buildQueryString(allSearchParams);
-    if (search) {
-      handleSearch(search, token, setProducts);
+    if (q) {
+      handleSearch(q, token, setProducts);
     } else if (filtersQueryString.length > 0) {
       getFilteredProducts(0, token, filtersQueryString).then(
         (products: Product[]) => {
