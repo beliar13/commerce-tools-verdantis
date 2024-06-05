@@ -8,6 +8,7 @@ export const ResetFilters: FC = () => {
   const onClick = (): void => {
     searchParams.set('size', '');
     searchParams.set('color', '');
+    searchParams.set('sort', '');
 
     setSearchParams(searchParams);
   };
