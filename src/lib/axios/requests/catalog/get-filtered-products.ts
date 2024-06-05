@@ -42,6 +42,9 @@ export const buildQueryString = (params: IterableIterator<[string, string]>): st
       result.push(query);
     } else if (key === 'size' && value) {
       result.push(`filter=variants.attributes.${encodeURIComponent(key)}:"${encodeURIComponent(value)}"`);
+    } else if (key === 'sort' && value) {
+      const formattedSort = value.split('-').join(' ');
+      result.push(`${key}=${formattedSort}`);
     }
   }
   return result.join('&');

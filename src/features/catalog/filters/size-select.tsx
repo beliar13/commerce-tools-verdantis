@@ -24,11 +24,39 @@ export const SizeSelect: FC<{ setter: (value: string) => void }> = ({ setter }) 
           label="Size"
           labelId="size-select-label"
           onChange={handleChange}
+          sx={{ ':hover': { bgcolor: 'primary.light', transition: '2s' }, backgroundColor: 'primary.contrastText' }}
           value={size}
         >
-          <MenuItem value={'small'}>Small</MenuItem>
-          <MenuItem value={'medium'}>Medium</MenuItem>
-          <MenuItem value={'big'}>Big</MenuItem>
+          <MenuItem
+            sx={{
+              ':hover': { bgcolor: 'primary.light', transition: '2s' },
+              backgroundColor: 'primary.contrastText',
+              transition: '2s',
+            }}
+            value={'small'}
+          >
+            Small
+          </MenuItem>
+          <MenuItem
+            sx={{
+              ':hover': { bgcolor: 'primary.light', transition: '2s' },
+              backgroundColor: 'primary.contrastText',
+              transition: '2s',
+            }}
+            value={'medium'}
+          >
+            Medium
+          </MenuItem>
+          <MenuItem
+            sx={{
+              ':hover': { bgcolor: 'primary.light', transition: '2s' },
+              backgroundColor: 'primary.contrastText',
+              transition: '2s',
+            }}
+            value={'big'}
+          >
+            Big
+          </MenuItem>
         </Select>
       </FormControl>
     </Box>

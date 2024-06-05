@@ -12,6 +12,7 @@ export const ApplyFilters: FC<{ values: FilterValues }> = ({ values }) => {
     const filters = formatFilters(values);
     searchParams.set('color', filters.color);
     searchParams.set('size', filters.size);
+    searchParams.set('sort', filters.sort);
     setSearchParams(searchParams);
   };
   return <Button onClick={onClick}>Apply filters</Button>;
