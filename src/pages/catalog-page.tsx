@@ -8,8 +8,8 @@ import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
+import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/catalog/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
-import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
 import { useTokenStore } from '@/stores/token-store';
 
 const CatalogPage: FC = () => {
@@ -22,10 +22,10 @@ const CatalogPage: FC = () => {
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
-    const categoryId = urlSearchParams.get('category');
-
-    if (categoryId) {
-      getProductsByCategory(categoryId, 0, token).then(
+    const allSearchParams = urlSearchParams.entries();
+    const filtersQueryString = buildQueryString(allSearchParams);
+    if (filtersQueryString.length > 0) {
+      getFilteredProducts(0, token, filtersQueryString).then(
         (products: Product[]) => {
           setProducts(products);
         },
@@ -34,14 +34,7 @@ const CatalogPage: FC = () => {
         },
       );
     } else {
-      getAllProducts(0, token).then(
-        (products: Product[]) => {
-          setProducts(products);
-        },
-        (error) => {
-          console.error(error);
-        },
-      );
+      handleGetAllProducts(token, setProducts);
     }
   }, [token, location]);
 
@@ -67,3 +60,17 @@ const CatalogPage: FC = () => {
 };
 
 export default CatalogPage;
+
+const handleGetAllProducts = (
+  token: string,
+  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
+): void => {
+  getAllProducts(0, token).then(
+    (products: Product[]) => {
+      setProducts(products);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+};

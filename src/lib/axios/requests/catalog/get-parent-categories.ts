@@ -1,10 +1,10 @@
 import { isAxiosError } from 'axios';
 
 import { envVariables } from '@/config/commerce-tools-api';
+import { apiInstance } from '@/lib/axios/axios-instances';
 
-import { apiInstance } from '../axios-instances';
-import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
-import { type Category, categoriesResponseSchema } from './schemas/get-categories-schema';
+import { axiosErrorMsgSchema } from '../schemas/axios-error-msg.schema';
+import { type Category, categoriesResponseSchema } from '../schemas/get-categories-schema';
 
 export const getParentCategories = async (BEARER_TOKEN: string): Promise<Category[]> => {
   const query = `/${envVariables.PROJECT_KEY}/categories?where=parent is not defined`;
