@@ -8,8 +8,8 @@ import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
+import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/catalog/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
-import { getProductsByCategory } from '@/lib/axios/requests/get-products-by-category';
 import { searchProducts } from '@/lib/axios/requests/search-products';
 import { useTokenStore } from '@/stores/token-store';
 
@@ -22,13 +22,14 @@ const CatalogPage: FC = () => {
   const location = useLocation();
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
-    const categoryId = urlSearchParams.get('category');
     const search = urlSearchParams.get('search');
 
+    const allSearchParams = urlSearchParams.entries();
+    const filtersQueryString = buildQueryString(allSearchParams);
     if (search) {
       handleSearch(search, token, setProducts);
-    } else if (categoryId) {
-      getProductsByCategory(categoryId, 0, token).then(
+    } else if (filtersQueryString.length > 0) {
+      getFilteredProducts(0, token, filtersQueryString).then(
         (products: Product[]) => {
           setProducts(products);
         },
@@ -37,14 +38,7 @@ const CatalogPage: FC = () => {
         },
       );
     } else {
-      getAllProducts(0, token).then(
-        (products: Product[]) => {
-          setProducts(products);
-        },
-        (error) => {
-          console.error(error);
-        },
-      );
+      handleGetAllProducts(token, setProducts);
     }
   }, [token, location]);
 
@@ -77,6 +71,20 @@ const handleSearch = (
   setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
 ): void => {
   searchProducts(search, 0, token).then(
+    (products: Product[]) => {
+      setProducts(products);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+};
+
+const handleGetAllProducts = (
+  token: string,
+  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
+): void => {
+  getAllProducts(0, token).then(
     (products: Product[]) => {
       setProducts(products);
     },

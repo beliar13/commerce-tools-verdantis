@@ -12,17 +12,19 @@ import { useAccountFormMutation } from './use-account-form-mutation.tsx';
 
 const useResetFormData = ({
   getValues,
+  isEditMode,
   prevFormData,
   setValue,
   trigger,
 }: {
   getValues: UseFormGetValues<AccountDetails>;
+  isEditMode: boolean;
   prevFormData: MutableRefObject<AccountDetails | null>;
   setValue: UseFormSetValue<AccountDetails>;
   trigger: UseFormTrigger<AccountDetails>;
 }): void => {
   useEffect(() => {
-    if (getValues('isEditMode')) {
+    if (isEditMode) {
       prevFormData.current = { ...getValues() };
     } else {
       if (!prevFormData.current) {
@@ -35,7 +37,7 @@ const useResetFormData = ({
       setValue('email', email);
       void trigger();
     }
-  }, [getValues, prevFormData, setValue, trigger]);
+  }, [getValues, isEditMode, prevFormData, setValue, trigger]);
 };
 
 const CollapseElement: FC<{ isCollapsed: boolean; isDisabled: boolean }> = ({ isCollapsed, isDisabled }) => {
@@ -48,31 +50,33 @@ const CollapseElement: FC<{ isCollapsed: boolean; isDisabled: boolean }> = ({ is
   );
 };
 
-export const AccountDetailsForm: FC<Customer> = (customer) => {
+export const AccountDetailsForm: FC<{ customer: Customer; isEditMode: boolean }> = ({ customer, isEditMode }) => {
   const { dateOfBirth, email, firstName, lastName } = customer;
-  const { control, getValues, handleSubmit, setValue, trigger, watch } = useForm<AccountDetails>({
-    defaultValues: { dateOfBirth, email, firstName, isEditMode: false, lastName },
+  const { control, getValues, handleSubmit, setValue, trigger } = useForm<AccountDetails>({
+    defaultValues: { dateOfBirth, email, firstName, lastName },
     mode: 'onChange',
     resolver: zodResolver(accountSchema),
   });
   const [accountMutation] = useAccountFormMutation();
   const prevFormData = useRef<AccountDetails | null>(null);
-  useResetFormData({ getValues, prevFormData, setValue, trigger });
+  useResetFormData({ getValues, isEditMode, prevFormData, setValue, trigger });
   return (
     <form
       className="mx-auto flex flex-col gap-2"
       onSubmit={(e) =>
         void handleSubmit((data): void => {
-          setValue('isEditMode', false);
-          prevFormData.current = null;
-          accountMutation.mutate(data);
+          accountMutation.mutate(data, {
+            onSuccess: () => {
+              prevFormData.current = null;
+            },
+          });
         })(e)
       }
     >
-      <ProfileInfoContent {...{ control, customer, isEditMode: watch('isEditMode') }} />
+      <ProfileInfoContent {...{ control, isEditMode }} />
       <CollapseElement
         {...{
-          isCollapsed: watch('isEditMode'),
+          isCollapsed: isEditMode,
           isDisabled: accountMutation.isPending,
         }}
       />
