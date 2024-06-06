@@ -4,12 +4,12 @@ import { describe, expect, it } from 'vitest';
 import { LoadingBackdrop } from './backdrop';
 
 describe('LoadingBackdrop component', () => {
-  it('should render render Backdrop and CircularProgress when request is pending', () => {
+  it('should render Backdrop and CircularProgress when request is pending', () => {
     render(<LoadingBackdrop open={true} />);
     const backdropElement = screen.getByTestId('backdrop');
     const circularProgressElement = screen.getByTestId('circular-progress');
-    expect(backdropElement).toBeInTheDocument();
-    expect(circularProgressElement).toBeInTheDocument();
+    expect(backdropElement).toBeVisible();
+    expect(circularProgressElement).toBeVisible();
   });
   it('should not render Backdrop and CircularProgress when request is done', () => {
     render(<LoadingBackdrop open={false} />);
