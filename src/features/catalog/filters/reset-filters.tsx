@@ -12,5 +12,14 @@ export const ResetFilters: FC = () => {
 
     setSearchParams(searchParams);
   };
-  return <Button onClick={onClick}>Reset filters</Button>;
+  return (
+    <Button
+      className="w-48"
+      onClick={onClick}
+      sx={{ ':hover': { backgroundColor: 'primary.light', transition: '2s' }, transition: '2s' }}
+      variant="contained"
+    >
+      Reset filters
+    </Button>
+  );
 };

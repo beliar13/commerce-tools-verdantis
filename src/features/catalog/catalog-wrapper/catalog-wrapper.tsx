@@ -18,6 +18,7 @@ export const CatalogWrapper: FC<{
       >
         Catalog
       </Typography>
+
       <Filters />
 
       {children}

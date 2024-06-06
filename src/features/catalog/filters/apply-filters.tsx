@@ -13,7 +13,17 @@ export const ApplyFilters: FC<{ values: FilterValues }> = ({ values }) => {
     searchParams.set('color', filters.color);
     searchParams.set('size', filters.size);
     searchParams.set('sort', filters.sort);
+    searchParams.set('q', '');
     setSearchParams(searchParams);
   };
-  return <Button onClick={onClick}>Apply filters</Button>;
+  return (
+    <Button
+      className="w-48"
+      onClick={onClick}
+      sx={{ ':hover': { backgroundColor: 'primary.light', transition: '2s' }, transition: '2s' }}
+      variant="contained"
+    >
+      Apply filters
+    </Button>
+  );
 };
