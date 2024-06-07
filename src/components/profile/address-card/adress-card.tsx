@@ -12,6 +12,7 @@ export const AddressCard: FC<{ addressInfo: RegistrationAddress; isDefault: bool
   return (
     <Box
       className={`${isDefault ? 'bg-green-50' : 'bg-gray-50'} w-fit rounded-md border border-solid  border-[#6fa45e]`}
+      data-testid="address-outer"
     >
       <Typography align="center">{isDefault ? 'Default' : ''}</Typography>
       <List className="p-0">
