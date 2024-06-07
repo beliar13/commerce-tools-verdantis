@@ -14,7 +14,6 @@ export async function signUpAndLogin(
     password: myCustomerDraft.password,
     username: myCustomerDraft.email,
   });
-  // TODO обновить те адреса, которые не отметили дефолтными
   const signInResult = await signInCustomer(myCustomerDraft, tokenInfo.access_token);
   return [tokenInfo, signInResult];
 }

@@ -15,27 +15,15 @@ export const ShippingAddress: FC<{
 }> = ({ control }) => {
   return (
     <AddressWrapper>
-      <Typography
-        component={'h4'}
-        sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }}
-        textAlign={'center'}
-      >
+      <Typography component={'h4'} sx={{ fontSize: { lg: 20, md: 15, sm: 15 } }} textAlign={'center'}>
         Shipping
       </Typography>
 
-      <ControllerComponent
-        {...{ control, label: 'Set as default', name: 'setShippingAsDefault', type: 'checkbox' }}
-      />
-      <ControllerComponent
-        {...{ control, label: 'street', name: 'streetShipping', type: 'text' }}
-      />
+      <ControllerComponent {...{ control, label: 'Set as default', name: 'setShippingAsDefault', type: 'checkbox' }} />
+      <ControllerComponent {...{ control, label: 'street', name: 'streetShipping', type: 'text' }} />
       <ControllerComponent {...{ control, label: 'city', name: 'cityShipping', type: 'text' }} />
-      <ControllerComponent
-        {...{ control, label: 'country', name: 'countryShipping', select: 'select' }}
-      />
-      <ControllerComponent
-        {...{ control, label: 'postal-code', name: 'postalCodeShipping', type: 'text' }}
-      />
+      <ControllerComponent {...{ control, label: 'country', name: 'countryShipping', select: 'select' }} />
+      <ControllerComponent {...{ control, label: 'postal-code', name: 'postalCodeShipping', type: 'text' }} />
     </AddressWrapper>
   );
 };

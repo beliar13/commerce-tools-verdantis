@@ -5,10 +5,7 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 import { useTokenStore } from '@/stores/token-store';
 
-export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }>> = ({
-  children,
-  isForLoggedIn,
-}) => {
+export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }>> = ({ children, isForLoggedIn }) => {
   const { type } = useTokenStore();
   const navigate = useNavigate();
   const isLoggedIn = type === 'password';
@@ -19,7 +16,7 @@ export const AuthProtectedRoute: FC<PropsWithChildren<{ isForLoggedIn: boolean }
     }
   }, [isForLoggedIn, isLoggedIn, navigate]);
 
-  if (type === null || type === 'password') {
+  if (type === null || isLoggedIn !== isForLoggedIn) {
     return (
       <Backdrop className="bg-transparent" open>
         <CircularProgress />

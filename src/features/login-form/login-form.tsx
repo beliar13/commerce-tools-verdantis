@@ -7,6 +7,7 @@ import { UseMutationResult, useMutation } from '@tanstack/react-query';
 
 import { SignInResult } from '@/lib/axios/requests/schemas/sign-in-result.schema.ts';
 import { TokenInfo } from '@/lib/axios/requests/schemas/token-info.schema.ts';
+import { useCustomerStore } from '@/stores/customer-store.ts';
 import { useTokenStore } from '@/stores/token-store.ts';
 import { UserCredentials } from '@/types/user-credentials.ts';
 
@@ -15,11 +16,9 @@ import { loginUser } from '../../lib/axios/requests/login-user';
 import { LoginInfo, loginSchema } from './login-form.schema.ts';
 import { PasswordInput } from './password-input.tsx';
 
-function useLoginFormMutation(): [
-  UseMutationResult<[TokenInfo, SignInResult], Error, UserCredentials>,
-  string,
-] {
-  const store = useTokenStore();
+function useLoginFormMutation(): [UseMutationResult<[TokenInfo, SignInResult], Error, UserCredentials>, string] {
+  const tokenStore = useTokenStore();
+  const customerStore = useCustomerStore();
   const [errorMessage, setErrorMessage] = useState('');
   const loginMutation = useMutation({
     mutationFn: loginUser,
@@ -27,10 +26,10 @@ function useLoginFormMutation(): [
       console.log(error);
       setErrorMessage(error.message);
     },
-    onSuccess: ([tokenInfo]) => {
-      // TODO save customerInfo(customer/cart)
+    onSuccess: ([tokenInfo, customerInfo]) => {
+      customerStore.setCustomer(customerInfo);
       const token = tokenInfo.access_token;
-      store.setToken({ token, type: 'password' });
+      tokenStore.setToken({ token, type: 'password' });
     },
   });
   return [loginMutation, errorMessage] as const;
@@ -53,7 +52,7 @@ export const LoginForm: FC = () => {
       }
     >
       <ControlledTextField control={control} label="Email" name="email" />
-      <PasswordInput {...control} />
+      <PasswordInput {...{ control, name: 'password' }} />
       {
         <Collapse in={!!errorMessage}>
           <Alert severity="warning">{errorMessage}</Alert>

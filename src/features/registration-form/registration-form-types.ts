@@ -1,10 +1,14 @@
-export type RegistrationAddress = {
-  city: string;
-  country: string;
-  postalCode: string;
-  region?: string;
-  streetName: string;
-};
+import { z } from 'zod';
+
+export const registrationAddressSchema = z.object({
+  city: z.string(),
+  country: z.string(),
+  id: z.string().optional(),
+  postalCode: z.string(),
+  region: z.string().optional(),
+  streetName: z.string(),
+});
+export type RegistrationAddress = z.infer<typeof registrationAddressSchema>;
 
 export type Countries = 'DE' | 'US';
 

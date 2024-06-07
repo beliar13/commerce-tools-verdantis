@@ -6,6 +6,7 @@ import { SignInResult } from '@/lib/axios/requests/schemas/sign-in-result.schema
 import { TokenInfo } from '@/lib/axios/requests/schemas/token-info.schema';
 import { signUpAndLogin } from '@/lib/axios/requests/sign-up-and-login';
 import { MyCustomerDraft } from '@/lib/axios/requests/sign-up-customer';
+import { useCustomerStore } from '@/stores/customer-store';
 import { useTokenStore } from '@/stores/token-store';
 
 export function useRegistrationFormMutation(): [
@@ -14,6 +15,7 @@ export function useRegistrationFormMutation(): [
 ] {
   const store = useTokenStore();
   const token = store.token;
+  const customerStore = useCustomerStore();
   const [errorMessage, setErrorMessage] = useState('');
   const registrationMutation = useMutation({
     mutationFn: (data: MyCustomerDraft) => {
@@ -26,7 +28,8 @@ export function useRegistrationFormMutation(): [
       console.log(error);
       setErrorMessage(error.message);
     },
-    onSuccess: ([tokenInfo]) => {
+    onSuccess: ([tokenInfo, customerInfo]) => {
+      customerStore.setCustomer(customerInfo);
       const token = tokenInfo.access_token;
       store.setToken({ token, type: 'password' });
     },
