@@ -4,7 +4,7 @@ import { envVariables } from '@/config/commerce-tools-api';
 
 import { apiInstance } from '../axios-instances';
 import { getAllProducts } from './get-products';
-import { data, results } from './get-products.examples';
+import { data, results } from './get-products.mocks';
 
 vi.mock('../axios-instances', () => ({
   apiInstance: {
