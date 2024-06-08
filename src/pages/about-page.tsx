@@ -44,6 +44,9 @@ export const AboutPage: FC = () => {
                   <Typography mb={2} mt={2} variant="body1">
                     <strong>Project collaboration:</strong> {member.collaboration}
                   </Typography>
+                  <Typography mb={2} mt={2} variant="body1">
+                    <strong>Project contributions:</strong> {member.contributions}
+                  </Typography>
                   <Link
                     className="flex max-w-full items-center gap-1 no-underline"
                     href={member.github}

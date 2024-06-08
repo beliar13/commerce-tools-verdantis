@@ -4,7 +4,8 @@ export const teamMembers: Members = [
   {
     bio: 'Kate has extensive experience in leading development teams and driving project success. Like dancing as well as cats.',
     collaboration: 'Oversaw the entire project lifecycle, ensuring alignment with goals and objectives.',
-    contributions: 'Provided guidance and support to team members. Implement catalog page.',
+    contributions:
+      'Provided guidance and support to team members, did initial setup for the project, implemented routing and providers, added MUI theme, implemented catalog page, and actively tested code.',
     github: 'https://github.com/KateGoncharik',
     name: 'Kate Goncharik',
     nickname: 'KateGoncharik',
@@ -14,7 +15,8 @@ export const teamMembers: Members = [
   {
     bio: 'Anastasiia is a highly skilled developer with the passion for creating robust and scalable apps.',
     collaboration: 'Developed the core architecture of project, focusing on performance and scalability.',
-    contributions: 'Implement authentication and user management.',
+    contributions:
+      'Did initial setup of repository, MUI and Tailwind configuration, setup for Axios and TanStack Query. Implemented authentication and user management including Login and Register pages, and implemented Profile Page, and actively tested code.',
     github: 'https://github.com/mideli37',
     name: 'Anastasiia Muzipova',
     nickname: 'mideli37',
@@ -23,8 +25,9 @@ export const teamMembers: Members = [
   },
   {
     bio: 'Den is dedicated developer who excels in writing clean and efficient code.',
-    collaboration: 'Implement product',
-    contributions: 'Contributed to the development of key features, enhancing functionality and user experience.',
+    collaboration: 'Contributed to the development of key features, enhancing functionality and user experience.',
+    contributions:
+      'Updated configuration files for the project. Implemented Product page and adjusted header navigation, and actively tested code.',
     github: 'https://github.com/beliar13',
     name: 'Denis Sevostyanov',
     nickname: 'beliar13',
