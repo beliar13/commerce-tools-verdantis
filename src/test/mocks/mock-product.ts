@@ -1,6 +1,7 @@
 export const mockProduct = {
   categories: [],
   createdAt: '1970-01-01T00:00:00.001Z',
+  description: { 'en-US': 'Some description' },
   hasStagedChanges: false,
   id: '080feded-4f74-4d31-9309-f7ef6b7f1279',
   key: 'aaa',
@@ -30,7 +31,7 @@ export const mockProduct = {
     prices: [],
   },
   name: {
-    en: 'Some Product',
+    'en-US': 'Some Product',
   },
   productType: {
     id: '1c095f1b-e638-4c7e-86c4-c58df873fca6',
