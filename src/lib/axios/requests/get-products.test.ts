@@ -14,7 +14,7 @@ vi.mock('../axios-instances', () => ({
 
 const mockedGetApiInstance = (apiInstance as unknown as { get: Mock }).get;
 
-const baseURL = `/${envVariables.PROJECT_KEY}/product-projections?limit=7`;
+const baseURL = `/${envVariables.PROJECT_KEY}/product-projections?limit=7&offset=0`;
 
 describe('getAllProducts', () => {
   const token = 'mock-token';

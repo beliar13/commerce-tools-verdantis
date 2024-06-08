@@ -5,9 +5,9 @@ import { apiInstance } from '@/lib/axios/axios-instances';
 
 import { ProductsRequestArguments } from './catalog/catalog-types';
 import { axiosErrorMsgSchema } from './schemas/axios-error-msg.schema';
-import { type Product, getProductsResultSchema } from './schemas/product-schema';
+import { type ProductsResponse, getProductsResultSchema } from './schemas/product-schema';
 
-export async function searchProducts(search: string, offset = 0, BEARER_TOKEN: string): Promise<Product[]> {
+export async function searchProducts(search: string, offset = 0, BEARER_TOKEN: string): Promise<ProductsResponse> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
   const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&fuzzy=true&text.en="${search}"`;
 
@@ -17,7 +17,7 @@ export async function searchProducts(search: string, offset = 0, BEARER_TOKEN: s
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
-    return getProductsResultSchema.parse(getProductsResult.data).results;
+    return getProductsResultSchema.parse(getProductsResult.data);
   } catch (e) {
     console.error('Error occurred while getting products:', e);
     if (isAxiosError(e)) {
