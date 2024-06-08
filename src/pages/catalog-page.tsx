@@ -15,70 +15,6 @@ import { useTokenStore } from '@/stores/token-store';
 
 const PAGE_LIMIT = 7;
 
-const CatalogPage: FC = () => {
-  const { token } = useTokenStore();
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  if (!token) {
-    throw new Error('Token expected');
-  }
-  const location = useLocation();
-
-  useEffect(() => {
-    setPage(1);
-  }, [location]);
-
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(location.search);
-    const q = urlSearchParams.get('q');
-
-    const allSearchParams = urlSearchParams.entries();
-    const filtersQueryString = buildQueryString(allSearchParams);
-
-    const offset = PAGE_LIMIT * (page - 1);
-    if (q) {
-      handleSearch(q, token, setProducts, setTotal, offset);
-    } else if (filtersQueryString.length > 0) {
-      handleGetFilteredProducts(token, setProducts, setTotal, offset, filtersQueryString);
-    } else {
-      handleGetAllProducts(token, setProducts, setTotal, offset);
-    }
-  }, [token, location.search, page]);
-
-  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number): void => {
-    setPage(value);
-  };
-  const pageCount = Math.ceil(total / PAGE_LIMIT);
-
-  return (
-    <CatalogWrapper>
-      <Stack
-        className={' flex-row justify-between align-middle'}
-        sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
-      >
-        <CategoriesNavigation />
-        {products && products.length > 0 ? (
-          <Stack className="mb-auto flex w-3/4 flex-col items-center">
-            <Stack className="flex flex-row flex-wrap justify-center gap-2">
-              {products.map((product: Product) => {
-                return <CatalogItem key={`${product.key}`} product={product} />;
-              })}
-            </Stack>
-            {pageCount > 1 && (
-              <Pagination className="p-4" color="primary" count={pageCount} onChange={handlePageChange} page={page} />
-            )}
-          </Stack>
-        ) : (
-          <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
-        )}
-      </Stack>
-    </CatalogWrapper>
-  );
-};
-
-export default CatalogPage;
-
 const handleSearch = (
   search: string,
   token: string,
@@ -131,3 +67,67 @@ const handleGetFilteredProducts = (
     },
   );
 };
+
+const CatalogPage: FC = () => {
+  const { token } = useTokenStore();
+  const [products, setProducts] = useState<Product[] | null>(null);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  if (!token) {
+    throw new Error('Token expected');
+  }
+  const location = useLocation();
+
+  useEffect(() => {
+    setPage(1);
+  }, [location]);
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(location.search);
+    const q = urlSearchParams.get('q');
+
+    const allSearchParams = urlSearchParams.entries();
+    const filtersQueryString = buildQueryString(allSearchParams);
+
+    const offset = PAGE_LIMIT * (page - 1);
+    if (q) {
+      handleSearch(q, token, setProducts, setTotal, offset);
+    } else if (filtersQueryString.length > 0) {
+      handleGetFilteredProducts(token, setProducts, setTotal, offset, filtersQueryString);
+    } else {
+      handleGetAllProducts(token, setProducts, setTotal, offset);
+    }
+  }, [token, location.search, page]);
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number): void => {
+    setPage(value);
+  };
+  const pageCount = Math.ceil(total / PAGE_LIMIT);
+
+  return (
+    <CatalogWrapper>
+      <Stack
+        className={'flex-row justify-between align-middle'}
+        sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
+      >
+        <CategoriesNavigation />
+        {products && products.length > 0 ? (
+          <Stack className="mb-auto flex w-3/4 flex-col items-center">
+            <Stack className="flex flex-row flex-wrap justify-center gap-2">
+              {products.map((product: Product) => {
+                return <CatalogItem key={`${product.key}`} product={product} />;
+              })}
+            </Stack>
+            {pageCount > 1 && (
+              <Pagination className="p-4" color="primary" count={pageCount} onChange={handlePageChange} page={page} />
+            )}
+          </Stack>
+        ) : (
+          <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
+        )}
+      </Stack>
+    </CatalogWrapper>
+  );
+};
+
+export default CatalogPage;
