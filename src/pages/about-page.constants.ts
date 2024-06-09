@@ -1,5 +1,9 @@
 import { Members } from './about-page.types';
 
+export const gitLinkStyle = 'flex max-w-full items-center gap-1 no-underline';
+
+export const cardStyle = { borderRadius: '5px' };
+
 export const teamMembers: Members = [
   {
     bio: 'Kate has extensive experience in leading development teams and driving project success. Like dancing as well as cats.',
@@ -20,7 +24,7 @@ export const teamMembers: Members = [
     github: 'https://github.com/mideli37',
     name: 'Anastasiia Muzipova',
     nickname: 'mideli37',
-    photo: 'url',
+    photo: 'src/assets/photo/midely.webp',
     role: 'lead developer',
   },
   {

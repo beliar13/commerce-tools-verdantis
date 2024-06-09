@@ -13,7 +13,7 @@ import {
   useScrollTrigger,
 } from '@mui/material';
 
-import { teamMembers } from './about-page.constants';
+import { cardStyle, gitLinkStyle, teamMembers } from './about-page.constants';
 import { Member } from './about-page.types';
 
 export const AboutPage: FC = () => {
@@ -25,10 +25,10 @@ export const AboutPage: FC = () => {
         </Typography>
         <Grid container maxWidth="xl" spacing={4}>
           {teamMembers.map((member: Member, index: number) => (
-            <Grid item key={index} lg={4} md={6} sm={12} xl={4} xs={12}>
+            <Grid data-testid="member-card" item key={index} lg={4} md={6} sm={12} xl={4} xs={12}>
               <Card sx={{ backgroundColor: 'primary.light', color: 'primary.contrastText' }}>
                 <Box sx={{ p: 1.5 }}>
-                  <CardMedia alt={member.name} component="img" image={member.photo} width="230" />
+                  <CardMedia alt={member.name} component="img" image={member.photo} sx={cardStyle} width="230" />
                 </Box>
                 <CardContent>
                   <Box alignItems="center" display="flex" mb={2}>
@@ -47,13 +47,7 @@ export const AboutPage: FC = () => {
                   <Typography mb={2} mt={2} variant="body1">
                     <strong>Project contributions:</strong> {member.contributions}
                   </Typography>
-                  <Link
-                    className="flex max-w-full items-center gap-1 no-underline"
-                    href={member.github}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    variant="body1"
-                  >
+                  <Link className={gitLinkStyle} data-testid={member.github} href={member.github} variant="body1">
                     <img alt={member.github} src="src/assets/icon/github-mark-white.svg" width={28} />
                     {member.nickname}
                   </Link>
@@ -63,7 +57,11 @@ export const AboutPage: FC = () => {
           ))}
         </Grid>
       </Container>
-      <Box component="footer" sx={{ backgroundColor: useScrollTrigger() ? 'green' : 'grey', mt: 2 }}>
+      <Box
+        component="footer"
+        data-testid="footer"
+        sx={{ backgroundColor: useScrollTrigger() ? 'green' : 'grey', mt: 2 }}
+      >
         <Container className="flex items-center justify-center" maxWidth="lg">
           <Link href="https://rs.school/" rel="noopener noreferrer" sx={{ pt: 1 }} target="_blank" variant="body1">
             <img alt="rs-school" src="src/assets/icon/rs-logo.png" width={60} />
