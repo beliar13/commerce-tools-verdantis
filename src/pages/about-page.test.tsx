@@ -6,6 +6,7 @@ import { AboutPage } from './about-page';
 import { teamMembers } from './about-page.constants';
 
 vi.mock('./about-page.constants', () => ({
+  cardStyle: { borderRadius: '5px' },
   teamMembers: [
     {
       bio: 'member1',
