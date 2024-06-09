@@ -4,7 +4,7 @@ import { envVariables } from '@/config/commerce-tools-api';
 
 import { apiInstance } from '../axios-instances';
 import { getAllProducts } from './get-products';
-import { data, results } from './get-products.mocks';
+import { data } from './get-products.mocks';
 
 vi.mock('../axios-instances', () => ({
   apiInstance: {
@@ -27,6 +27,6 @@ describe('getAllProducts', () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    expect(result).toEqual(results);
+    expect(result).toEqual(data);
   });
 });
