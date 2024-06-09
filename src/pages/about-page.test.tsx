@@ -46,7 +46,7 @@ describe('About us page', () => {
     expect(screen.getByText(/About Us/i)).toBeInTheDocument();
   });
 
-  it("should render three member's cards", () => {
+  it("should render all member's cards", () => {
     render(<AboutPage />);
     const memberCards = screen.getAllByTestId('member-card');
     expect(memberCards).toHaveLength(teamMembers.length);
