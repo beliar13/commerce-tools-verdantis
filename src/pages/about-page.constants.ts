@@ -35,7 +35,7 @@ export const teamMembers: Members = [
     github: 'https://github.com/beliar13',
     name: 'Denis Sevostyanov',
     nickname: 'beliar13',
-    photo: 'src/assets/photo/den.jpg',
+    photo: 'src/assets/photo/beliar13.webp',
     role: 'developer',
   },
 ];
