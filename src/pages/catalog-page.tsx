@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Pagination, Stack } from '@mui/material';
+import { Pagination, Stack, Typography } from '@mui/material';
 
 import type { Product, ProductsResponse } from '@/lib/axios/requests/schemas/product-schema';
 
@@ -10,28 +10,9 @@ import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
 import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/catalog/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
-import { searchProducts } from '@/lib/axios/requests/search-products';
 import { useTokenStore } from '@/stores/token-store';
 
 const PAGE_LIMIT = 7;
-
-const handleSearch = (
-  search: string,
-  token: string,
-  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
-  setTotal: React.Dispatch<React.SetStateAction<number>>,
-  offset: number = 0,
-): void => {
-  searchProducts(search, offset, token).then(
-    (response: ProductsResponse) => {
-      setProducts(response.results);
-      setTotal(response.total);
-    },
-    (error) => {
-      console.error(error);
-    },
-  );
-};
 
 const handleGetAllProducts = (
   token: string,
@@ -84,15 +65,12 @@ const CatalogPage: FC = () => {
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
-    const q = urlSearchParams.get('q');
 
     const allSearchParams = urlSearchParams.entries();
     const filtersQueryString = buildQueryString(allSearchParams);
 
     const offset = PAGE_LIMIT * (page - 1);
-    if (q) {
-      handleSearch(q, token, setProducts, setTotal, offset);
-    } else if (filtersQueryString.length > 0) {
+    if (filtersQueryString.length > 0) {
       handleGetFilteredProducts(token, setProducts, setTotal, offset, filtersQueryString);
     } else {
       handleGetAllProducts(token, setProducts, setTotal, offset);
@@ -123,7 +101,9 @@ const CatalogPage: FC = () => {
             )}
           </Stack>
         ) : (
-          <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
+          <Typography className="p-5" component={'h2'} variant="h3">
+            No data available. Try to reload the page
+          </Typography>
         )}
       </Stack>
     </CatalogWrapper>

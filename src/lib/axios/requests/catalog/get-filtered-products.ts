@@ -49,6 +49,9 @@ export const buildQueryString = (params: IterableIterator<[string, string]>): st
     } else if (key === 'sort' && value) {
       const formattedSort = value.split('-').join(' ');
       result.push(`${key}=${formattedSort}`);
+    } else if (key === 'q' && value) {
+      result.push('fuzzy=true');
+      result.push(`text.en="${value}"`);
     }
   }
   return result.join('&');

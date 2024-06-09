@@ -13,7 +13,6 @@ export const ApplyFilters: FC<{ values: FilterValues }> = ({ values }) => {
     searchParams.set('color', filters.color);
     searchParams.set('size', filters.size);
     searchParams.set('sort', filters.sort);
-    searchParams.set('q', '');
     setSearchParams(searchParams);
   };
   return (
