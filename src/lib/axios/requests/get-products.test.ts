@@ -4,7 +4,7 @@ import { envVariables } from '@/config/commerce-tools-api';
 
 import { apiInstance } from '../axios-instances';
 import { getAllProducts } from './get-products';
-import { data, results } from './get-products.mocks';
+import { data } from './get-products.mocks';
 
 vi.mock('../axios-instances', () => ({
   apiInstance: {
@@ -14,7 +14,7 @@ vi.mock('../axios-instances', () => ({
 
 const mockedGetApiInstance = (apiInstance as unknown as { get: Mock }).get;
 
-const baseURL = `/${envVariables.PROJECT_KEY}/product-projections?limit=7`;
+const baseURL = `/${envVariables.PROJECT_KEY}/product-projections?limit=7&offset=0`;
 
 describe('getAllProducts', () => {
   const token = 'mock-token';
@@ -27,6 +27,6 @@ describe('getAllProducts', () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    expect(result).toEqual(results);
+    expect(result).toEqual(data);
   });
 });
