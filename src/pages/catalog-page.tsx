@@ -91,14 +91,14 @@ const CatalogPage: FC = () => {
         <CategoriesNavigation />
         {products && products.length > 0 ? (
           <Stack className="mb-auto flex w-3/4 flex-col items-center">
+            {pageCount > 1 && (
+              <Pagination className="p-4" color="primary" count={pageCount} onChange={handlePageChange} page={page} />
+            )}
             <Stack className="flex flex-row flex-wrap justify-center gap-2">
               {products.map((product: Product) => {
                 return <CatalogItem key={`${product.key}`} product={product} />;
               })}
             </Stack>
-            {pageCount > 1 && (
-              <Pagination className="p-4" color="primary" count={pageCount} onChange={handlePageChange} page={page} />
-            )}
           </Stack>
         ) : (
           <Typography className="p-5" component={'h2'} variant="h3">
