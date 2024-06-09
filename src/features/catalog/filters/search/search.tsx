@@ -11,10 +11,9 @@ export const Search: FC = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearch(event.target.value);
-    searchParams.set('q', event.target.value);
-    searchParams.set('size', '');
-    searchParams.set('color', '');
-    searchParams.set('sort', '');
+  };
+  const handleSearch = (): void => {
+    searchParams.set('q', search);
     setSearchParams(searchParams);
   };
   const handleResetSearch = (): void => {
@@ -33,7 +32,14 @@ export const Search: FC = () => {
           onChange={handleChange}
           sx={{ ':hover': { bgcolor: 'primary.light', transition: '2s' }, backgroundColor: 'primary.contrastText' }}
           value={search}
-        ></TextField>
+        />
+        <Button
+          onClick={handleSearch}
+          sx={{ ':hover': { backgroundColor: 'primary.light', transition: '2s' }, transition: '2s' }}
+          variant="contained"
+        >
+          Search
+        </Button>
         <Button
           onClick={handleResetSearch}
           sx={{ ':hover': { backgroundColor: 'primary.light', transition: '2s' }, transition: '2s' }}
