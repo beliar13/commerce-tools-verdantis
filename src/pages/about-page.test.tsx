@@ -7,6 +7,7 @@ import { teamMembers } from './about-page.constants';
 
 vi.mock('./about-page.constants', () => ({
   cardStyle: { borderRadius: '5px' },
+  gitLinkStyle: 'flex max-w-full items-center gap-1 no-underline',
   teamMembers: [
     {
       bio: 'member1',
