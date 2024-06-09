@@ -1,20 +1,47 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 
-import { Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 
-import { getCart } from '@/lib/axios/requests/get-cart';
+import { addLineItemToCart } from '@/lib/axios/requests/add-line-item-to-cart';
+// import { getCart } from '@/lib/axios/requests/get-cart';
+import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
+import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
 
 export const CartPage: FC = () => {
   const { token } = useTokenStore();
+  const { cart, setCart } = useCartStore();
+
   if (!token) {
     throw new Error('Token expected');
   }
 
-  getCart(token).then(
-    (res) => console.log('got cart:', res),
-    (err) => console.error(err),
-  );
+  if (!cart) {
+    throw new Error('Cart expected');
+  }
+
+  const setterForCartRef = useRef(setCart);
+
+  // useEffect(() => {
+  //   const setCart = setterForCartRef.current;
+  //   getCart(token).then(
+  //     (res) => {
+  //       setCart(res);
+  //     },
+  //     (err) => console.error(err),
+  //   );
+  // }, [token]);
+
+  const handleAddLineItem = (): void => {
+    const setCart = setterForCartRef.current;
+    addLineItemToCart(token, cart.id, cart.version).then(
+      (res) => {
+        console.log(res);
+        setCart(res);
+      },
+      (err) => console.error(err),
+    );
+  };
 
   return (
     <Stack
@@ -22,15 +49,16 @@ export const CartPage: FC = () => {
       sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
     >
       <Typography>Cart</Typography>
-      {/* {products && products.length > 0 ? (
-          <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
-            {products.map((product: Product) => {
-              return <CatalogItem key={`${product.key}`} product={product} />;
-            })}
-          </Stack>
-        ) : (
-          <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
-        )} */}
+      <Button onClick={handleAddLineItem}>Add lineItem</Button>
+      {cart?.lineItems && cart?.lineItems.length > 0 ? (
+        <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
+          {cart?.lineItems.map((lineItem: LineItem) => {
+            return <Stack key={`${lineItem.key}`} />;
+          })}
+        </Stack>
+      ) : (
+        <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
+      )}
     </Stack>
   );
 };

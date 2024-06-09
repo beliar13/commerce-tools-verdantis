@@ -7,7 +7,7 @@ import { createCart } from '@/lib/axios/requests/create-cart';
 import { getAnonymousToken } from '@/lib/axios/requests/get-anonymous-token';
 import { type CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
 
-import { useCustomerStore } from './customer-store';
+import { useCartStore } from './cart-store';
 
 type Token = null | string;
 
@@ -46,7 +46,8 @@ export const useTokenStore = create<TokenState>()(
 
 export const useInitTokenStore = (): void => {
   const { fetchAnonToken, token } = useTokenStore();
-  const { setCustomer } = useCustomerStore();
+  const { setCart } = useCartStore();
+  const cartStore = useCartStore();
   useEffect(() => {
     fetchAnonToken().catch((e) => {
       console.log(e);
@@ -54,13 +55,13 @@ export const useInitTokenStore = (): void => {
     if (!token) {
       throw new Error('Token expected');
     }
-
-    createCart(token).then(
-      (res: CartResponse) => {
-        setCustomer({ cart: res });
-      },
-      (err) => console.error(err),
-    );
-    //save cart to customer store});
-  }, [fetchAnonToken, setCustomer, token]);
+    if (!cartStore.cart) {
+      createCart(token).then(
+        (res: CartResponse) => {
+          setCart(res);
+        },
+        (err) => console.error(err),
+      );
+    }
+  }, [fetchAnonToken, setCart, token, cartStore.cart]);
 };

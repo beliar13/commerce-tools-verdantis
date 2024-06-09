@@ -5,7 +5,7 @@ import { customerSchema } from './customer.schema';
 
 export const signInResultSchema = z.object({
   cart: cartResponseSchema.optional(),
-  customer: customerSchema.optional(),
+  customer: customerSchema,
 });
 
 export type SignInResult = z.infer<typeof signInResultSchema>;
