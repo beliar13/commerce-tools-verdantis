@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 import type { Product } from '@/lib/axios/requests/schemas/product-schema';
 
@@ -10,7 +10,6 @@ import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
 import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/catalog/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
-import { searchProducts } from '@/lib/axios/requests/search-products';
 import { useTokenStore } from '@/stores/token-store';
 
 const CatalogPage: FC = () => {
@@ -22,13 +21,10 @@ const CatalogPage: FC = () => {
   const location = useLocation();
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
-    const q = urlSearchParams.get('q');
 
     const allSearchParams = urlSearchParams.entries();
     const filtersQueryString = buildQueryString(allSearchParams);
-    if (q) {
-      handleSearch(q, token, setProducts);
-    } else if (filtersQueryString.length > 0) {
+    if (filtersQueryString.length > 0) {
       getFilteredProducts(0, token, filtersQueryString).then(
         (products: Product[]) => {
           setProducts(products);
@@ -56,7 +52,9 @@ const CatalogPage: FC = () => {
             })}
           </Stack>
         ) : (
-          <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
+          <Typography className="p-5" component={'h2'} variant="h3">
+            No data available. Try to reload the page
+          </Typography>
         )}
       </Stack>
     </CatalogWrapper>
@@ -64,21 +62,6 @@ const CatalogPage: FC = () => {
 };
 
 export default CatalogPage;
-
-const handleSearch = (
-  search: string,
-  token: string,
-  setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
-): void => {
-  searchProducts(search, 0, token).then(
-    (products: Product[]) => {
-      setProducts(products);
-    },
-    (error) => {
-      console.error(error);
-    },
-  );
-};
 
 const handleGetAllProducts = (
   token: string,
