@@ -32,7 +32,7 @@ describe('catalog component', () => {
   });
 
   it('renders page without errors', () => {
-    vi.spyOn(tokenStoreModule, 'useTokenStore').mockImplementation(() => ({ token: 'blablabal' }));
+    vi.spyOn(tokenStoreModule, 'useTokenStore').mockImplementation(() => ({ token: 'test-token' }));
 
     expect(() =>
       render(
