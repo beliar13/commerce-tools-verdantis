@@ -3,7 +3,11 @@ import { useEffect } from 'react';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
+import { createCart } from '@/lib/axios/requests/create-cart';
 import { getAnonymousToken } from '@/lib/axios/requests/get-anonymous-token';
+import { type CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
+
+import { useCustomerStore } from './customer-store';
 
 type Token = null | string;
 
@@ -41,10 +45,22 @@ export const useTokenStore = create<TokenState>()(
 );
 
 export const useInitTokenStore = (): void => {
-  const { fetchAnonToken } = useTokenStore();
+  const { fetchAnonToken, token } = useTokenStore();
+  const { setCustomer } = useCustomerStore();
   useEffect(() => {
     fetchAnonToken().catch((e) => {
       console.log(e);
     });
-  }, [fetchAnonToken]);
+    if (!token) {
+      throw new Error('Token expected');
+    }
+
+    createCart(token).then(
+      (res: CartResponse) => {
+        setCustomer({ cart: res });
+      },
+      (err) => console.error(err),
+    );
+    //save cart to customer store});
+  }, [fetchAnonToken, setCustomer, token]);
 };

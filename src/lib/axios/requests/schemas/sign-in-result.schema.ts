@@ -1,10 +1,11 @@
 import { z } from 'zod';
 
+import { cartResponseSchema } from './cart-schema';
 import { customerSchema } from './customer.schema';
 
 export const signInResultSchema = z.object({
-  cart: z.unknown().optional(),
-  customer: customerSchema,
+  cart: cartResponseSchema.optional(),
+  customer: customerSchema.optional(),
 });
 
 export type SignInResult = z.infer<typeof signInResultSchema>;

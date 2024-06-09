@@ -27,7 +27,9 @@ function useLoginFormMutation(): [UseMutationResult<[TokenInfo, SignInResult], E
       setErrorMessage(error.message);
     },
     onSuccess: ([tokenInfo, customerInfo]) => {
-      customerStore.setCustomer(customerInfo);
+      const { cart, customer } = customerInfo;
+      customerStore.setCustomer({ cart, customer });
+      // does not work or reloaded
       const token = tokenInfo.access_token;
       tokenStore.setToken({ token, type: 'password' });
     },

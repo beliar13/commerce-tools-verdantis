@@ -2,6 +2,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { RootLayout } from '@/components/root-layout/';
 import { AuthProtectedRoute } from '@/components/route/auth-protected-route';
+import { CartPage } from '@/pages/cart-page';
 import CatalogPage from '@/pages/catalog-page';
 import ErrorPage from '@/pages/error-page';
 import LoginPage from '@/pages/login-page';
@@ -55,6 +56,7 @@ export const routes = [
         path: '/profile',
       },
       { element: <NotFoundPage />, path: '*' },
+      { element: <CartPage />, path: '/cart' },
     ],
     element: (
       <ErrorBoundary FallbackComponent={ErrorPage}>

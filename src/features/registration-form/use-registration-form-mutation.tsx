@@ -29,6 +29,7 @@ export function useRegistrationFormMutation(): [
       setErrorMessage(error.message);
     },
     onSuccess: ([tokenInfo, customerInfo]) => {
+      console.log(customerInfo);
       customerStore.setCustomer(customerInfo);
       const token = tokenInfo.access_token;
       store.setToken({ token, type: 'password' });
