@@ -25,7 +25,7 @@ export const addLineItemToCart = async (
         },
       },
     );
-    return cartResponseSchema.parse(addLineItemResult);
+    return cartResponseSchema.parse(addLineItemResult.data);
   } catch (e) {
     console.error('Error occurred while getting adding lineItem to cart:', e);
     if (isAxiosError(e)) {

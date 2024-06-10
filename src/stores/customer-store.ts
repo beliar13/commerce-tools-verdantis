@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 import { Customer } from '@/lib/axios/requests/schemas/customer.schema';
-// import { SignInResult } from '@/lib/axios/requests/schemas/sign-in-result.schema';
 
 type CustomerState = {
   customer: Customer | null;
@@ -24,5 +23,3 @@ export const useCustomerStore = create<CustomerState>()(
     ),
   ),
 );
-
-// remove cart from here
