@@ -20,7 +20,6 @@ export async function createCart(BEARER_TOKEN: string): Promise<CartResponse> {
         },
       },
     );
-    console.log('response', createCartResult.data);
     return cartResponseSchema.parse(createCartResult.data);
   } catch (e) {
     console.error('Error occurred while creating cart:', e);

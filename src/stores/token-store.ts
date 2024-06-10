@@ -45,7 +45,7 @@ export const useTokenStore = create<TokenState>()(
 );
 
 export const useInitTokenStore = (): void => {
-  const { fetchAnonToken, setToken, token } = useTokenStore();
+  const { fetchAnonToken, token } = useTokenStore();
   const { setCart } = useCartStore();
   const cartStore = useCartStore();
   useEffect(() => {
@@ -55,7 +55,6 @@ export const useInitTokenStore = (): void => {
           createCart(token).then(
             (res: CartResponse) => {
               setCart(res);
-              setToken({ token, type: 'anonymous' });
             },
             (err) => console.error(err),
           );
@@ -64,5 +63,5 @@ export const useInitTokenStore = (): void => {
       .catch((e) => {
         console.error(e);
       });
-  }, [fetchAnonToken, setCart, token, cartStore.cart, setToken]);
+  }, [fetchAnonToken, setCart, token, cartStore.cart]);
 };

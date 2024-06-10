@@ -69,8 +69,6 @@ export const CartPage: FC = () => {
         () => {},
         () => {},
       );
-    } else {
-      console.log('no lineItems');
     }
   }, [token, cart]);
 
