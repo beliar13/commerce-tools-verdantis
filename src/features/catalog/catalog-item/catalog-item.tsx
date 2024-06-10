@@ -11,7 +11,8 @@ export const CatalogItem = ({ product }: { product: Product }): JSX.Element => {
   const { description, masterVariant, name } = product;
   const enName = name['en-US'];
   const enDescription = description ? description['en-US'] : 'No description available';
-  const image = masterVariant ? masterVariant.images[0] : { name: 'placeholder', url: '' };
+  const image =
+    masterVariant && masterVariant.images.length > 0 ? masterVariant.images[0] : { name: 'placeholder', url: '' };
   const { prices } = masterVariant;
   return (
     <Card
