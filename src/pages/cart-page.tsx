@@ -2,6 +2,7 @@ import { Dispatch, FC, MutableRefObject, SetStateAction, useEffect, useRef, useS
 
 import { Button, Stack, Typography } from '@mui/material';
 
+import { BackTo } from '@/components/back-to/back-to';
 import { CartItem } from '@/features/cart';
 import { addLineItemToCart } from '@/lib/axios/requests/add-line-item-to-cart';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
@@ -102,7 +103,10 @@ export const CartPage: FC = () => {
           })}
         </Stack>
       ) : (
-        <Stack className="mx-0 my-auto w-full">No data available. Try to reload the page</Stack>
+        <>
+          <Stack className="mx-0 my-auto w-full">No products.</Stack>
+          <BackTo dest="catalog" path="/catalog" />
+        </>
       )}
     </Stack>
   );
