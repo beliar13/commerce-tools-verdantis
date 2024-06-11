@@ -30,8 +30,8 @@ describe('Header', () => {
         <Header />
       </MemoryRouter>,
     );
-    const footer = screen.getByTestId('header');
-    expect(getComputedStyle(footer).backgroundColor).toBe('rgb(0, 128, 0)');
+    const header = screen.getByTestId('header');
+    expect(getComputedStyle(header).backgroundColor).toBe('rgb(0, 128, 0)');
   });
   it('should render grey color for header when useScrollTrigger is false', () => {
     (useScrollTrigger as unknown as Mock).mockReturnValue(false);
@@ -40,7 +40,7 @@ describe('Header', () => {
         <Header />
       </MemoryRouter>,
     );
-    const footer = screen.getByTestId('header');
-    expect(getComputedStyle(footer).backgroundColor).toBe('rgb(128, 128, 128)');
+    const header = screen.getByTestId('header');
+    expect(getComputedStyle(header).backgroundColor).toBe('rgb(128, 128, 128)');
   });
 });
