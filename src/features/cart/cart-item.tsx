@@ -4,9 +4,13 @@ import { Button, Card, Typography } from '@mui/material';
 
 import { removeLineItemFromCart } from '@/lib/axios/requests/remove-line-item-from-cart';
 import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
-import { CardData } from '@/pages/cart-page';
+import { AddedProductData } from '@/pages/cart-page';
 import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
+
+interface CartItemData extends AddedProductData {
+  setterForCartRef: MutableRefObject<(cart: CartResponse) => void>;
+}
 
 const handleRemoveProduct = (
   token: string,
@@ -23,7 +27,7 @@ const handleRemoveProduct = (
   );
 };
 
-export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: CardData): JSX.Element => {
+export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
   const { images, name } = product;

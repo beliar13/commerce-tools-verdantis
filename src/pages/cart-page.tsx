@@ -1,11 +1,10 @@
-import { Dispatch, FC, MutableRefObject, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
 
 import { Stack, Typography } from '@mui/material';
 
 import { BackTo } from '@/components/back-to/back-to';
 import { CartItem } from '@/features/cart';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
-import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
 import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
 import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
@@ -17,10 +16,6 @@ export type AddedProductData = {
   product: Product;
   quantity: number;
 };
-
-export interface CardData extends AddedProductData {
-  setterForCartRef: MutableRefObject<(cart: CartResponse) => void>;
-}
 
 const getProductsAddedToCart = async (
   lineItems: LineItem[],
@@ -56,10 +51,7 @@ export const CartPage: FC = () => {
       if (!token) {
         throw new Error('Token expected');
       }
-      getProductsAddedToCart(lineItems, token, setProducts).then(
-        () => {},
-        () => {},
-      );
+      void getProductsAddedToCart(lineItems, token, setProducts);
     }
   }, [token, cart]);
 
