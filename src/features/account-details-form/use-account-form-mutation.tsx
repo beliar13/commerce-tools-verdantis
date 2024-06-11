@@ -30,7 +30,7 @@ export function useAccountFormMutation(): [UseMutationResult<Customer, Error, Ac
       toast.error(error.message);
     },
     onSuccess: (response) => {
-      customerStore.setCustomer({ customer: response });
+      customerStore.setCustomer(response);
       toast.success('The data was successfully updated!');
     },
   });
