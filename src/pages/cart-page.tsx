@@ -4,6 +4,7 @@ import { Stack, Typography } from '@mui/material';
 
 import { BackTo } from '@/components/back-to/back-to';
 import { CartItem } from '@/features/cart';
+import { ClearCart } from '@/features/cart/clear-cart/clear-cart';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
 import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
 import { useCartStore } from '@/stores/cart-store';
@@ -60,6 +61,7 @@ export const CartPage: FC = () => {
       <Typography component={'h1'} variant="h2">
         Cart
       </Typography>
+      <ClearCart setterForCartRef={setterForCartRef} />
       {products.length > 0 ? (
         <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
           {products.map((addedProduct: AddedProductData) => {
