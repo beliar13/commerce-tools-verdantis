@@ -39,7 +39,7 @@ export function useEditAddressMutation(): [UseMutationResult<Customer, Error, Pr
       toast.error(error.message);
     },
     onSuccess: (response) => {
-      customerStore.setCustomer({ customer: response });
+      customerStore.setCustomer(response);
       toast.success('The data was successfully updated!');
     },
   });
