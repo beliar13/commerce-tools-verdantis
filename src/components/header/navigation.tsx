@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
 
 const sectionsLabels = ['about', 'catalog', 'cart'];
@@ -35,6 +36,7 @@ export const Navigation: FC = () => {
 };
 
 const Sections: FC = () => {
+  const cart = useCartStore((state) => state.cart);
   return (
     <Stack direction={'row'}>
       {sectionsLabels.map((label) =>
@@ -42,6 +44,7 @@ const Sections: FC = () => {
           <Button component={RouterLink} key={label} to={label}>
             {label}
             <ShoppingCartOutlinedIcon />
+            {cart?.lineItems.length ?? 0}
           </Button>
         ) : (
           <Button component={RouterLink} key={label} to={label}>
