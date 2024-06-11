@@ -65,7 +65,9 @@ export const CartPage: FC = () => {
 
   return (
     <Stack className={' flex-col justify-between align-middle'}>
-      <Typography>Cart</Typography>
+      <Typography component={'h1'} variant="h2">
+        Cart
+      </Typography>
       {products.length > 0 ? (
         <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
           {products.map((addedProduct: AddedProductData) => {
