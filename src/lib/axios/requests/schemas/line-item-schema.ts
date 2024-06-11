@@ -42,6 +42,7 @@ export const lineItemSchema = z.object({
   externalPrice: moneySchema.optional(),
   externalTaxRate: externalTaxRateDraftSchema.optional(),
   externalTotalPrice: externalLineItemTotalPriceSchema.optional(),
+  id: z.string(),
   inventoryMode: inventoryModeSchema.optional(),
   key: userIdentifierSchema.optional(),
   perMethodExternalTaxRate: z.array(methodExternalTaxRateDraftSchema).optional(),
