@@ -16,8 +16,8 @@ export const Sections: FC = () => {
         label === 'cart' ? (
           <Button component={RouterLink} key={label} to={label}>
             {label}
-            <ShoppingCartOutlinedIcon />
-            {cart?.lineItems.length ?? 0}
+            <ShoppingCartOutlinedIcon data-testid="cart-icon" />
+            <span data-testid="cart-items-count">{cart?.lineItems.length ?? 0}</span>
           </Button>
         ) : (
           <Button component={RouterLink} key={label} to={label}>

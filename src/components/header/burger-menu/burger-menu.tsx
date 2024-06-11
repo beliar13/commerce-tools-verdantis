@@ -26,8 +26,8 @@ export const BurgerMenu: FC = () => {
                 <ListItem disablePadding key={label}>
                   <ListItemButton component={RouterLink} to={label}>
                     <ListItemText primary={label.toUpperCase()} />
-                    <ShoppingCartOutlinedIcon />
-                    {cart?.lineItems.length ?? 0}
+                    <ShoppingCartOutlinedIcon data-testid="cart-icon" />
+                    <span data-testid="cart-items-count">{cart?.lineItems.length ?? 0}</span>
                   </ListItemButton>
                 </ListItem>
               ) : (

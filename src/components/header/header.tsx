@@ -13,6 +13,7 @@ export const Header: FC<{
 }> = () => {
   return (
     <AppBar
+      data-testid="header"
       sx={{
         alignItems: 'center',
         backgroundColor: useScrollTrigger() ? 'green' : 'grey',
