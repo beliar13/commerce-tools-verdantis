@@ -4,7 +4,8 @@ import { AddedProductData } from '@/pages/cart-page';
 
 export const CartItem = ({ product, quantity }: AddedProductData): JSX.Element => {
   const { images, name } = product;
-  const image = images[0];
+  const firstImageIndex = 0;
+  const image = images[firstImageIndex];
   return (
     <Card
       className="flex flex-col justify-between p-5"
