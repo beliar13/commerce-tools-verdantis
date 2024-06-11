@@ -1,10 +1,9 @@
 import { Dispatch, FC, MutableRefObject, SetStateAction, useEffect, useRef, useState } from 'react';
 
-import { Button, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 import { BackTo } from '@/components/back-to/back-to';
 import { CartItem } from '@/features/cart';
-import { addLineItemToCart } from '@/lib/axios/requests/add-line-item-to-cart';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
 import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
 import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
@@ -13,25 +12,15 @@ import { useTokenStore } from '@/stores/token-store';
 
 import { Product } from './product-page.types';
 
-const handleAddLineItem = (
-  token: string,
-  cart: CartResponse,
-  setterForCartRef: MutableRefObject<(cart: CartResponse) => void>,
-): void => {
-  const setCart = setterForCartRef.current;
-  addLineItemToCart(token, cart.id, cart.version).then(
-    (res) => {
-      console.log(res);
-      setCart(res);
-    },
-    (err) => console.error(err),
-  );
-};
-
 export type AddedProductData = {
+  lineItemId: string;
   product: Product;
   quantity: number;
 };
+
+export interface CardData extends AddedProductData {
+  setterForCartRef: MutableRefObject<(cart: CartResponse) => void>;
+}
 
 const getProductsAddedToCart = async (
   lineItems: LineItem[],
@@ -41,10 +30,11 @@ const getProductsAddedToCart = async (
   const productsAddedToCart: AddedProductData[] = [];
   await Promise.all(
     lineItems.map(async (lineItem: LineItem) => {
-      if (lineItem.productId && lineItem.quantity) {
+      const { id, productId, quantity } = lineItem;
+      if (productId && quantity) {
         try {
-          const product = await getProductById(lineItem.productId, token);
-          productsAddedToCart.push({ product, quantity: lineItem.quantity });
+          const product = await getProductById(productId, token);
+          productsAddedToCart.push({ lineItemId: id, product, quantity });
         } catch (err) {
           console.error(err);
         }
@@ -61,6 +51,7 @@ export const CartPage: FC = () => {
   const setterForCartRef = useRef(setCart);
   useEffect(() => {
     const lineItems = cart ? cart?.lineItems : [];
+    setProducts([]);
     if (lineItems.length > 0) {
       if (!token) {
         throw new Error('Token expected');
@@ -75,27 +66,17 @@ export const CartPage: FC = () => {
   return (
     <Stack className={' flex-col justify-between align-middle'}>
       <Typography>Cart</Typography>
-      <Button
-        onClick={() => {
-          if (!token) {
-            throw new Error('Token expected');
-          }
-          if (!cart) {
-            throw new Error('Cart expected');
-          }
-          handleAddLineItem(token, cart, setterForCartRef);
-        }}
-      >
-        Add lineItem
-      </Button>
       {products.length > 0 ? (
         <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
           {products.map((addedProduct: AddedProductData) => {
+            const { lineItemId, product, quantity } = addedProduct;
             return (
               <CartItem
-                key={addedProduct.product.name}
-                product={addedProduct.product}
-                quantity={addedProduct.quantity}
+                key={product.name}
+                lineItemId={lineItemId}
+                product={product}
+                quantity={quantity}
+                setterForCartRef={setterForCartRef}
               />
             );
           })}
