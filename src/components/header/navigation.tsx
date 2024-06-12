@@ -6,6 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { ManagedNavigationButtons, Sections } from '.';
 import { BurgerMenu } from './burger-menu/burger-menu';
 
+
 export const Navigation: FC = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('lg'));
