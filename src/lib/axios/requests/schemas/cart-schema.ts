@@ -18,6 +18,11 @@ export const cartResponseSchema = z.object({
   lastModifiedAt: z.string().optional(),
   lineItems: z.array(lineItemSchema),
   origin: z.string(),
-  totalPrice: z.unknown(),
+  totalPrice: z.object({
+    centAmount: z.number(),
+    currencyCode: z.string(),
+    fractionDigits: z.number(),
+    type: z.string(),
+  }),
   version: z.number(),
 });
