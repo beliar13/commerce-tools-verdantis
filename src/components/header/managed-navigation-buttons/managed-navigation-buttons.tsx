@@ -12,7 +12,6 @@ export const ManagedNavigationButtons: FC = () => {
   const isLoggedIn = type === 'password';
   return isLoggedIn ? (
     <>
-      {' '}
       <Button component={RouterLink} to="/profile">
         Profile
       </Button>
