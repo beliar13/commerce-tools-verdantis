@@ -1,26 +1,11 @@
-import { FC, useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { FC } from 'react';
 
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Stack,
-  useTheme,
-} from '@mui/material';
+import { Stack, useTheme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { useCartStore } from '@/stores/cart-store';
-import { useTokenStore } from '@/stores/token-store';
+import { ManagedNavigationButtons, Sections } from '.';
+import { BurgerMenu } from './burger-menu/burger-menu';
 
-const sectionsLabels = ['about', 'catalog', 'cart'];
-const buttonsLabels = ['registration', 'login'];
 
 export const Navigation: FC = () => {
   const theme = useTheme();
@@ -32,124 +17,5 @@ export const Navigation: FC = () => {
     </Stack>
   ) : (
     <BurgerMenu />
-  );
-};
-
-const Sections: FC = () => {
-  const cart = useCartStore((state) => state.cart);
-  return (
-    <Stack direction={'row'}>
-      {sectionsLabels.map((label) =>
-        label === 'cart' ? (
-          <Button component={RouterLink} key={label} to={label}>
-            {label}
-            <ShoppingCartOutlinedIcon />
-            {cart?.lineItems.length ?? 0}
-          </Button>
-        ) : (
-          <Button component={RouterLink} key={label} to={label}>
-            {label}
-          </Button>
-        ),
-      )}
-    </Stack>
-  );
-};
-
-const RegisterLoginButtons: FC = () => {
-  return (
-    <Stack direction={'row'}>
-      {buttonsLabels.map((label) => (
-        <Button component={RouterLink} key={label} to={label}>
-          {label}
-        </Button>
-      ))}
-    </Stack>
-  );
-};
-
-const LogoutButton: FC = () => {
-  const navigate = useNavigate();
-  const { resetStore } = useTokenStore();
-  const handleLogout = (): void => {
-    void resetStore();
-    navigate('/');
-  };
-  return (
-    <Button onClick={handleLogout} variant="contained">
-      Logout
-    </Button>
-  );
-};
-
-const ManagedNavigationButtons: FC = () => {
-  const { type } = useTokenStore();
-  const isLoggedIn = type === 'password';
-  return isLoggedIn ? (
-    <>
-      {' '}
-      <Button component={RouterLink} to="/profile">
-        Profile
-      </Button>
-      <LogoutButton />
-    </>
-  ) : (
-    <RegisterLoginButtons />
-  );
-};
-
-const BurgerMenu: FC = () => {
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
-  return (
-    <div>
-      <Button onClick={toggleDrawer(true)}>Menu</Button>
-      <Drawer anchor="right" onClose={toggleDrawer(false)} open={open}>
-        <Box onClick={toggleDrawer(false)} role="presentation" sx={{ width: 250 }}>
-          <List>
-            {sectionsLabels.map((text) => (
-              <ListItem disablePadding key={text}>
-                <ListItemButton component={RouterLink} to={text}>
-                  <ListItemText primary={text.toUpperCase()} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <ManagedList />
-        </Box>
-      </Drawer>
-    </div>
-  );
-};
-
-const ManagedList: FC = () => {
-  const navigate = useNavigate();
-  const { resetStore, type } = useTokenStore();
-  const isLoggedIn = type === 'password';
-  const handleLogout = (): void => {
-    void resetStore();
-    navigate('/');
-  };
-  return isLoggedIn ? (
-    <List>
-      <ListItem disablePadding key={'LOGOUT'}>
-        <ListItemButton onClick={handleLogout}>
-          <ListItemText primary={'LOGOUT'} />
-        </ListItemButton>
-      </ListItem>
-    </List>
-  ) : (
-    <List>
-      {buttonsLabels.map((text) => (
-        <ListItem disablePadding key={text}>
-          <ListItemButton component={RouterLink} to={text}>
-            <ListItemText primary={text.toUpperCase()} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
   );
 };
