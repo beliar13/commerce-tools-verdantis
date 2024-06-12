@@ -2,41 +2,30 @@ import { ReactNode, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import { Box, Container, Paper } from '@mui/material';
+import { Box, Container, Dialog } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
-import { AddProductButton } from '@/components/add-product-button/add-product-button';
 import { BackTo } from '@/components/back-to/back-to';
 import { LoadingBackdrop } from '@/components/backdrop/backdrop';
-import { CustomTypography } from '@/components/custom-typography/custom-typography';
-import { useDialog } from '@/components/dialog';
-import { PricesBlock } from '@/components/prices-block/prices-block';
+import { CloseButton } from '@/components/close-button/close-button';
+import { ProductPaper } from '@/components/product-paper';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
 import { updateCart } from '@/lib/axios/requests/update-cart/update-request';
 import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
 
-import {
-  boxStyles,
-  descStyles,
-  discountPriceStyle,
-  firstPrice,
-  imgStyles,
-  sliderSettingsDefaultImage,
-  sliderSettingsEnlargedImage,
-  stylePrice,
-  titleStyles,
-} from './product-page.constants';
+import { iconStyles, imgStyles, sliderSettingsEnlargedImage } from './product-page.constants';
 
-import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function ProductPage(): ReactNode {
   const { token } = useTokenStore();
   const { id } = useParams<{ id: string }>();
   const { cart, setCart } = useCartStore();
   const [curImgIdx, setCurImgIdx] = useState(0);
-  const { DialogComponent, setOpen } = useDialog();
+  const [open, setOpen] = useState(false);
+  const handleModalClose = (): void => setOpen(false);
   const handleImageClick = (index: number): void => {
     setCurImgIdx(index);
     setOpen(true);
@@ -65,30 +54,26 @@ export default function ProductPage(): ReactNode {
   ) : (
     <Container>
       <Container maxWidth="md">
-        <Paper elevation={24} sx={{ marginTop: 4, padding: 5 }}>
-          <CustomTypography styles={titleStyles} tag="h1" text={data?.name} variantField="h4" />
-          <Slider {...sliderSettingsDefaultImage}>
-            {data?.images.map((image, index) => (
-              <Box key={index} onClick={() => handleImageClick(index)} sx={boxStyles}>
-                <img alt={`${data.name}${index + 1}`} src={image.url} style={imgStyles} />
-              </Box>
-            ))}
-          </Slider>
-          <CustomTypography styles={descStyles} tag="p" text={data?.description} variantField="body1" />
-          <Box>
-            <PricesBlock price={data?.prices[firstPrice]} styleDiscount={discountPriceStyle} stylePrice={stylePrice} />
+        <ProductPaper
+          {...{
+            data,
+            isDisabled,
+            onButtonClick: () => void handleAddProduct(),
+            onImageClick: handleImageClick,
+          }}
+        />
+        <Dialog maxWidth="lg" onClose={handleModalClose} open={open}>
+          <CloseButton callback={handleModalClose} styles={iconStyles} />
+          <Box sx={{ padding: '40px' }}>
+            <Slider {...sliderSettingsEnlargedImage} afterChange={(i) => setCurImgIdx(i)} initialSlide={curImgIdx}>
+              {data?.images.map((image, index) => (
+                <Box key={index}>
+                  <img alt={`big${index}`} src={image.url} style={imgStyles} />
+                </Box>
+              ))}
+            </Slider>
           </Box>
-          <AddProductButton isDisabled={isDisabled} onclick={() => void handleAddProduct()} />
-        </Paper>
-        <DialogComponent>
-          <Slider {...sliderSettingsEnlargedImage} afterChange={(i) => setCurImgIdx(i)} initialSlide={curImgIdx}>
-            {data?.images.map((image, index) => (
-              <Box key={index}>
-                <img alt={`big${index}`} src={image.url} style={imgStyles} />
-              </Box>
-            ))}
-          </Slider>
-        </DialogComponent>
+        </Dialog>
       </Container>
       <BackTo dest="catalog" path="/catalog" />
     </Container>
