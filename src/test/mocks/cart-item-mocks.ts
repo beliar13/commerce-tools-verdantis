@@ -7,7 +7,6 @@ export const mockSetterForCartRef = {
 };
 
 export const mockProduct = {
-  description: 'test-description',
   images: [
     {
       dimensions: {
@@ -17,5 +16,53 @@ export const mockProduct = {
       url: 'https://commercetools.com/cli/data/253245821_1.jpg',
     },
   ],
-  name: 'test-name',
+  name: {'en-US': 'test-name'},
+  id: 'test-id',
+  price: { 
+    id: 'test-price-id',
+    key: 'test-key',
+    validFrom: '00-00-1900',
+    validUntil: '00-00-1900',
+    value: {
+      centAmount: 0,
+      currencyCode: 'EUR',
+      fractionDigits: 0,
+      type: 'no-type',
+    }
+  },
+  productId: 'test-product-id',
+  productType: 'no-type',
+  variant: {
+    attributes: [{
+      name: "Size",
+      value:  {
+        name: "Color",
+        value: "Blue",
+      },
+    }],
+    id: 123,
+    images: [
+      {
+        dimensions: {
+          h: 200,
+          w: 300,
+        },
+        label: "Product Image",
+        url: "https://example.com/product-image.jpg",
+      },
+    ],
+    prices: [
+      {
+        id: "price_123",
+        key: "price_key",
+        validFrom: "2022-01-01T00:00:00Z",
+        validUntil: "2022-12-31T23:59:59Z",
+        value: {
+          amount: 9.99,
+          currencyCode: "USD",
+        },
+      }
+    ],
+  }
+  ,
 };

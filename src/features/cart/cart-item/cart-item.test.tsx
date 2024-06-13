@@ -11,7 +11,7 @@ describe('CartItem', () => {
   it('should render', () => {
     render(
       <MemoryRouter>
-        <CartItem lineItemId="test-id" product={mockProduct} quantity={1} setterForCartRef={mockSetterForCartRef} />
+        <CartItem lineItem={mockProduct} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
       </MemoryRouter>,
     );
 
@@ -22,3 +22,5 @@ describe('CartItem', () => {
     expect(productQuantity).toBeInTheDocument();
   });
 });
+
+

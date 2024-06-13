@@ -27,12 +27,15 @@ const handleRemoveProduct = (
   );
 };
 
-export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: CartItemData): JSX.Element => {
+export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
-  const { images, name } = product;
+  const { name, variant } = lineItem;
+
+  const enName = name['en-US'];
   const firstImageIndex = 0;
-  const image = images[firstImageIndex];
+  const image = variant ? variant.images[firstImageIndex] : { name: 'placeholder', url: '' };
+
   return (
     <Card
       className="flex flex-col justify-between p-5"
@@ -46,13 +49,13 @@ export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: Ca
       }}
       variant="outlined"
     >
-      <img alt={name} className={'align-self-start w-full '} src={image.url} />
+      <img alt={enName} className={'align-self-start w-full '} src={image.url} />
 
       <Typography
         className="my-3  text-center"
         sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
       >
-        {name}
+        {enName}
       </Typography>
       <Typography
         className="my-3  text-center"
