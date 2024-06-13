@@ -75,7 +75,7 @@ export const CartPage: FC = () => {
               />
             );
           })}
-          <TotalPricesBlock totalPrice={cart?.totalPrice} />
+          <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
         </Stack>
       ) : (
         <>

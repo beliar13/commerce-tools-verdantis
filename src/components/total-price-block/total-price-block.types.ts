@@ -1,4 +1,7 @@
+import { DiscountOnTotalPrice } from '@/lib/axios/requests/schemas/cart-schema';
+
 export type TotalPriceProps = {
+  discountOnTotalPrice?: DiscountOnTotalPrice;
   totalPrice?: TotalPrice;
 };
 
