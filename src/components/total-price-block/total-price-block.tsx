@@ -16,6 +16,8 @@ export const TotalPricesBlock: FC<TotalPriceProps> = ({ discountOnTotalPrice, to
     }).format(amount / Math.pow(10, fractionDigits));
   };
 
+  const cartPrice = formatPrice(totalPrice.centAmount, totalPrice.currencyCode, totalPrice.fractionDigits);
+
   return discountOnTotalPrice?.discountedAmount.centAmount ? (
     <Box className="flex gap-px">
       <Typography variant="body1">Total:</Typography>
@@ -26,15 +28,11 @@ export const TotalPricesBlock: FC<TotalPriceProps> = ({ discountOnTotalPrice, to
           totalPrice.fractionDigits,
         )}
       </Typography>
-      <Typography variant="body1">
-        {formatPrice(totalPrice.centAmount, totalPrice.currencyCode, totalPrice.fractionDigits)}
-      </Typography>
+      <Typography variant="body1">{cartPrice}</Typography>
     </Box>
   ) : (
     <Box>
-      <Typography variant="body1">
-        Total: {formatPrice(totalPrice.centAmount, totalPrice.currencyCode, totalPrice.fractionDigits)}
-      </Typography>
+      <Typography variant="body1">Total: {cartPrice}</Typography>
     </Box>
   );
 };
