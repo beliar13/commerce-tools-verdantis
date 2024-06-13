@@ -9,7 +9,6 @@ import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
 import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
 
-
 export type AddedProductData = {
   lineItem: LineItem;
   lineItemId: string;
@@ -22,11 +21,10 @@ const getProductsAddedToCart = async (
 ): Promise<void> => {
   const productsAddedToCart: AddedProductData[] = [];
   await Promise.all(
-    lineItems.map( (lineItem: LineItem) => {
-      console.log(lineItem)
+    lineItems.map((lineItem: LineItem) => {
       const { id, productId, quantity } = lineItem;
       if (productId && quantity) {
-          productsAddedToCart.push({ lineItem: lineItem, lineItemId: id, quantity });
+        productsAddedToCart.push({ lineItem: lineItem, lineItemId: id, quantity });
       }
     }),
   );
@@ -39,17 +37,16 @@ export const CartPage: FC = () => {
   const [products, setProducts] = useState<[] | AddedProductData[]>([]);
   const setterForCartRef = useRef(setCart);
   useEffect(() => {
-    if(!cart){
-      return
+    if (!cart) {
+      return;
     }
     const lineItems = cart.lineItems ? cart.lineItems : [];
-    console.log('cart:',cart)
     setProducts([]);
     if (lineItems.length > 0) {
       if (!token) {
         throw new Error('Token expected');
       }
-      void getProductsAddedToCart(lineItems,  setProducts);
+      void getProductsAddedToCart(lineItems, setProducts);
     }
   }, [token, cart]);
 

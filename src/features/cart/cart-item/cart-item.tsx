@@ -39,7 +39,6 @@ export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: C
   return (
     <Card
       className="flex flex-col justify-between p-5"
-      id={lineItemId}
       sx={{
         ':hover': { bgcolor: 'primary.light', transition: '2s' },
         backgroundColor: 'primary.contrastText',
@@ -64,19 +63,14 @@ export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: C
         {quantity}
       </Typography>
       <Button
-        id={lineItemId}
-        onClick={(e) => {
-          const eventTarget = e.target;
-          if (!(eventTarget instanceof HTMLButtonElement)) {
-            throw new Error('Button expected');
-          }
+        onClick={() => {
           if (!token) {
             throw new Error('Token expected');
           }
           if (!cart) {
             throw new Error('Cart expected');
           }
-          handleRemoveProduct(token, cart, eventTarget.id, setterForCartRef);
+          handleRemoveProduct(token, cart, lineItemId, setterForCartRef);
         }}
       >
         remove product
