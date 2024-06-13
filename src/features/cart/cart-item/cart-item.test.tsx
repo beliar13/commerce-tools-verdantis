@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { mockProduct, mockSetterForCartRef } from '@/test/mocks/cart-item-mocks';
+import { mockLineItem, mockSetterForCartRef } from '@/test/mocks/mock-line-item';
 
 import { CartItem } from './cart-item';
 
@@ -11,7 +11,7 @@ describe('CartItem', () => {
   it('should render', () => {
     render(
       <MemoryRouter>
-        <CartItem lineItem={mockProduct} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
+        <CartItem lineItem={mockLineItem} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
       </MemoryRouter>,
     );
 
@@ -22,5 +22,3 @@ describe('CartItem', () => {
     expect(productQuantity).toBeInTheDocument();
   });
 });
-
-
