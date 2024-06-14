@@ -52,8 +52,8 @@ export const CartPage: FC = () => {
   }, [token, cart]);
 
   return (
-    <Stack className={' flex-col justify-between align-middle'}>
-      <Typography component={'h1'} variant="h2">
+    <Stack className="flex-col justify-between align-middle">
+      <Typography component="h1" variant="h2">
         Cart
       </Typography>
       <ClearCart setterForCartRef={setterForCartRef} />
