@@ -32,6 +32,7 @@ export const mockLineItem = {
   },
   productId: 'test-product-id',
   productType: 'no-type',
+  quantity: 1,
   variant: {
     attributes: [
       {

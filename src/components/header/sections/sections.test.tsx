@@ -19,10 +19,11 @@ describe('Sections component', () => {
   it('should render cart items count', () => {
     const mockCart = {
       lineItems: [
-        { addedAt: 'not-now', productId: '1', quantity: 1 },
+        { addedAt: 'not-now', productId: '1', quantity: 3 },
         { addedAt: 'now', productId: '2', quantity: 1 },
       ],
     };
+    const totalItems = mockCart.lineItems.reduce((sum, item) => item.quantity + sum, 0);
     (useCartStore as unknown as Mock).mockReturnValue(mockCart);
     render(
       <MemoryRouter>
@@ -30,7 +31,7 @@ describe('Sections component', () => {
       </MemoryRouter>,
     );
     const itemsCounter = screen.getByTestId('cart-items-count');
-    expect(itemsCounter.textContent).toEqual(`${mockCart.lineItems.length}`);
+    expect(itemsCounter.textContent).toEqual(`${totalItems}`);
   });
   it('should render cart icon if section name cart is present', () => {
     render(

@@ -54,9 +54,7 @@ const CatalogPage: FC = () => {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  if (!token) {
-    throw new Error('Token expected');
-  }
+
   const location = useLocation();
 
   useEffect(() => {
@@ -68,8 +66,10 @@ const CatalogPage: FC = () => {
 
     const allSearchParams = urlSearchParams.entries();
     const filtersQueryString = buildQueryString(allSearchParams);
-
     const offset = PAGE_LIMIT * (page - 1);
+    if (!token) {
+      throw new Error('Token expected');
+    }
     if (filtersQueryString.length > 0) {
       handleGetFilteredProducts(token, setProducts, setTotal, offset, filtersQueryString);
     } else {
