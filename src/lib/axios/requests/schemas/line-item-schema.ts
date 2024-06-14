@@ -47,7 +47,7 @@ export const lineItemSchema = z.object({
   key: userIdentifierSchema.optional(),
   perMethodExternalTaxRate: z.array(methodExternalTaxRateDraftSchema).optional(),
   productId: productIdSchema.optional(),
-  quantity: quantitySchema.optional(),
+  quantity: quantitySchema,
   shippingDetails: itemShippingDetailsDraftSchema.optional(),
   sku: skuSchema.optional(),
   supplyChannel: channelResourceIdentifierSchema.optional(),

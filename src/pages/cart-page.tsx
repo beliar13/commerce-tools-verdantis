@@ -3,8 +3,10 @@ import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react
 import { Stack, Typography } from '@mui/material';
 
 import { BackTo } from '@/components/back-to/back-to';
+import { TotalPricesBlock } from '@/components/total-price-block/total-price-block';
 import { CartItem } from '@/features/cart';
 import { ClearCart } from '@/features/cart/clear-cart/clear-cart';
+import { PromocodeForm } from '@/features/promocod-form/promocode-form';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
 import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
 import { useCartStore } from '@/stores/cart-store';
@@ -63,20 +65,24 @@ export const CartPage: FC = () => {
       </Typography>
       <ClearCart setterForCartRef={setterForCartRef} />
       {products.length > 0 ? (
-        <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
-          {products.map((addedProduct: AddedProductData) => {
-            const { lineItemId, product, quantity } = addedProduct;
-            return (
-              <CartItem
-                key={product.name}
-                lineItemId={lineItemId}
-                product={product}
-                quantity={quantity}
-                setterForCartRef={setterForCartRef}
-              />
-            );
-          })}
-        </Stack>
+        <>
+          <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
+            {products.map((addedProduct: AddedProductData) => {
+              const { lineItemId, product, quantity } = addedProduct;
+              return (
+                <CartItem
+                  key={product.name}
+                  lineItemId={lineItemId}
+                  product={product}
+                  quantity={quantity}
+                  setterForCartRef={setterForCartRef}
+                />
+              );
+            })}
+          </Stack>
+          <PromocodeForm />
+          <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
+        </>
       ) : (
         <>
           <Stack className="mx-0 my-auto w-full">No products.</Stack>
