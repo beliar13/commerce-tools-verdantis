@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { MasterVariantSchema } from './product-schema';
+import { MasterVariantSchema, priceSchema } from './product-schema';
 
 const variantIdSchema = z.number().int();
 const skuSchema = z.string();
@@ -26,32 +26,6 @@ const methodExternalTaxRateDraftSchema = z.object({
 const inventoryModeSchema = z.enum(['tracked', 'reserved', 'not_specified']);
 const itemShippingDetailsDraftSchema = z.unknown();
 const customFieldsDraftSchema = z.record(z.unknown());
-
-const valueSchema = z.object({
-  centAmount: z.number(),
-  currencyCode: z.string(),
-  fractionDigits: z.number(),
-  type: z.string(),
-});
-
-const discountSchema = z.object({
-  id: z.string(),
-  typeId: z.string(),
-});
-
-const discountedSchema = z.object({
-  discount: discountSchema,
-  value: valueSchema,
-});
-
-export const priceSchema = z.object({
-  discounted: discountedSchema.optional(),
-  id: z.string(),
-  key: z.string(),
-  validFrom: z.string().datetime(),
-  validUntil: z.string().datetime(),
-  value: valueSchema,
-});
 
 export const lineItemSchema = z.object({
   addedAt: addedAtSchema.optional(),
