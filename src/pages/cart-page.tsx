@@ -3,6 +3,7 @@ import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react
 import { Stack, Typography } from '@mui/material';
 
 import { BackTo } from '@/components/back-to/back-to';
+import { TotalPricesBlock } from '@/components/total-price-block/total-price-block';
 import { CartItem } from '@/features/cart';
 import { ClearCart } from '@/features/cart/clear-cart/clear-cart';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
@@ -76,6 +77,7 @@ export const CartPage: FC = () => {
               />
             );
           })}
+          <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
         </Stack>
       ) : (
         <>
