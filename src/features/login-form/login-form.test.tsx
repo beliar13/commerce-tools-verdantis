@@ -1,14 +1,9 @@
-import { FC, PropsWithChildren } from 'react';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { LoginForm } from './login-form';
+import { ReactQueryProvider } from '@/test/utils/react-query-provider';
 
-const ReactQueryProvider: FC<PropsWithChildren> = ({ children }) => (
-  <QueryClientProvider client={new QueryClient()}>{children}</QueryClientProvider>
-);
+import { LoginForm } from './login-form';
 
 describe('login form component', () => {
   it('renders form without errors', () => {

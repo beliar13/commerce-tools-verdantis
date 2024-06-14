@@ -65,7 +65,6 @@ export const CartPage: FC = () => {
       </Typography>
       <ClearCart setterForCartRef={setterForCartRef} />
       {products.length > 0 ? (
-<<<<<<< feature/add-input-for-promocodes
         <>
           <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
             {products.map((addedProduct: AddedProductData) => {
@@ -82,24 +81,8 @@ export const CartPage: FC = () => {
             })}
           </Stack>
           <PromocodeForm />
-        </>
-=======
-        <Stack className="mb-auto  flex w-3/4 flex-row flex-wrap justify-center gap-2">
-          {products.map((addedProduct: AddedProductData) => {
-            const { lineItemId, product, quantity } = addedProduct;
-            return (
-              <CartItem
-                key={product.name}
-                lineItemId={lineItemId}
-                product={product}
-                quantity={quantity}
-                setterForCartRef={setterForCartRef}
-              />
-            );
-          })}
           <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
-        </Stack>
->>>>>>> release/basket-about_us
+        </>
       ) : (
         <>
           <Stack className="mx-0 my-auto w-full">No products.</Stack>
