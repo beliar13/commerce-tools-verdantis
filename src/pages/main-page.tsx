@@ -21,9 +21,6 @@ const MainPage: FC<{
         <ListItem>
           <ListItemText>PLANTJOY10 - 10% discount for everyone and everything</ListItemText>
         </ListItem>
-        <ListItem>
-          <ListItemText>GREENDEAL10 - 10% discount for orders over €75</ListItemText>
-        </ListItem>
       </List>
     </>
   );
