@@ -36,26 +36,26 @@ const cardStyles = {
   width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
 };
 
-export const CartItem = ({ product, setterForCartRef }: CartItemData): JSX.Element => {
+export const CartItem = ({ lineItem, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
   const {
     id,
-    name: { en: name },
+    name: { 'en-US': enName },
     quantity,
-    variant: {
-      images: [image],
-    },
-  } = product;
+    variant,
+  } = lineItem;
+  const firstImageIndex = 0;
+  const image = variant ? variant.images[firstImageIndex] : { name: 'placeholder', url: '' };
   return (
     <Card className="flex flex-col justify-between p-5" id={id} sx={cardStyles} variant="outlined">
-      <img alt={name} className={'align-self-start w-full '} src={image.url} />
+      <img alt={enName} className={'align-self-start w-full '} src={image.url} />
 
       <Typography
         className="my-3  text-center"
         sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
       >
-        {name}
+        {enName}
       </Typography>
       <Box className="flex flex-row items-center justify-between">
         <ChangeQuantityButton action="-" currentQuantity={quantity} productId={id} />
@@ -68,19 +68,14 @@ export const CartItem = ({ product, setterForCartRef }: CartItemData): JSX.Eleme
         <ChangeQuantityButton action="+" currentQuantity={quantity} productId={id} />
       </Box>
       <Button
-        id={id}
-        onClick={(e) => {
-          const eventTarget = e.target;
-          if (!(eventTarget instanceof HTMLButtonElement)) {
-            throw new Error('Button expected');
-          }
+        onClick={() => {
           if (!token) {
             throw new Error('Token expected');
           }
           if (!cart) {
             throw new Error('Cart expected');
           }
-          handleRemoveProduct(token, cart, eventTarget.id, setterForCartRef);
+          handleRemoveProduct(token, cart, id, setterForCartRef);
         }}
       >
         remove product

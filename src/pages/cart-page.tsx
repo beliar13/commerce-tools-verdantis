@@ -11,7 +11,7 @@ import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
 import { useCartStore } from '@/stores/cart-store';
 
 export type AddedProductData = {
-  product: LineItem;
+  lineItem: LineItem;
 };
 
 export const CartPage: FC = () => {
@@ -32,7 +32,7 @@ export const CartPage: FC = () => {
         <>
           <Stack className="mb-auto flex w-3/4 flex-row flex-wrap justify-center gap-2">
             {products.map((addedProduct: LineItem) => {
-              return <CartItem key={addedProduct.id} product={addedProduct} setterForCartRef={setterForCartRef} />;
+              return <CartItem key={addedProduct.id} lineItem={addedProduct} setterForCartRef={setterForCartRef} />;
             })}
           </Stack>
           <PromocodeForm />
