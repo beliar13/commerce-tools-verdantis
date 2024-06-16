@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { mockProduct, mockSetterForCartRef } from '@/test/mocks/cart-item-mocks';
+import { mockLineItem, mockSetterForCartRef } from '@/test/mocks/mock-line-item';
 import { ReactQueryProvider } from '@/test/utils/react-query-provider';
 
 import { CartItem } from './cart-item';
@@ -13,7 +13,7 @@ describe('CartItem', () => {
     render(
       <ReactQueryProvider>
         <MemoryRouter>
-          <CartItem lineItemId="test-id" product={mockProduct} quantity={1} setterForCartRef={mockSetterForCartRef} />
+          <CartItem lineItem={mockLineItem} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
         </MemoryRouter>
       </ReactQueryProvider>,
     );

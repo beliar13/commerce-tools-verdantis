@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
-import { mockSetterForCartRef } from '@/test/mocks/cart-item-mocks';
+import { mockSetterForCartRef } from '@/test/mocks/mock-line-item';
 
 import { ClearCart } from '.';
 

@@ -28,7 +28,7 @@ const discountedSchema = z.object({
   value: valueSchema,
 });
 
-const priceSchema = z.object({
+export const priceSchema = z.object({
   discounted: discountedSchema.optional(),
   id: z.string(),
   key: z.string(),
@@ -37,7 +37,7 @@ const priceSchema = z.object({
   value: valueSchema,
 });
 
-const MasterVariantSchema = z.object({
+export const MasterVariantSchema = z.object({
   attributes: z.array(AttributeSchema),
   id: z.number(),
   images: z.array(
