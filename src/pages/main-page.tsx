@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Button } from '@mui/material';
+import { Button, List, ListItem, ListItemText } from '@mui/material';
 
 const MainPage: FC<{
   children?: ReactNode;
@@ -14,6 +14,14 @@ const MainPage: FC<{
       <Button component={RouterLink} to="/registration">
         registration
       </Button>
+      <List className="flex flex-col">
+        <ListItem>
+          <ListItemText>BLOOMING20 - 20% discount on bouquets</ListItemText>
+        </ListItem>
+        <ListItem>
+          <ListItemText>PLANTJOY10 - 10% discount for everyone and everything</ListItemText>
+        </ListItem>
+      </List>
     </>
   );
 };
