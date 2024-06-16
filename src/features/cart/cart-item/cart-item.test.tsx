@@ -4,15 +4,18 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { mockLineItem, mockSetterForCartRef } from '@/test/mocks/mock-line-item';
+import { ReactQueryProvider } from '@/test/utils/react-query-provider';
 
 import { CartItem } from './cart-item';
 
 describe('CartItem', () => {
   it('should render', () => {
     render(
-      <MemoryRouter>
-        <CartItem lineItem={mockLineItem} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
-      </MemoryRouter>,
+      <ReactQueryProvider>
+        <MemoryRouter>
+          <CartItem lineItem={mockLineItem} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
+        </MemoryRouter>
+      </ReactQueryProvider>,
     );
 
     const productName = screen.getByText('test-name');

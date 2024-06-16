@@ -6,6 +6,7 @@ import { BackTo } from '@/components/back-to/back-to';
 import { TotalPricesBlock } from '@/components/total-price-block/total-price-block';
 import { CartItem } from '@/features/cart';
 import { ClearCart } from '@/features/cart/clear-cart/clear-cart';
+import { PromocodeForm } from '@/features/promocod-form/promocode-form';
 import { LineItem } from '@/lib/axios/requests/schemas/line-item-schema';
 import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
@@ -71,7 +72,12 @@ export const CartPage: FC = () => {
               />
             );
           })}
-          <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
+
+          <>
+            <PromocodeForm />
+
+            <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
+          </>
         </Stack>
       ) : (
         <>

@@ -1,7 +1,8 @@
 import { MutableRefObject } from 'react';
 
-import { Button, Card, Typography } from '@mui/material';
+import { Box, Button, Card, Typography } from '@mui/material';
 
+import { ChangeQuantityButton } from '@/components/change-quantity-button/change-quantity-button';
 import { removeLineItemFromCart } from '@/lib/axios/requests/remove-line-item-from-cart';
 import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
 import { AddedProductData } from '@/pages/cart-page';
@@ -56,12 +57,16 @@ export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: C
       >
         {enName}
       </Typography>
-      <Typography
-        className="my-3  text-center"
-        sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
-      >
-        {quantity}
-      </Typography>
+      <Box className="flex flex-row items-center justify-between">
+        <ChangeQuantityButton action="-" currentQuantity={quantity} productId={lineItemId} />
+        <Typography
+          className="my-3  text-center"
+          sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
+        >
+          {quantity}
+        </Typography>
+        <ChangeQuantityButton action="+" currentQuantity={quantity} productId={lineItemId} />
+      </Box>
       <Button
         onClick={() => {
           if (!token) {
