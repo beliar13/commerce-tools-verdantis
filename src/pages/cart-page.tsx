@@ -20,8 +20,8 @@ export const CartPage: FC = () => {
   const products = cart?.lineItems;
 
   return (
-    <Stack className={'flex-col items-center justify-between'}>
-      <Typography component={'h1'} variant="h2">
+    <Stack className="flex-col items-center justify-between">
+      <Typography component="h1" variant="h2">
         Cart
       </Typography>
       <ClearCart setterForCartRef={setterForCartRef} />
