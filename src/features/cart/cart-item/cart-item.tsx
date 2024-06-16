@@ -28,25 +28,27 @@ const handleRemoveProduct = (
   );
 };
 
-export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: CartItemData): JSX.Element => {
+const cardStyles = {
+  ':hover': { bgcolor: 'primary.light', transition: '2s' },
+  backgroundColor: 'primary.contrastText',
+  textDecoration: 'none',
+  transition: '2s',
+  width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
+};
+
+export const CartItem = ({ product, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
-  const { images, name } = product;
-  const firstImageIndex = 0;
-  const image = images[firstImageIndex];
+  const {
+    id,
+    name: { en: name },
+    quantity,
+    variant: {
+      images: [image],
+    },
+  } = product;
   return (
-    <Card
-      className="flex flex-col justify-between p-5"
-      id={lineItemId}
-      sx={{
-        ':hover': { bgcolor: 'primary.light', transition: '2s' },
-        backgroundColor: 'primary.contrastText',
-        textDecoration: 'none',
-        transition: '2s',
-        width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
-      }}
-      variant="outlined"
-    >
+    <Card className="flex flex-col justify-between p-5" id={id} sx={cardStyles} variant="outlined">
       <img alt={name} className={'align-self-start w-full '} src={image.url} />
 
       <Typography
@@ -56,17 +58,17 @@ export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: Ca
         {name}
       </Typography>
       <Box className="flex flex-row items-center justify-between">
-        <ChangeQuantityButton action="-" currentQuantity={quantity} productId={lineItemId} />
+        <ChangeQuantityButton action="-" currentQuantity={quantity} productId={id} />
         <Typography
           className="my-3  text-center"
           sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
         >
           {quantity}
         </Typography>
-        <ChangeQuantityButton action="+" currentQuantity={quantity} productId={lineItemId} />
+        <ChangeQuantityButton action="+" currentQuantity={quantity} productId={id} />
       </Box>
       <Button
-        id={lineItemId}
+        id={id}
         onClick={(e) => {
           const eventTarget = e.target;
           if (!(eventTarget instanceof HTMLButtonElement)) {

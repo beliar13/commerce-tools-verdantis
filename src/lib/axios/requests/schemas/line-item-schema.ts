@@ -45,13 +45,23 @@ export const lineItemSchema = z.object({
   id: z.string(),
   inventoryMode: inventoryModeSchema.optional(),
   key: userIdentifierSchema.optional(),
+  name: z.object({
+    en: z.string().optional(),
+    'en-US': z.string().optional(),
+  }),
   perMethodExternalTaxRate: z.array(methodExternalTaxRateDraftSchema).optional(),
   productId: productIdSchema.optional(),
   quantity: quantitySchema,
   shippingDetails: itemShippingDetailsDraftSchema.optional(),
   sku: skuSchema.optional(),
   supplyChannel: channelResourceIdentifierSchema.optional(),
+  variant: z.object({
+    images: z.array(
+      z.object({
+        url: z.string(),
+      }),
+    ),
+  }),
   variantId: variantIdSchema.optional(),
 });
-
 export type LineItem = z.infer<typeof lineItemSchema>;
