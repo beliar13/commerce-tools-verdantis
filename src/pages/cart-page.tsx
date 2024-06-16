@@ -17,9 +17,6 @@ export type AddedProductData = {
 export const CartPage: FC = () => {
   const { cart, setCart } = useCartStore();
   const setterForCartRef = useRef(setCart);
-  if (!cart) {
-    return;
-  }
   const products = cart?.lineItems;
 
   return (
@@ -28,7 +25,7 @@ export const CartPage: FC = () => {
         Cart
       </Typography>
       <ClearCart setterForCartRef={setterForCartRef} />
-      {products.length > 0 ? (
+      {products && products.length > 0 ? (
         <>
           <Stack className="mb-auto flex w-3/4 flex-row flex-wrap justify-center gap-2">
             {products.map((addedProduct: LineItem) => {
