@@ -59,7 +59,7 @@ export const ChangeQuantityButton: FC<{
   };
 
   return (
-    <Button disabled={currentQuantity <= 0} onClick={handleClick} variant="contained">
+    <Button disabled={currentQuantity <= 0 || quantityMutation.isPending} onClick={handleClick} variant="contained">
       {action}
     </Button>
   );
