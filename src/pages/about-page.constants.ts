@@ -24,7 +24,7 @@ export const teamMembers: Members = [
     github: 'https://github.com/mideli37',
     name: 'Anastasiia Muzipova',
     nickname: 'mideli37',
-    photo: 'src/assets/photo/midely.webp',
+    photo: 'src/assets/photo/mideli.webp',
     role: 'lead developer',
   },
   {

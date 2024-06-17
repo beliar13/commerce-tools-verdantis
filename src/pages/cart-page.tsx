@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 
-import { Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 
 import { BackTo } from '@/components/back-to/back-to';
 import { TotalPricesBlock } from '@/components/total-price-block/total-price-block';
@@ -34,6 +34,9 @@ export const CartPage: FC = () => {
           </Stack>
           <PromocodeForm />
           <TotalPricesBlock discountOnTotalPrice={cart?.discountOnTotalPrice} totalPrice={cart?.totalPrice} />
+          <Button className="my-auto block" variant="contained">
+            Checkout
+          </Button>
         </>
       ) : (
         <>
