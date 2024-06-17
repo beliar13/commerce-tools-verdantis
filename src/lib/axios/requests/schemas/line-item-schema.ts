@@ -47,5 +47,4 @@ export const lineItemSchema = z.object({
   variant: MasterVariantSchema,
   variantId: variantIdSchema.optional(),
 });
-
 export type LineItem = z.infer<typeof lineItemSchema>;

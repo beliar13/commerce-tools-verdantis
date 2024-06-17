@@ -13,7 +13,7 @@ describe('CartItem', () => {
     render(
       <ReactQueryProvider>
         <MemoryRouter>
-          <CartItem lineItem={mockLineItem} lineItemId="test-id" quantity={1} setterForCartRef={mockSetterForCartRef} />
+          <CartItem lineItem={mockLineItem} setterForCartRef={mockSetterForCartRef} />
         </MemoryRouter>
       </ReactQueryProvider>,
     );
