@@ -10,12 +10,12 @@ export async function deleteCart(BEARER_TOKEN: string, cartId: string, cartVersi
   const query = `/${envVariables.PROJECT_KEY}/me/carts/${cartId}?version=${cartVersion}`;
   const encoded = encodeURI(query);
   try {
-    const createCartResult = await apiInstance.delete(encoded, {
+    const deleteCartResult = await apiInstance.delete(encoded, {
       headers: {
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
-    return cartResponseSchema.parse(createCartResult.data);
+    return cartResponseSchema.parse(deleteCartResult.data);
   } catch (e) {
     console.error('Error occurred while deleting cart:', e);
     if (isAxiosError(e)) {
