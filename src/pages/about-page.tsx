@@ -13,6 +13,10 @@ import {
   useScrollTrigger,
 } from '@mui/material';
 
+import '@/assets/photo/beliar13.webp';
+import '@/assets/photo/kate.webp';
+import '@/assets/photo/mideli.webp';
+
 import { cardStyle, gitLinkStyle, teamMembers } from './about-page.constants';
 import { Member } from './about-page.types';
 
