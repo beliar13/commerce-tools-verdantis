@@ -16,7 +16,6 @@ vi.mock('./about-page.constants', () => ({
       github: 'github1',
       name: 'name1',
       nickname: 'nickname1',
-      photo: 'photo1',
       role: 'role1',
     },
     {
@@ -26,7 +25,6 @@ vi.mock('./about-page.constants', () => ({
       github: 'github2',
       name: 'name2',
       nickname: 'nickname2',
-      photo: 'photo2',
       role: 'role2',
     },
   ],
@@ -67,15 +65,6 @@ describe('About us page', () => {
     const footerLink = screen.getByRole('link', { name: /rs-school/i });
     expect(footerLink).toBeInTheDocument();
     expect(footerLink).toHaveAttribute('href', 'https://rs.school/');
-  });
-  it('should have correct image sources for team members', () => {
-    render(<AboutPage />);
-    teamMembers.forEach((member) => {
-      const images = screen.getAllByAltText(member.name);
-      images.forEach((img) => {
-        expect(img).toHaveAttribute('src', member.photo);
-      });
-    });
   });
   it('should have correct link to Github profile', () => {
     render(<AboutPage />);

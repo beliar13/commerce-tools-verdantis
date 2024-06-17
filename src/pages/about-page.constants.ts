@@ -13,7 +13,6 @@ export const teamMembers: Members = [
     github: 'https://github.com/KateGoncharik',
     name: 'Kate Goncharik',
     nickname: 'KateGoncharik',
-    photo: 'src/assets/photo/kate.webp',
     role: 'team leader',
   },
   {
@@ -24,7 +23,6 @@ export const teamMembers: Members = [
     github: 'https://github.com/mideli37',
     name: 'Anastasiia Muzipova',
     nickname: 'mideli37',
-    photo: 'src/assets/photo/midely.webp',
     role: 'lead developer',
   },
   {
@@ -35,7 +33,6 @@ export const teamMembers: Members = [
     github: 'https://github.com/beliar13',
     name: 'Denis Sevostyanov',
     nickname: 'beliar13',
-    photo: 'src/assets/photo/beliar13.webp',
     role: 'developer',
   },
 ];

@@ -34,27 +34,31 @@ const handleRemoveProduct = (
   );
 };
 
-export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: CartItemData): JSX.Element => {
+const cardStyles = {
+  ':hover': { bgcolor: 'primary.light', transition: '2s' },
+  backgroundColor: 'primary.contrastText',
+  textDecoration: 'none',
+  transition: '2s',
+  width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
+};
+
+export const CartItem = ({ lineItem, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
-  const { name, totalPrice, variant } = lineItem;
 
-  const enName = name['en-US'];
+  const {
+    id,
+    name: { 'en-US': enName },
+    quantity,
+    totalPrice,
+    variant,
+  } = lineItem;
   const firstImageIndex = 0;
   const image = variant ? variant.images[firstImageIndex] : { name: 'placeholder', url: '' };
   const { prices } = variant;
+
   return (
-    <Card
-      className="flex flex-col justify-between p-5"
-      sx={{
-        ':hover': { bgcolor: 'primary.light', transition: '2s' },
-        backgroundColor: 'primary.contrastText',
-        textDecoration: 'none',
-        transition: '2s',
-        width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
-      }}
-      variant="outlined"
-    >
+    <Card className="flex flex-col justify-between p-5" id={id} sx={cardStyles} variant="outlined">
       <img alt={enName} className={'align-self-start w-full '} src={image.url} />
 
       <Typography
@@ -71,14 +75,14 @@ export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: C
         totalPrice={totalPrice}
       />
       <Box className="flex flex-row items-center justify-between">
-        <ChangeQuantityButton action="-" currentQuantity={quantity} productId={lineItemId} />
+        <ChangeQuantityButton action="-" currentQuantity={quantity} productId={id} />
         <Typography
           className="my-3  text-center"
           sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
         >
           {quantity}
         </Typography>
-        <ChangeQuantityButton action="+" currentQuantity={quantity} productId={lineItemId} />
+        <ChangeQuantityButton action="+" currentQuantity={quantity} productId={id} />
       </Box>
       <Button
         onClick={() => {
@@ -88,7 +92,7 @@ export const CartItem = ({ lineItem, lineItemId, quantity, setterForCartRef }: C
           if (!cart) {
             throw new Error('Cart expected');
           }
-          handleRemoveProduct(token, cart, lineItemId, setterForCartRef);
+          handleRemoveProduct(token, cart, id, setterForCartRef);
         }}
       >
         remove product
