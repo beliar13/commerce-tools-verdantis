@@ -5,7 +5,6 @@ export type Member = {
   github: string;
   name: string;
   nickname: string;
-  photo: string;
   role: string;
 };
 
