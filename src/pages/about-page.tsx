@@ -13,12 +13,16 @@ import {
   useScrollTrigger,
 } from '@mui/material';
 
-import '@/assets/photo/beliar13.webp';
-import '@/assets/photo/kate.webp';
-import '@/assets/photo/mideli.webp';
+import githubLogo from '@/assets/icon/github-mark-white.svg';
+import rsSchoolLogo from '@/assets/icon/rs-logo.png';
+import beliar13 from '@/assets/photo/beliar13.webp';
+import kate from '@/assets/photo/kate.webp';
+import mideli from '@/assets/photo/mideli.webp';
 
 import { cardStyle, gitLinkStyle, teamMembers } from './about-page.constants';
 import { Member } from './about-page.types';
+
+const images = [kate, mideli, beliar13];
 
 export const AboutPage: FC = () => {
   return (
@@ -32,11 +36,11 @@ export const AboutPage: FC = () => {
             <Grid data-testid="member-card" item key={index} lg={4} md={6} sm={12} xl={4} xs={12}>
               <Card sx={{ backgroundColor: 'primary.light', color: 'primary.contrastText' }}>
                 <Box sx={{ p: 1.5 }}>
-                  <CardMedia alt={member.name} component="img" image={member.photo} sx={cardStyle} width="230" />
+                  <CardMedia alt={member.name} component="img" image={images[index]} sx={cardStyle} width="230" />
                 </Box>
                 <CardContent>
                   <Box alignItems="center" display="flex" mb={2}>
-                    <Avatar alt={member.name} src={member.photo} />
+                    <Avatar alt={member.name} src={images[index]} />
                     <Box ml={2}>
                       <Typography variant="h6">{member.name}</Typography>
                       <Typography sx={{ color: 'secondary.main' }} variant="body2">
@@ -52,7 +56,7 @@ export const AboutPage: FC = () => {
                     <strong>Project contributions:</strong> {member.contributions}
                   </Typography>
                   <Link className={gitLinkStyle} data-testid={member.github} href={member.github} variant="body1">
-                    <img alt={member.github} src="src/assets/icon/github-mark-white.svg" width={28} />
+                    <img alt={member.github} src={githubLogo} width={28} />
                     {member.nickname}
                   </Link>
                 </CardContent>
@@ -68,7 +72,7 @@ export const AboutPage: FC = () => {
       >
         <Container className="flex items-center justify-center" maxWidth="lg">
           <Link href="https://rs.school/" rel="noopener noreferrer" sx={{ pt: 1 }} target="_blank" variant="body1">
-            <img alt="rs-school" src="src/assets/icon/rs-logo.png" width={60} />
+            <img alt="rs-school" src={rsSchoolLogo} width={60} />
           </Link>
         </Container>
       </Box>
