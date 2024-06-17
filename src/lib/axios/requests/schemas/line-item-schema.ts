@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { MasterVariantSchema, priceSchema } from './product-schema';
+import { MasterVariantSchema, priceSchema, valueSchema } from './product-schema';
 
 const variantIdSchema = z.number().int();
 const skuSchema = z.string();
@@ -44,6 +44,7 @@ export const lineItemSchema = z.object({
   quantity: quantitySchema,
   shippingDetails: itemShippingDetailsDraftSchema.optional(),
   sku: skuSchema.optional(),
+  totalPrice: valueSchema,
   variant: MasterVariantSchema,
   variantId: variantIdSchema.optional(),
 });

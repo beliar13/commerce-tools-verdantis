@@ -8,7 +8,7 @@ const AttributeSchema = z.object({
   value: AttributeValueSchema,
 });
 
-const valueSchema = z.object({
+export const valueSchema = z.object({
   centAmount: z.number(),
   currencyCode: z.string(),
   fractionDigits: z.number(),
@@ -20,7 +20,7 @@ const discountSchema = z.object({
   typeId: z.string(),
 });
 
-const discountedSchema = z.object({
+export const discountedSchema = z.object({
   discount: discountSchema,
   value: valueSchema,
 });

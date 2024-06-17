@@ -11,7 +11,7 @@ const AttributeSchema = z.object({
   value: AttributeValueSchema,
 });
 
-const valueSchema = z.object({
+export const valueSchema = z.object({
   centAmount: z.number(),
   currencyCode: z.string(),
   fractionDigits: z.number(),
