@@ -13,7 +13,7 @@ describe('CardPage', () => {
       </MemoryRouter>,
     );
 
-    const cartTitle = screen.getByText(/cart/i);
-    expect(cartTitle).toBeInTheDocument();
+    const clearCartButton = screen.getByText(/clear cart/i);
+    expect(clearCartButton).toBeInTheDocument();
   });
 });
