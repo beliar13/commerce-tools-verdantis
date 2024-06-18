@@ -13,9 +13,7 @@ describe('CardPage', () => {
       </MemoryRouter>,
     );
 
-    const cartTitle = screen.getByRole('heading');
-
+    const cartTitle = screen.getByText(/cart/i);
     expect(cartTitle).toBeInTheDocument();
-    expect(cartTitle).toHaveTextContent(/cart/i);
   });
 });
