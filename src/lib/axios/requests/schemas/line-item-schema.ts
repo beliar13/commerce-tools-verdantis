@@ -1,19 +1,11 @@
 import { z } from 'zod';
 
-const userIdentifierSchema = z
-  .string()
-  .min(2)
-  .max(256)
-  .regex(/^[a-z0-9_-]+$/);
-const productIdSchema = z.string();
+import { MasterVariantSchema, priceSchema } from './product-schema';
+
 const variantIdSchema = z.number().int();
 const skuSchema = z.string();
 const quantitySchema = z.number().int().default(1);
 const addedAtSchema = z.unknown();
-const channelResourceIdentifierSchema = z.object({
-  id: z.string(),
-  typeId: z.string().refine((typeId) => typeId === 'channel'),
-});
 const moneySchema = z.object({
   centAmount: z.number().int(),
   currencyCode: z.string(),
@@ -38,20 +30,21 @@ const customFieldsDraftSchema = z.record(z.unknown());
 export const lineItemSchema = z.object({
   addedAt: addedAtSchema.optional(),
   custom: customFieldsDraftSchema.optional(),
-  distributionChannel: channelResourceIdentifierSchema.optional(),
   externalPrice: moneySchema.optional(),
   externalTaxRate: externalTaxRateDraftSchema.optional(),
   externalTotalPrice: externalLineItemTotalPriceSchema.optional(),
   id: z.string(),
   inventoryMode: inventoryModeSchema.optional(),
-  key: userIdentifierSchema.optional(),
+  key: z.string().optional(),
+  name: z.record(z.string(), z.string()),
   perMethodExternalTaxRate: z.array(methodExternalTaxRateDraftSchema).optional(),
-  productId: productIdSchema.optional(),
+  price: priceSchema,
+  productId: z.string().optional(),
+  productType: z.unknown(),
   quantity: quantitySchema,
   shippingDetails: itemShippingDetailsDraftSchema.optional(),
   sku: skuSchema.optional(),
-  supplyChannel: channelResourceIdentifierSchema.optional(),
+  variant: MasterVariantSchema,
   variantId: variantIdSchema.optional(),
 });
-
 export type LineItem = z.infer<typeof lineItemSchema>;

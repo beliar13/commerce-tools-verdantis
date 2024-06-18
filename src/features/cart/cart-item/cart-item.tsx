@@ -1,7 +1,8 @@
 import { MutableRefObject } from 'react';
 
-import { Button, Card, Typography } from '@mui/material';
+import { Box, Button, Card, Typography } from '@mui/material';
 
+import { ChangeQuantityButton } from '@/components/change-quantity-button/change-quantity-button';
 import { removeLineItemFromCart } from '@/lib/axios/requests/remove-line-item-from-cart';
 import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
 import { AddedProductData } from '@/pages/cart-page';
@@ -27,53 +28,54 @@ const handleRemoveProduct = (
   );
 };
 
-export const CartItem = ({ lineItemId, product, quantity, setterForCartRef }: CartItemData): JSX.Element => {
+const cardStyles = {
+  ':hover': { bgcolor: 'primary.light', transition: '2s' },
+  backgroundColor: 'primary.contrastText',
+  textDecoration: 'none',
+  transition: '2s',
+  width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
+};
+
+export const CartItem = ({ lineItem, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
-  const { images, name } = product;
+  const {
+    id,
+    name: { 'en-US': enName },
+    quantity,
+    variant,
+  } = lineItem;
   const firstImageIndex = 0;
-  const image = images[firstImageIndex];
+  const image = variant ? variant.images[firstImageIndex] : { name: 'placeholder', url: '' };
   return (
-    <Card
-      className="flex flex-col justify-between p-5"
-      id={lineItemId}
-      sx={{
-        ':hover': { bgcolor: 'primary.light', transition: '2s' },
-        backgroundColor: 'primary.contrastText',
-        textDecoration: 'none',
-        transition: '2s',
-        width: { lg: '25%', md: '33%', sm: '70%', xs: '100%' },
-      }}
-      variant="outlined"
-    >
-      <img alt={name} className={'align-self-start w-full '} src={image.url} />
+    <Card className="flex flex-col justify-between p-5" id={id} sx={cardStyles} variant="outlined">
+      <img alt={enName} className={'align-self-start w-full '} src={image.url} />
 
       <Typography
         className="my-3  text-center"
         sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
       >
-        {name}
+        {enName}
       </Typography>
-      <Typography
-        className="my-3  text-center"
-        sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
-      >
-        {quantity}
-      </Typography>
+      <Box className="flex flex-row items-center justify-between">
+        <ChangeQuantityButton action="-" currentQuantity={quantity} productId={id} />
+        <Typography
+          className="my-3  text-center"
+          sx={{ fontSize: { lg: '20px', md: '18px', xs: '16px' }, fontWeight: 600 }}
+        >
+          {quantity}
+        </Typography>
+        <ChangeQuantityButton action="+" currentQuantity={quantity} productId={id} />
+      </Box>
       <Button
-        id={lineItemId}
-        onClick={(e) => {
-          const eventTarget = e.target;
-          if (!(eventTarget instanceof HTMLButtonElement)) {
-            throw new Error('Button expected');
-          }
+        onClick={() => {
           if (!token) {
             throw new Error('Token expected');
           }
           if (!cart) {
             throw new Error('Cart expected');
           }
-          handleRemoveProduct(token, cart, eventTarget.id, setterForCartRef);
+          handleRemoveProduct(token, cart, id, setterForCartRef);
         }}
       >
         remove product
