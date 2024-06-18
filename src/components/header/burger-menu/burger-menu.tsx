@@ -17,10 +17,12 @@ export const BurgerMenu: FC = () => {
   };
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>Menu</Button>
+      <Button className="mx-1" onClick={toggleDrawer(true)} sx={{ color: 'primary.contrastText' }} variant="outlined">
+        Menu
+      </Button>
       <Drawer anchor="right" onClose={toggleDrawer(false)} open={open}>
-        <Box onClick={toggleDrawer(false)} role="presentation" sx={{ width: 250 }}>
-          <List>
+        <Box onClick={toggleDrawer(false)} role="presentation" sx={{ backgroundColor: 'primary.light', width: 250 }}>
+          <List sx={{ backgroundColor: 'primary.light' }}>
             {sectionsLabels.map((label) =>
               label === 'cart' ? (
                 <ListItem disablePadding key={label}>

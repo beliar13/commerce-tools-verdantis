@@ -57,7 +57,9 @@ export const ClearCart: FC<{ setterForCartRef: SetterForCartRef }> = ({ setterFo
 
   return (
     <>
-      <Button onClick={handleClickOpen}>Clear cart</Button>
+      <Button onClick={handleClickOpen} variant="contained">
+        Clear cart
+      </Button>
       <Dialog
         aria-describedby="alert-dialog-description"
         aria-labelledby="alert-dialog-title"
