@@ -54,13 +54,13 @@ export const BasicBreadcrumbs: FC = () => {
   }, [data, searchParams, lastPath]);
 
   const crumbs = pathArray.map((path, index) => {
-    const currentCategoryPath = index === path.length - 1;
+    const currentCategoryPath = index === pathArray.length - 1;
     const pathSegment = pathArray.slice(1, index + 1).join('/');
     const linkForBreadcrumb = `/${pathSegment}${location.search}`;
 
     return currentCategoryPath ? (
-      <Typography color="inherit" component={'h3'} key={path}>
-        {path}
+      <Typography color="inherit" component={'h3'} key={path} variant="h5">
+        {decodeURIComponent(path)}
       </Typography>
     ) : (
       <div key={path} onClick={handleClick} role="presentation">
