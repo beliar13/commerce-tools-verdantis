@@ -1,4 +1,4 @@
-import type { MutableRefObject } from 'react';
+import { MutableRefObject } from 'react';
 
 import { removeLineItemFromCart } from '@/lib/axios/requests/remove-line-item-from-cart';
 import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';

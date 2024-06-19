@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Slider from 'react-slick';
 
-import { Box, Paper } from '@mui/material';
+import { Box, Button, Paper } from '@mui/material';
 
 import { Price, ProductImages } from '@/lib/axios/requests/get-product-by-id.types';
 import {
@@ -26,7 +26,8 @@ export const ProductPaper: FC<{
   isDisabled: boolean;
   onButtonClick: () => void;
   onImageClick: (index: number) => void;
-}> = ({ data, isDisabled, onButtonClick, onImageClick }) => {
+  onRemoveClick: () => void;
+}> = ({ data, isDisabled, onButtonClick, onImageClick, onRemoveClick }) => {
   return (
     <Paper elevation={24} sx={{ marginTop: 4, padding: 5 }}>
       <CustomTypography styles={titleStyles} tag="h1" text={data?.name} variantField="h4" />
@@ -48,6 +49,9 @@ export const ProductPaper: FC<{
         <PricesBlock price={data?.prices[firstPrice]} styleDiscount={discountPriceStyle} stylePrice={stylePrice} />
       </Box>
       <AddProductButton isDisabled={isDisabled} onclick={onButtonClick} />
+      <Button className="mx-auto my-2 block" disabled={!isDisabled} onClick={onRemoveClick} variant="contained">
+        Remove
+      </Button>
     </Paper>
   );
 };

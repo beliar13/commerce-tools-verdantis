@@ -40,7 +40,9 @@ export const CartPage: FC = () => {
         </>
       ) : (
         <>
-          <Stack className="mx-0 my-auto w-full">No products.</Stack>
+          <Typography className="mx-0 my-auto " component="h3" variant="h4">
+            No products added.
+          </Typography>
           <BackTo dest="catalog" path="/catalog" />
         </>
       )}
