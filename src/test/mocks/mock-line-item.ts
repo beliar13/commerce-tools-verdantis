@@ -33,6 +33,7 @@ export const mockLineItem = {
   productId: 'test-product-id',
   productType: 'no-type',
   quantity: 1,
+  totalPrice: { centAmount: 0, currencyCode: 'EUR', fractionDigits: 0, type: 'no-type' },
   variant: {
     attributes: [
       {
@@ -63,7 +64,7 @@ export const mockLineItem = {
           },
           value: {
             centAmount: 0,
-            currencyCode: 'no-mode',
+            currencyCode: 'EUR',
             fractionDigits: 0,
             type: 'no-type',
           },
@@ -74,7 +75,7 @@ export const mockLineItem = {
         validUntil: '2022-12-31T23:59:59Z',
         value: {
           centAmount: 0,
-          currencyCode: 'no-mode',
+          currencyCode: 'EUR',
           fractionDigits: 0,
           type: 'no-type',
         },
