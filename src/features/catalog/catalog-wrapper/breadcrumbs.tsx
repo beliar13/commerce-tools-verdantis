@@ -4,11 +4,12 @@ import { Link as RouterLink, useLocation, useSearchParams } from 'react-router-d
 import { Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import { useQuery } from '@tanstack/react-query';
 
 import { getCategoryByKey } from '@/lib/axios/requests/catalog/get-category-by-key';
 import { useTokenStore } from '@/stores/token-store';
 
-import { notSelectedCategoryValue } from '../constants';
+import { indexOfReceivedCategory, notSelectedCategoryValue } from '../constants';
 import { formatCategoryKey } from './helper';
 
 const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
@@ -21,41 +22,45 @@ export const BasicBreadcrumbs: FC = () => {
 
   const setSearchParamsRef = useRef(setSearchParams);
   const { token } = useTokenStore();
-  if (!token) {
-    throw new Error('Token expected');
-  }
 
   const pathArray = location.pathname.split('/');
   const lastPath = pathArray[pathArray.length - 1];
+  const decodedPath = decodeURIComponent(lastPath);
+  const correctKey = formatCategoryKey(decodedPath);
+  const { data } = useQuery({
+    queryFn: async () => {
+      if (!token) {
+        throw new Error('Token expected');
+      }
+      return await getCategoryByKey(correctKey, token);
+    },
+    queryKey: ['category', correctKey, token],
+    throwOnError: true,
+  });
   useEffect(() => {
-    searchParams.set('category', notSelectedCategoryValue);
     const setSearchParams = setSearchParamsRef.current;
+    searchParams.set('category', notSelectedCategoryValue);
     const startPathOfCatalog = 'catalog';
     if (lastPath === startPathOfCatalog) {
       setSearchParams(searchParams);
       return;
     }
-    const decodedPath = decodeURIComponent(lastPath);
-    const correctKey = formatCategoryKey(decodedPath);
-    getCategoryByKey(correctKey, token).then(
-      (res) => {
-        const indexOfReceivedCategory = 0;
-        const { id } = res[indexOfReceivedCategory];
-        searchParams.set('category', id);
-        setSearchParams(searchParams);
-      },
+    if (!data || data?.length === 0) {
+      return;
+    }
+    const { id } = data[indexOfReceivedCategory];
+    searchParams.set('category', id);
+    setSearchParams(searchParams);
+  }, [data, searchParams, lastPath]);
 
-      (err) => console.error(err),
-    );
-  }, [lastPath, token, searchParams]);
   const crumbs = pathArray.map((path, index) => {
-    const currentCategoryPath = index === path.length - 1;
+    const currentCategoryPath = index === pathArray.length - 1;
     const pathSegment = pathArray.slice(1, index + 1).join('/');
     const linkForBreadcrumb = `/${pathSegment}${location.search}`;
 
     return currentCategoryPath ? (
-      <Typography color="inherit" component={'h3'} key={path}>
-        {path}
+      <Typography color="inherit" component={'h3'} key={path} variant="h5">
+        {decodeURIComponent(path)}
       </Typography>
     ) : (
       <div key={path} onClick={handleClick} role="presentation">
