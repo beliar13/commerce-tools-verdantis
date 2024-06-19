@@ -1,10 +1,14 @@
 import { FC } from 'react';
 
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
+import { DiscountedPrice } from './discounted-price';
+import { DiscountedPriceWithTotal } from './discounted-price-with-total';
+import { GeneralPrice } from './general-price';
+import { GeneralPriceWithTotal } from './general-price-with-total';
 import { PriceBlockProps } from './prices-block.types';
 
-export const PricesBlock: FC<PriceBlockProps> = ({ price, styleDiscount, stylePrice }) => {
+export const PricesBlock: FC<PriceBlockProps> = ({ price, styleDiscount, stylePrice, totalPrice }) => {
   if (!price) {
     return <Typography variant="body1">Price unavailable</Typography>;
   }
@@ -17,22 +21,41 @@ export const PricesBlock: FC<PriceBlockProps> = ({ price, styleDiscount, stylePr
     }).format(amount / Math.pow(10, fractionDigits));
   };
 
-  return (
-    <Box>
-      {discounted ? (
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Typography sx={styleDiscount} variant="body1">
-            {formatPrice(value.centAmount, value.currencyCode, value.fractionDigits)}
-          </Typography>
-          <Typography color={stylePrice} variant="body1">
-            {formatPrice(discounted.value.centAmount, discounted.value.currencyCode, discounted.value.fractionDigits)}
-          </Typography>
-        </Box>
-      ) : (
-        <Typography color={stylePrice} variant="body1">
-          {formatPrice(value.centAmount, value.currencyCode, value.fractionDigits)}
-        </Typography>
-      )}
-    </Box>
-  );
+  if (discounted) {
+    if (totalPrice) {
+      return (
+        <DiscountedPriceWithTotal
+          discounted={discounted}
+          formatPrice={formatPrice}
+          styleDiscount={styleDiscount}
+          stylePrice={stylePrice}
+          totalPrice={totalPrice}
+          value={value}
+        />
+      );
+    }
+    return (
+      <DiscountedPrice
+        discounted={discounted}
+        formatPrice={formatPrice}
+        styleDiscount={styleDiscount}
+        stylePrice={stylePrice}
+        value={value}
+      />
+    );
+  }
+
+  if (totalPrice) {
+    return (
+      <GeneralPriceWithTotal
+        formatPrice={formatPrice}
+        styleDiscount={styleDiscount}
+        stylePrice={stylePrice}
+        totalPrice={totalPrice}
+        value={value}
+      />
+    );
+  }
+
+  return <GeneralPrice formatPrice={formatPrice} stylePrice={stylePrice} value={value} />;
 };

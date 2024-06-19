@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Price } from '@/lib/axios/requests/get-product-by-id.types';
+import { stylePrice } from '@/pages/product-page.constants';
 
 import { PricesBlock } from './prices-block';
 
@@ -24,7 +25,7 @@ describe('PricesBlock component', () => {
         type: 'centPrecision',
       },
     };
-    render(<PricesBlock price={price} />);
+    render(<PricesBlock price={price} stylePrice={stylePrice} />);
     const normalPrice = screen.getByText(/29.99/i);
     expect(normalPrice).toBeTruthy();
   });

@@ -3,6 +3,12 @@ import { MutableRefObject } from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
 
 import { ChangeQuantityButton } from '@/components/change-quantity-button/change-quantity-button';
+import { PricesBlock } from '@/components/prices-block/prices-block';
+import {
+  discountPriceStyleCatalog,
+  firstVariantPrice,
+  stylePriceCatalog,
+} from '@/features/catalog/catalog-item/catalog-item.constants';
 import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
 import { AddedProductData } from '@/pages/cart-page';
 import { useCartStore } from '@/stores/cart-store';
@@ -25,14 +31,18 @@ const cardStyles = {
 export const CartItem = ({ lineItem, setterForCartRef }: CartItemData): JSX.Element => {
   const { cart } = useCartStore();
   const { token } = useTokenStore();
+
   const {
     id,
     name: { 'en-US': enName },
     quantity,
+    totalPrice,
     variant,
   } = lineItem;
   const firstImageIndex = 0;
   const image = variant ? variant.images[firstImageIndex] : { name: 'placeholder', url: '' };
+  const { prices } = variant;
+
   return (
     <Card className="flex flex-col justify-between p-5" id={id} sx={cardStyles} variant="outlined">
       <img alt={enName} className={'align-self-start w-full '} src={image.url} />
@@ -43,6 +53,13 @@ export const CartItem = ({ lineItem, setterForCartRef }: CartItemData): JSX.Elem
       >
         {enName}
       </Typography>
+
+      <PricesBlock
+        price={prices[firstVariantPrice]}
+        styleDiscount={discountPriceStyleCatalog}
+        stylePrice={stylePriceCatalog}
+        totalPrice={totalPrice}
+      />
       <Box className="flex flex-row items-center justify-between">
         <ChangeQuantityButton action="-" currentQuantity={quantity} productId={id} />
         <Typography
