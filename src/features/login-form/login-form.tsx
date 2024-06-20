@@ -7,6 +7,7 @@ import { UseMutationResult, useMutation } from '@tanstack/react-query';
 
 import { SignInResult } from '@/lib/axios/requests/schemas/sign-in-result.schema.ts';
 import { TokenInfo } from '@/lib/axios/requests/schemas/token-info.schema.ts';
+import { useCartStore } from '@/stores/cart-store.ts';
 import { useCustomerStore } from '@/stores/customer-store.ts';
 import { useTokenStore } from '@/stores/token-store.ts';
 import { UserCredentials } from '@/types/user-credentials.ts';
@@ -19,6 +20,7 @@ import { PasswordInput } from './password-input.tsx';
 function useLoginFormMutation(): [UseMutationResult<[TokenInfo, SignInResult], Error, UserCredentials>, string] {
   const tokenStore = useTokenStore();
   const customerStore = useCustomerStore();
+  const cartStore = useCartStore();
   const [errorMessage, setErrorMessage] = useState('');
   const loginMutation = useMutation({
     mutationFn: loginUser,
@@ -27,7 +29,12 @@ function useLoginFormMutation(): [UseMutationResult<[TokenInfo, SignInResult], E
       setErrorMessage(error.message);
     },
     onSuccess: ([tokenInfo, customerInfo]) => {
-      customerStore.setCustomer(customerInfo);
+      customerStore.setCustomer(customerInfo.customer);
+      if (customerInfo.cart) {
+        cartStore.setCart(customerInfo.cart);
+      } else {
+        console.log('no cart');
+      }
       const token = tokenInfo.access_token;
       tokenStore.setToken({ token, type: 'password' });
     },

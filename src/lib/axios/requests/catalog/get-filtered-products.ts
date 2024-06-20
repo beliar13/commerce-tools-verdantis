@@ -4,10 +4,14 @@ import { envVariables } from '@/config/commerce-tools-api';
 import { apiInstance } from '@/lib/axios/axios-instances';
 
 import { axiosErrorMsgSchema } from '../schemas/axios-error-msg.schema';
-import { type Product, getProductsResultSchema } from '../schemas/product-schema';
+import { type ProductsResponse, getProductsResultSchema } from '../schemas/product-schema';
 import { ProductsRequestArguments } from './catalog-types';
 
-export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string, filters: string): Promise<Product[]> {
+export async function getFilteredProducts(
+  offset = 0,
+  BEARER_TOKEN: string,
+  filters: string,
+): Promise<ProductsResponse> {
   const queryArgs: ProductsRequestArguments = { limit: 7, offset };
   const query = `/${envVariables.PROJECT_KEY}/product-projections/search?limit=${queryArgs.limit}&offset=${queryArgs.offset}&${filters}`;
 
@@ -17,7 +21,7 @@ export async function getFilteredProducts(offset = 0, BEARER_TOKEN: string, filt
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
-    return getProductsResultSchema.parse(getProductsResult.data).results;
+    return getProductsResultSchema.parse(getProductsResult.data);
   } catch (e) {
     console.error('Error occurred while getting products:', e);
     if (isAxiosError(e)) {
@@ -45,6 +49,9 @@ export const buildQueryString = (params: IterableIterator<[string, string]>): st
     } else if (key === 'sort' && value) {
       const formattedSort = value.split('-').join(' ');
       result.push(`${key}=${formattedSort}`);
+    } else if (key === 'q' && value) {
+      result.push('fuzzy=true');
+      result.push(`text.en="${value}"`);
     }
   }
   return result.join('&');

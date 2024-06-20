@@ -1,9 +1,10 @@
 import { z } from 'zod';
 
+import { cartResponseSchema } from './cart-schema';
 import { customerSchema } from './customer.schema';
 
 export const signInResultSchema = z.object({
-  cart: z.unknown().optional(),
+  cart: cartResponseSchema.optional(),
   customer: customerSchema,
 });
 

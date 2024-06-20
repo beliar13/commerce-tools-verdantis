@@ -1,30 +1,23 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import { Box, Container, Dialog, Paper } from '@mui/material';
+import { Box, Container, Dialog } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import { BackTo } from '@/components/back-to/back-to';
 import { LoadingBackdrop } from '@/components/backdrop/backdrop';
 import { CloseButton } from '@/components/close-button/close-button';
-import { CustomTypography } from '@/components/custom-typography/custom-typography';
-import { PricesBlock } from '@/components/prices-block/prices-block';
+import { ProductPaper } from '@/components/product-paper';
+import { handleRemoveProduct } from '@/features/cart/cart-item/handle-remove-product';
+import { SetterForCartRef } from '@/features/cart/clear-cart';
 import { getProductById } from '@/lib/axios/requests/get-product-by-id';
+import { CartResponse } from '@/lib/axios/requests/schemas/cart-schema';
+import { updateCart } from '@/lib/axios/requests/update-cart/update-request';
+import { useCartStore } from '@/stores/cart-store';
 import { useTokenStore } from '@/stores/token-store';
 
-import {
-  boxStyles,
-  descStyles,
-  discountPriceStyle,
-  firstPrice,
-  iconStyles,
-  imgStyles,
-  sliderSettingsDefaultImage,
-  sliderSettingsEnlargedImage,
-  stylePrice,
-  titleStyles,
-} from './product-page.constants';
+import { iconStyles, imgStyles, sliderSettingsEnlargedImage } from './product-page.constants';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -32,13 +25,15 @@ import 'slick-carousel/slick/slick-theme.css';
 export default function ProductPage(): ReactNode {
   const { token } = useTokenStore();
   const { id } = useParams<{ id: string }>();
-  const [open, setOpen] = useState(false);
+  const { cart, setCart } = useCartStore();
+  const setterForCartRef = useRef(setCart);
   const [curImgIdx, setCurImgIdx] = useState(0);
+  const [open, setOpen] = useState(false);
+  const handleModalClose = (): void => setOpen(false);
   const handleImageClick = (index: number): void => {
     setCurImgIdx(index);
     setOpen(true);
   };
-  const handleModalClose = (): void => setOpen(false);
   if (!id) {
     throw new Error('No product ID');
   }
@@ -48,27 +43,22 @@ export default function ProductPage(): ReactNode {
     throwOnError: true,
   });
 
-  if (isPending) {
-    return <LoadingBackdrop open={isPending} />;
-  }
+  const isDisabled = Boolean(cart?.lineItems.some((item) => item.productId === id));
 
-  return (
+  return isPending ? (
+    <LoadingBackdrop open={isPending} />
+  ) : (
     <Container>
       <Container maxWidth="md">
-        <Paper elevation={24} sx={{ marginTop: 4, padding: 5 }}>
-          <CustomTypography styles={titleStyles} tag="h1" text={data?.name} variantField="h4" />
-          <Slider {...sliderSettingsDefaultImage}>
-            {data?.images.map((image, index) => (
-              <Box key={index} onClick={() => handleImageClick(index)} sx={boxStyles}>
-                <img alt={`${data.name}${index + 1}`} src={image.url} style={imgStyles} />
-              </Box>
-            ))}
-          </Slider>
-          <CustomTypography styles={descStyles} tag="p" text={data?.description} variantField="body1" />
-          <Box>
-            <PricesBlock price={data?.prices[firstPrice]} styleDiscount={discountPriceStyle} stylePrice={stylePrice} />
-          </Box>
-        </Paper>
+        <ProductPaper
+          {...{
+            data,
+            isDisabled,
+            onButtonClick: () => void handleAddProduct({ cart, id, setCart, token }),
+            onImageClick: handleImageClick,
+            onRemoveClick: () => handleRemove({ cart, id, setterForCartRef, token }),
+          }}
+        />
         <Dialog maxWidth="lg" onClose={handleModalClose} open={open}>
           <CloseButton callback={handleModalClose} styles={iconStyles} />
           <Box sx={{ padding: '40px' }}>
@@ -82,7 +72,50 @@ export default function ProductPage(): ReactNode {
           </Box>
         </Dialog>
       </Container>
+
       <BackTo dest="catalog" path="/catalog" />
     </Container>
   );
 }
+
+const handleAddProduct = async ({
+  cart,
+  id,
+  setCart,
+  token,
+}: {
+  cart: CartResponse | null;
+  id: string;
+  setCart: (cart: CartResponse) => void;
+  token: null | string;
+}): Promise<void> => {
+  if (!cart || !token) {
+    throw new Error('Missing data to add product');
+  }
+  const response = await updateCart(cart.id, cart.version, [{ action: 'addLineItem', productId: id }], token);
+  setCart(response);
+};
+
+const handleRemove = ({
+  cart,
+  id,
+  setterForCartRef,
+  token,
+}: {
+  cart: CartResponse | null;
+  id: string;
+  setterForCartRef: SetterForCartRef;
+  token: null | string;
+}): void => {
+  if (!token) {
+    throw new Error('Token expected');
+  }
+  if (!cart) {
+    throw new Error('Cart expected');
+  }
+  const lineItemId = cart?.lineItems.find((lineItem) => lineItem.productId === id)?.id;
+  if (!lineItemId) {
+    throw new Error(`No lineItem with id ${id} exists in cart`);
+  }
+  handleRemoveProduct(token, cart, lineItemId, setterForCartRef);
+};

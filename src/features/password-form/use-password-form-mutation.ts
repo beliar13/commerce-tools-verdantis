@@ -36,7 +36,7 @@ export const usePasswordFormMutation = (): [UseMutationResult<[TokenInfo, Custom
       toast.error(error.message);
     },
     onSuccess: ([tokenInfo, customerInfo]) => {
-      customerStore.setCustomer({ customer: customerInfo });
+      customerStore.setCustomer(customerInfo);
       tokenStore.setToken({ token: tokenInfo.access_token, type: 'password' });
       toast.success('The password was changed');
     },
