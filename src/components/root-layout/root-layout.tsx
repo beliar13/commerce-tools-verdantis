@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 
 import { Box } from '@mui/material';
 
+import { Footer } from '../footer/footer';
 import { Header } from '../header';
 import { PageContent } from '../page-content/page-content';
 
@@ -16,6 +17,7 @@ export const RootLayout = (): JSX.Element => {
     >
       <Header />
       <PageContent />
+      <Footer />
     </Box>
   );
 };
