@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 
-import { MainPromoCodes } from '@/features/main-content/main-promo-codes';
+import { PromoCodesWrapper } from '@/features/main-content/promo-codes-wrapper';
 
 const MainPage: FC<{
   children?: ReactNode;
@@ -16,7 +16,7 @@ const MainPage: FC<{
       <Button component={RouterLink} to="/registration">
         registration
       </Button>
-      <MainPromoCodes />
+      <PromoCodesWrapper />
     </>
   );
 };

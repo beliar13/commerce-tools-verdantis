@@ -11,6 +11,10 @@ export const PromoCode: FC<{
   product: { description: string; images: ProductImages; name: string; prices: Price[] } | undefined;
   text: string;
 }> = ({ description, product, text }) => {
+  if (!product) {
+    throw new Error('No  product');
+  }
+  const imageUrl = product.images[1].url;
   return (
     <Stack className="al flex w-96 flex-col items-center justify-between gap-2 ">
       <Stack className="flex flex-row gap-2">
@@ -26,11 +30,11 @@ export const PromoCode: FC<{
         {description}
       </Typography>
 
-      <img alt={'bouquet'} className={'align-self-start w-3/4 '} src={product?.images[1].url} />
+      <img alt="promo code" className="align-self-start w-3/4 " src={imageUrl} />
     </Stack>
   );
 };
-async function writeClipboardText(event: MouseEvent): Promise<void> {
+const writeClipboardText = async (event: MouseEvent): Promise<void> => {
   const eventCurrentTarget = event?.currentTarget;
   if (!eventCurrentTarget || !(eventCurrentTarget instanceof HTMLButtonElement)) {
     throw new Error('Target expected');
@@ -42,4 +46,4 @@ async function writeClipboardText(event: MouseEvent): Promise<void> {
   } catch (error) {
     console.error(JSON.stringify(error));
   }
-}
+};
