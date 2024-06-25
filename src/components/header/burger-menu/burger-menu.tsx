@@ -17,7 +17,7 @@ export const BurgerMenu: FC = () => {
   };
   return (
     <div>
-      <Button className="mx-1" onClick={toggleDrawer(true)} sx={{ color: 'primary.contrastText' }} variant="outlined">
+      <Button className="mx-1" onClick={toggleDrawer(true)} sx={{ color: 'primary.contrastText', fontSize: '1em' }}>
         Menu
       </Button>
       <Drawer anchor="right" onClose={toggleDrawer(false)} open={open}>

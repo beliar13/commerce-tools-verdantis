@@ -13,25 +13,25 @@ export const Header: FC<{
 }> = () => {
   return (
     <AppBar
+      className="px-5 py-1"
       data-testid="header"
       sx={{
-        alignItems: 'center',
-        backgroundColor: useScrollTrigger() ? 'green' : 'grey',
-        justifyContent: 'center',
+        backgroundColor: useScrollTrigger() ? 'primary.dark' : 'primary.main',
         minHeight: '5vh',
-        padding: 1,
         position: 'sticky',
         top: 0,
       }}
     >
-      <Stack
-        direction="row"
-        justifyContent={'space-between'}
-        padding={{ lg: '0 10%', md: '0 7%', sm: '0 4%', xs: '0 2%' }}
-      >
-        <Stack alignItems="center" borderRadius={20} justifyContent="center" width={'100%'}>
-          <Link component={RouterLink} sx={{ alignItems: 'center', display: 'flex' }} to="/">
-            <Icon alt="logo" component={'img'} src={logo} sx={{ width: '100%' }} />
+      <Stack alignItems="center" className="w-full flex-row justify-between">
+        <Stack
+          alignItems="center"
+          borderRadius={20}
+          justifyContent="center"
+          sx={{ transition: '2s' }}
+          width={{ lg: '20%', md: '30%', sm: '40%', xs: '50%' }}
+        >
+          <Link component={RouterLink} to="/">
+            <Icon alt="logo" className="h-full w-full" component={'img'} src={logo} />
           </Link>
         </Stack>
         <Navigation />

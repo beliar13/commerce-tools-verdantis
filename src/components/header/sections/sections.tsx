@@ -6,15 +6,15 @@ import { Button, Stack } from '@mui/material';
 
 import { useCartStore } from '@/stores/cart-store';
 
-import { sectionsLabels } from '../navigation.constants';
+import { headerButtonsStyles, sectionsLabels } from '../navigation.constants';
 
 export const Sections: FC = () => {
   const cart = useCartStore((state) => state.cart);
   return (
-    <Stack direction={'row'}>
+    <Stack className="gap-2" direction={'row'} sx={{ color: 'primary.contrastText' }}>
       {sectionsLabels.map((label) =>
         label === 'cart' ? (
-          <Button component={RouterLink} key={label} to={label}>
+          <Button component={RouterLink} key={label} sx={headerButtonsStyles} to={label}>
             {label}
             <ShoppingCartOutlinedIcon data-testid="cart-icon" />
             <span data-testid="cart-items-count">
@@ -22,7 +22,7 @@ export const Sections: FC = () => {
             </span>
           </Button>
         ) : (
-          <Button component={RouterLink} key={label} to={label}>
+          <Button component={RouterLink} key={label} sx={headerButtonsStyles} to={label}>
             {label}
           </Button>
         ),

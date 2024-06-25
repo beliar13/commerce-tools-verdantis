@@ -10,7 +10,7 @@ export const Navigation: FC = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('lg'));
   return matches ? (
-    <Stack direction={'row'}>
+    <Stack className="gap-2" direction={'row'}>
       <Sections />
       <ManagedNavigationButtons />
     </Stack>
