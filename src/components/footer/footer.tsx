@@ -23,9 +23,7 @@ export const Footer: FC<{
       sx={{
         backgroundColor: 'primary.main',
         color: 'primary.contrastText',
-        // alignItems: 'center',
         marginTop: 'auto',
-        // justifyContent: 'center',
         minHeight: '5vh',
         padding: 1,
       }}
