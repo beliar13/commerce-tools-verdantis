@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 
 import { Box } from '@mui/material';
 
-import { Footer } from '../footer/footer';
+import { Footer } from '../footer';
 import { Header } from '../header';
 import { PageContent } from '../page-content/page-content';
 
