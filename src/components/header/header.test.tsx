@@ -23,7 +23,7 @@ describe('Header', () => {
     );
     expect(screen.getByAltText(/logo/i)).toBeTruthy();
   });
-  it('should render green color for header when useScrollTrigger is true', () => {
+  it('should render main color for header when useScrollTrigger is true', () => {
     (useScrollTrigger as unknown as Mock).mockReturnValue(true);
     render(
       <MemoryRouter>
@@ -31,9 +31,9 @@ describe('Header', () => {
       </MemoryRouter>,
     );
     const header = screen.getByTestId('header');
-    expect(getComputedStyle(header).backgroundColor).toBe('rgb(0, 128, 0)');
+    expect(getComputedStyle(header).backgroundColor).toBe('rgb(21, 101, 192)');
   });
-  it('should render grey color for header when useScrollTrigger is false', () => {
+  it('should render dark main color for header when useScrollTrigger is false', () => {
     (useScrollTrigger as unknown as Mock).mockReturnValue(false);
     render(
       <MemoryRouter>
@@ -41,6 +41,6 @@ describe('Header', () => {
       </MemoryRouter>,
     );
     const header = screen.getByTestId('header');
-    expect(getComputedStyle(header).backgroundColor).toBe('rgb(128, 128, 128)');
+    expect(getComputedStyle(header).backgroundColor).toBe('rgb(25, 118, 210)');
   });
 });

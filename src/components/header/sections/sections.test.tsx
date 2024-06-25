@@ -8,6 +8,11 @@ import { useCartStore } from '@/stores/cart-store';
 import { Sections } from '..';
 
 vi.mock('../navigation.constants', () => ({
+  headerButtonsStyles: {
+    '&:hover': { backgroundColor: 'primary.contrastText', color: 'primary.main', transition: '1s' },
+    color: 'primary.contrastText',
+    transition: '1s',
+  },
   sectionsLabels: ['section1', 'section2', 'cart'],
 }));
 
