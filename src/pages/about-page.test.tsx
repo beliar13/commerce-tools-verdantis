@@ -2,7 +2,7 @@ import { useScrollTrigger } from '@mui/material';
 import { render, screen } from '@testing-library/react';
 import { Mock, describe, expect, it, vi } from 'vitest';
 
-import { AboutPage } from './about-page';
+import AboutPage from './about-page';
 import { teamMembers } from './about-page.constants';
 
 vi.mock('./about-page.constants', () => ({

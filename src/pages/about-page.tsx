@@ -24,7 +24,7 @@ import { Member } from './about-page.types';
 
 const images = [kate, mideli, beliar13];
 
-export const AboutPage: FC = () => {
+const AboutPage: FC = () => {
   return (
     <>
       <Container maxWidth="xl">
@@ -79,3 +79,5 @@ export const AboutPage: FC = () => {
     </>
   );
 };
+
+export default AboutPage;

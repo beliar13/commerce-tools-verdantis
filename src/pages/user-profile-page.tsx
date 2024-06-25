@@ -9,7 +9,7 @@ import { EditAddresses } from '@/features/edit-addresses/edit-addresses';
 import { FormDialog } from '@/features/password-form';
 import { useCustomerStore } from '@/stores/customer-store';
 
-export const UserProfilePage: FC = () => {
+const UserProfilePage: FC = () => {
   const store = useCustomerStore();
   const customer = store.customer;
   if (!customer) {
@@ -55,3 +55,5 @@ export const UserProfilePage: FC = () => {
     </div>
   );
 };
+
+export default UserProfilePage;
