@@ -12,7 +12,7 @@ export const RootLayout = (): JSX.Element => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '90vh',
+        minHeight: '100vh',
       }}
     >
       <Header />
