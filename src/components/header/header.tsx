@@ -31,7 +31,7 @@ export const Header: FC<{
           width={{ lg: '20%', md: '30%', sm: '40%', xs: '50%' }}
         >
           <Link component={RouterLink} to="/">
-            <Icon alt="logo" className="h-full w-full" component={'img'} src={logo} />
+            <Icon alt="logo" className="h-full w-full" component="img" src={logo} />
           </Link>
         </Stack>
         <Navigation />
