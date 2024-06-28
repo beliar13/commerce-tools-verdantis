@@ -8,6 +8,8 @@ import type { Product, ProductsResponse } from '@/lib/axios/requests/schemas/pro
 import { CatalogItem } from '@/features/catalog/catalog-item/';
 import { CatalogWrapper } from '@/features/catalog/catalog-wrapper';
 import { CategoriesNavigation } from '@/features/catalog/categories-navigation';
+import { Filters } from '@/features/catalog/filters/filters';
+import { Search } from '@/features/catalog/filters/search';
 import { buildQueryString, getFilteredProducts } from '@/lib/axios/requests/catalog/get-filtered-products';
 import { getAllProducts } from '@/lib/axios/requests/get-products';
 import { useTokenStore } from '@/stores/token-store';
@@ -84,27 +86,33 @@ const CatalogPage: FC = () => {
 
   return (
     <CatalogWrapper>
-      <Stack
-        className={'flex-row justify-between align-middle'}
-        sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
-      >
-        <CategoriesNavigation />
-        {products && products.length > 0 ? (
-          <Stack className="mb-auto flex w-3/4 flex-col items-center">
-            {pageCount > 1 && (
-              <Pagination className="p-4" color="primary" count={pageCount} onChange={handlePageChange} page={page} />
-            )}
-            <Stack className="flex flex-row flex-wrap justify-center gap-2">
-              {products.map((product: Product) => {
-                return <CatalogItem key={`${product.key}`} product={product} />;
-              })}
+      <Stack className={'flex-col items-center justify-between'}>
+        <Stack className="gap-2">
+          <Filters />
+          <Search />
+        </Stack>
+        <Stack
+          className={'flex-row justify-between align-middle'}
+          sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
+        >
+          <CategoriesNavigation />
+          {products && products.length > 0 ? (
+            <Stack className="mb-auto flex w-3/4 flex-col items-center">
+              {pageCount > 1 && (
+                <Pagination className="p-4" color="primary" count={pageCount} onChange={handlePageChange} page={page} />
+              )}
+              <Stack className="flex flex-row flex-wrap justify-center gap-2">
+                {products.map((product: Product) => {
+                  return <CatalogItem key={`${product.key}`} product={product} />;
+                })}
+              </Stack>
             </Stack>
-          </Stack>
-        ) : (
-          <Typography className="p-5" component={'h2'} variant="h3">
-            No data available. Try to reload the page
-          </Typography>
-        )}
+          ) : (
+            <Typography className="p-5" component={'h2'} variant="h3">
+              No data available. Try to reload the page
+            </Typography>
+          )}
+        </Stack>
       </Stack>
     </CatalogWrapper>
   );

@@ -2,7 +2,6 @@ import { FC, ReactNode } from 'react';
 
 import { Stack, Typography } from '@mui/material';
 
-import { Filters } from '../filters/filters';
 import { BasicBreadcrumbs } from './breadcrumbs';
 
 export const CatalogWrapper: FC<{
@@ -18,8 +17,6 @@ export const CatalogWrapper: FC<{
       >
         Catalog
       </Typography>
-
-      <Filters />
 
       {children}
     </Stack>
