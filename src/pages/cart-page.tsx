@@ -14,7 +14,7 @@ export type AddedProductData = {
   lineItem: LineItem;
 };
 
-export const CartPage: FC = () => {
+const CartPage: FC = () => {
   const { cart, setCart } = useCartStore();
   const setterForCartRef = useRef(setCart);
   const products = cart?.lineItems;
@@ -49,3 +49,5 @@ export const CartPage: FC = () => {
     </Stack>
   );
 };
+
+export default CartPage;
