@@ -3,7 +3,7 @@ import type { JSX } from 'react';
 import { Box } from '@mui/material';
 
 import { Header } from '../header';
-import { PageContent } from '../page-content/page-content';
+import { PageContent } from '../page-content';
 
 export const RootLayout = (): JSX.Element => {
   return (
