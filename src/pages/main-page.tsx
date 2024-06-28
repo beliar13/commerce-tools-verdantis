@@ -6,7 +6,7 @@ import { Button, Icon, Stack, Typography } from '@mui/material';
 import favicon from '@/assets/img/favicon.png';
 import { PromoCodesWrapper } from '@/features/main-content/promo-codes-wrapper';
 
-const joinButtonStyles = {
+const mainButtonStyles = {
   transition: '2s',
   width: { lg: '30%', md: '40%', sm: '55%', xs: '75%' },
 };
@@ -20,11 +20,20 @@ const MainPage: FC = () => {
         className="flex items-center justify-center gap-1 "
         sx={{ flexDirection: { lg: 'row-reverse', md: 'column', sm: 'column', xs: 'column' } }}
       >
-        <Typography
-          sx={{ fontSize: { lg: '2.5em', md: '2em', sm: '1.7em', xs: '1.5em' }, textAlign: 'center', transition: '2s' }}
-        >
-          Welcome to Verdantis flowers shop
-        </Typography>
+        <Stack className="items-center gap-2">
+          <Typography
+            sx={{
+              fontSize: { lg: '2.5em', md: '2em', sm: '1.7em', xs: '1.5em' },
+              textAlign: 'center',
+              transition: '2s',
+            }}
+          >
+            Welcome to Verdantis flowers shop
+          </Typography>
+          <Button component={RouterLink} sx={mainButtonStyles} to="/catalog" variant="contained">
+            go shopping
+          </Button>
+        </Stack>
 
         <Icon
           alt="main-logo"
@@ -44,10 +53,10 @@ const MainPage: FC = () => {
         <Typography className="text-center" sx={{ fontSize: '1.5em' }}>
           Would like to join us?
         </Typography>
-        <Button component={RouterLink} sx={joinButtonStyles} to="/login" variant="outlined">
+        <Button component={RouterLink} sx={mainButtonStyles} to="/login" variant="outlined">
           login
         </Button>
-        <Button component={RouterLink} sx={joinButtonStyles} to="/registration" variant="outlined">
+        <Button component={RouterLink} sx={mainButtonStyles} to="/registration" variant="outlined">
           registration
         </Button>
       </Stack>
