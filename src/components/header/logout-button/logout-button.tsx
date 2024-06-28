@@ -5,6 +5,8 @@ import { Button } from '@mui/material';
 
 import { useTokenStore } from '@/stores/token-store';
 
+import { headerButtonsStyles } from '../navigation.constants';
+
 export const LogoutButton: FC = () => {
   const navigate = useNavigate();
   const { resetStore } = useTokenStore();
@@ -13,7 +15,7 @@ export const LogoutButton: FC = () => {
     navigate('/');
   };
   return (
-    <Button onClick={handleLogout} variant="contained">
+    <Button onClick={handleLogout} sx={headerButtonsStyles}>
       Logout
     </Button>
   );
