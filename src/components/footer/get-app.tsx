@@ -20,7 +20,7 @@ export const BigGetApp: FC = () => {
         <Icon
           alt="qr"
           className="h-full w-full"
-          component={'img'}
+          component="img"
           src={'http://qrcoder.ru/code/?https%3A%2F%2Fverdantis.netlify.app%2Fabout&4&0'}
         />
       </a>
