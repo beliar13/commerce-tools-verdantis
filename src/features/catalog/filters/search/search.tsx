@@ -1,11 +1,18 @@
 import { ChangeEvent, FC, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
 import { Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 
 import { filtersStyles } from '../filters-constants';
+
+const searchButtonsStyles = {
+  ':hover': { backgroundColor: 'primary.light', transition: '2s' },
+  transition: '2s',
+};
 
 export const Search: FC = () => {
   const [search, setSearch] = useState('');
@@ -25,29 +32,22 @@ export const Search: FC = () => {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl className="gap-2">
+    <Box sx={{ width: { lg: '50%', md: '65%', sm: '80%', xs: '90%' } }}>
+      <FormControl className="w-full flex-row justify-evenly gap-1 p-0" sx={{ maxHeight: '30px' }}>
         <TextField
-          className="w-36"
+          className="w-full"
+          component="input"
           id="search"
           label="Search"
           onChange={handleChange}
-          sx={filtersStyles}
+          sx={{ ...filtersStyles, maxHeight: '30px' }}
           value={search}
         />
-        <Button
-          onClick={handleSearch}
-          sx={{ ':hover': { backgroundColor: 'primary.light', transition: '2s' }, transition: '2s' }}
-          variant="contained"
-        >
-          Search
+        <Button onClick={handleSearch} sx={searchButtonsStyles} variant="contained">
+          <SearchIcon />
         </Button>
-        <Button
-          onClick={handleResetSearch}
-          sx={{ ':hover': { backgroundColor: 'primary.light', transition: '2s' }, transition: '2s' }}
-          variant="contained"
-        >
-          Clear search
+        <Button onClick={handleResetSearch} sx={searchButtonsStyles} variant="contained">
+          <ClearIcon />
         </Button>
       </FormControl>
     </Box>

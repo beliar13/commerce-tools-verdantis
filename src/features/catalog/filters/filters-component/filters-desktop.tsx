@@ -19,7 +19,7 @@ export const FiltersDesktop: FC<{
 }> = ({ setters, values }) => {
   const { setterForColor, setterForSize, setterForSort } = setters;
   return (
-    <Stack className="flex-column items-center">
+    <Stack className="flex-column items-center gap-2 p-2">
       <Typography className="mx-5 my-auto text-center" color="background.paper" component="h4" variant="h5">
         Filters
       </Typography>
@@ -31,12 +31,10 @@ export const FiltersDesktop: FC<{
           flexDirection: 'column',
         }}
       >
-        <Stack flexDirection="row">
-          <Stack flexDirection="row">
-            <SizeSelect setter={setterForSize} />
-            <SortBySelect setter={setterForSort} />
-            <ColorFilters setter={setterForColor} />
-          </Stack>
+        <Stack className="flex-row justify-between">
+          <SizeSelect setter={setterForSize} />
+          <ColorFilters setter={setterForColor} />
+          <SortBySelect setter={setterForSort} />
         </Stack>
 
         <Stack className="gap-2">

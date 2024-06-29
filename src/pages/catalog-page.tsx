@@ -86,13 +86,13 @@ const CatalogPage: FC = () => {
 
   return (
     <CatalogWrapper>
-      <Stack className={'flex-col items-center justify-between'}>
-        <Stack className="gap-2">
+      <Stack className="flex-col items-center justify-between">
+        <Stack className=" justify-betweens w-full items-center gap-2">
           <Filters />
           <Search />
         </Stack>
         <Stack
-          className={'flex-row justify-between align-middle'}
+          className="flex-row justify-between align-middle"
           sx={{ margin: { lg: '2% 5%', md: '2% 4%', sm: '1% 2%', xs: '1%' } }}
         >
           <CategoriesNavigation />
